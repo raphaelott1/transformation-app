@@ -294,12 +294,6 @@ body{background:var(--cream);color:var(--ink);font-family:'Inter',sans-serif;min
 .modal-save{width:100%;margin-top:18px;background:var(--ink);color:var(--cream);border:none;padding:12px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;border-radius:2px;}
 .modal-save:hover{background:var(--sage);}
 
-/* ── BACKUP BANNER ── */
-.backup-banner{position:fixed;top:0;left:220px;right:0;background:var(--rust);color:white;padding:10px 24px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;display:flex;align-items:center;justify-content:space-between;z-index:300;transform:translateY(-60px);transition:transform 0.3s cubic-bezier(0.4,0,0.2,1);}
-.backup-banner.show{transform:translateY(0);}
-.backup-banner-btns{display:flex;gap:8px;}
-.backup-dismiss{background:rgba(255,255,255,0.2);border:none;color:white;padding:5px 12px;font-family:'JetBrains Mono',monospace;font-size:9px;cursor:pointer;border-radius:2px;}
-.backup-dismiss:hover{background:rgba(255,255,255,0.3);}
 
 /* ── BACKUP MODAL ── */
 .backup-modal{background:var(--paper);border-radius:4px;padding:28px 30px;width:500px;max-width:95vw;max-height:88vh;overflow-y:auto;position:relative;box-shadow:0 24px 64px rgba(18,16,14,0.3);animation:modalIn 0.2s cubic-bezier(0.4,0,0.2,1);}
@@ -341,8 +335,6 @@ body{background:var(--cream);color:var(--ink);font-family:'Inter',sans-serif;min
   .topbar{flex-direction:column;align-items:flex-start;gap:8px}
   .topbar-right{width:100%;justify-content:flex-start;flex-wrap:wrap}
   .topbar-left h2{font-size:1.5rem}
-  .backup-banner{left:0;top:auto;bottom:65px;border-radius:10px 10px 0 0;flex-direction:row;gap:8px;padding:10px 14px;cursor:pointer;}
-  .backup-banner-btns{margin-left:auto;flex-shrink:0;}
   .desktop-only{display:none!important;}
   .work-panel{grid-template-columns:1fr}
   .phase-tabs{width:100%;overflow-x:auto;}
@@ -583,12 +575,16 @@ body{background:var(--cream);color:var(--ink);font-family:'Inter',sans-serif;min
   <button class="mobile-nav-item" onclick="showPage('goals',this)" id="mn-goals">
     <span class="mobile-nav-icon">🎯</span>Goals
   </button>
+  <button class="mobile-nav-item" onclick="openMobileMore()" id="mn-more">
+    <span class="mobile-nav-icon">···</span>Mehr
+  </button>
 </nav>
 <div class="modal-overlay" id="mobile-more-overlay" style="align-items:flex-end;padding-top:0;">
   <div style="background:var(--paper);width:100%;border-radius:16px 16px 0 0;padding:20px 16px 36px;">
-    <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:14px;">Weitere Seiten</div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:14px;">Mehr</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-      <button class="btn btn-outline" onclick="openSettings();closeMobileMore()" style="padding:12px;font-size:9px;grid-column:1/-1;">⚙ Einstellungen</button>
+      <button class="btn btn-dark" onclick="closeMobileMore();openBackup()" style="padding:12px;font-size:9px;">💾 Datensicherung</button>
+      <button class="btn btn-outline" onclick="openSettings();closeMobileMore()" style="padding:12px;font-size:9px;">⚙ Einstellungen</button>
     </div>
     <button class="btn btn-dark" onclick="closeMobileMore()" style="width:100%;margin-top:12px;">Schließen</button>
   </div>
@@ -1041,14 +1037,6 @@ body{background:var(--cream);color:var(--ink);font-family:'Inter',sans-serif;min
   <div id="goals-list"></div>
 </div>
 
-<!-- BACKUP REMINDER BANNER -->
-<div class="backup-banner" id="backup-banner" onclick="dismissBanner()">
-  <span>⚠ Kein Backup seit mehr als 7 Tagen — tippe zum Schließen</span>
-  <div class="backup-banner-btns">
-    <button class="backup-dismiss" onclick="event.stopPropagation();exportData()">💾 Export</button>
-    <button class="backup-dismiss" onclick="dismissBanner()">✕</button>
-  </div>
-</div>
 
 <!-- BACKUP MODAL -->
 <div class="modal-overlay" id="backup-overlay">
@@ -3548,7 +3536,7 @@ async function loadHealthData() {
   renderStats();renderHeatmap();
   window.addEventListener('resize',()=>renderChart());
   setTimeout(renderChart,80);
-  checkBackupReminder();
+  // checkBackupReminder(); // Banner removed
   // Auto-pull from GitHub Gist on start (silent)
   if (localStorage.getItem('_gist_token') && localStorage.getItem('_gist_id')) {
     gistPull().catch(function(){});
