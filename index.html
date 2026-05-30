@@ -341,8 +341,8 @@ body{background:var(--cream);color:var(--ink);font-family:'Inter',sans-serif;min
   .topbar{flex-direction:column;align-items:flex-start;gap:8px}
   .topbar-right{width:100%;justify-content:flex-start;flex-wrap:wrap}
   .topbar-left h2{font-size:1.5rem}
-  .backup-banner{left:0;top:auto;bottom:70px;border-radius:6px 6px 0 0;flex-direction:column;gap:8px;padding:12px 16px;}
-  .backup-banner-btns{width:100%;justify-content:flex-end;}
+  .backup-banner{left:0;top:auto;bottom:65px;border-radius:10px 10px 0 0;flex-direction:row;gap:8px;padding:10px 14px;cursor:pointer;}
+  .backup-banner-btns{margin-left:auto;flex-shrink:0;}
   .desktop-only{display:none!important;}
   .work-panel{grid-template-columns:1fr}
   .phase-tabs{width:100%;overflow-x:auto;}
@@ -435,9 +435,9 @@ body{background:var(--cream);color:var(--ink);font-family:'Inter',sans-serif;min
 /* Hero */
 .h-hero{background:linear-gradient(145deg,#1a1814 0%,#12100e 60%,#1c1a16 100%);border-radius:16px;padding:32px 24px 28px;margin-bottom:16px;position:relative;overflow:hidden;}
 .h-hero::before{content:'';position:absolute;top:-60px;right:-60px;width:220px;height:220px;background:radial-gradient(circle,rgba(192,154,82,0.08) 0%,transparent 70%);pointer-events:none;}
-.h-hero-top{display:flex;align-items:center;gap:24px;}
-.h-gauge-wrap{position:relative;width:110px;height:110px;flex-shrink:0;}
-.h-gauge-svg{width:110px;height:110px;transform:rotate(-90deg);}
+.h-hero-top{display:flex;align-items:center;gap:24px;flex-wrap:nowrap;}
+.h-gauge-wrap{position:relative;width:110px;height:110px;flex-shrink:0;overflow:hidden;}
+.h-gauge-svg{width:110px;height:110px;max-width:110px;max-height:110px;transform:rotate(-90deg);display:block;}
 .h-gauge-bg{fill:none;stroke:rgba(255,255,255,0.08);stroke-width:9;}
 .h-gauge-fill{fill:none;stroke-width:9;stroke-linecap:round;transition:stroke-dashoffset 1s ease;}
 .h-gauge-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;}
@@ -584,9 +584,9 @@ body{background:var(--cream);color:var(--ink);font-family:'Inter',sans-serif;min
   <div class="checkin-section">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
       <div class="section-label" style="margin:0">Tageseintrag · <span id="checkin-day-label" style="color:var(--gold)">Heute</span></div>
+      <span id="autosave-indicator" style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);opacity:0;transition:opacity 0.5s;">✓ gespeichert</span>
     </div>
     <div class="checkin-grid" id="checkin-grid"></div>
-    <button class="save-btn" onclick="saveDay()">◈ Eintrag speichern</button>
   </div>
 
   <div class="heatmap-wrap">
@@ -975,11 +975,11 @@ body{background:var(--cream);color:var(--ink);font-family:'Inter',sans-serif;min
 </div>
 
 <!-- BACKUP REMINDER BANNER -->
-<div class="backup-banner" id="backup-banner">
-  <span>⚠ Kein Backup seit mehr als 7 Tagen — sichere deine Daten jetzt!</span>
+<div class="backup-banner" id="backup-banner" onclick="dismissBanner()">
+  <span>⚠ Kein Backup seit mehr als 7 Tagen — tippe zum Schließen</span>
   <div class="backup-banner-btns">
-    <button class="backup-dismiss" onclick="exportData()">💾 Jetzt exportieren</button>
-    <button class="backup-dismiss" onclick="dismissBanner()">✕ Später</button>
+    <button class="backup-dismiss" onclick="event.stopPropagation();exportData()">💾 Export</button>
+    <button class="backup-dismiss" onclick="dismissBanner()">✕</button>
   </div>
 </div>
 
@@ -1300,6 +1300,9 @@ function autoSaveDay() {
   });
   setE(curPhase, curDay, e);
   renderHeatmap(); renderStats(); renderChart();
+  // Show autosave indicator
+  const ind = document.getElementById('autosave-indicator');
+  if (ind) { ind.style.opacity='1'; clearTimeout(ind._t); ind._t=setTimeout(()=>ind.style.opacity='0',1800); }
 }
 
 function toggleHabit(id, ev) {
@@ -1451,8 +1454,9 @@ function renderHeatmap() {
     cell.className = 'day-cell'; cell.dataset.slot = i; cell.dataset.ctx = 'dash';
     if (dk===todayKey()) cell.classList.add('today-cell');
     if (i===curSlot) cell.classList.add('active-day');
-    if (score>0&&score<Math.ceil(maxS/2)) cell.classList.add('partial');
-    else if (score>=Math.ceil(maxS/2)&&score>0) cell.classList.add('full');
+    if (score>0&&score<Math.ceil(maxS*0.6)) cell.classList.add('partial');
+    else if (score>=Math.ceil(maxS*0.6)) cell.classList.add('full');
+    else if (e && e.savedAt) cell.classList.add('partial'); // any saved entry = at least partial
     const num = document.createElement('span'); num.className='day-num'; num.textContent=i; cell.appendChild(num);
     cell.title = e ? fmtShort(dk) : 'Tag '+i+' · '+fmtShort(dk);
     const capDk=dk, capI=i;
