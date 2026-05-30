@@ -1184,10 +1184,10 @@ let DB = migrateData();
 var _gistSyncTimer = null;
 function persist() {
   localStorage.setItem(SK, JSON.stringify(DB));
-  // Auto-push to GitHub Gist after 30s of inactivity
+  // Auto-push to GitHub Gist after 4s of inactivity
   if (localStorage.getItem('_gist_token') && localStorage.getItem('_gist_id')) {
     clearTimeout(_gistSyncTimer);
-    _gistSyncTimer = setTimeout(function() { gistPush(true); }, 30000);
+    _gistSyncTimer = setTimeout(function() { gistPush(true); }, 4000);
   }
 }
 
@@ -3086,10 +3086,10 @@ async function gistPush(silent) {
   }
 }
 
-async function gistPull() {
+async function gistPull(silent) {
   var cfg = gistGetConfig();
   if (!cfg.token || !cfg.gistId) return;
-  gistSetStatus('Lade herunter…', 'loading');
+  if (!silent) gistSetStatus('Lade herunter…', 'loading');
   try {
     var resp = await fetch(GIST_API+'/'+cfg.gistId, {
       headers: { 'Authorization': 'token '+cfg.token }
@@ -3098,15 +3098,15 @@ async function gistPull() {
     var json = await resp.json();
     var raw = json.files[GIST_FILE] && json.files[GIST_FILE].content;
     if (!raw) throw new Error('leer');
-    DB = JSON.parse(raw); persist();
+    DB = JSON.parse(raw);
+    // Save locally without triggering another auto-push
+    localStorage.setItem(SK, JSON.stringify(DB));
     var tdy = todayKey(); var slot = Math.max(1, getSlotForDay(curPhase, tdy));
     loadForm(tdy, slot); renderStats(); renderHeatmap(); renderChart();
     localStorage.setItem('_gist_last_sync', new Date().toISOString());
-    gistSetStatus('✓ Daten aktuell', 'ok');
-    showToast('Sync ✓ — Daten geladen');
-    gistShowUI();
+    if (!silent) { gistSetStatus('✓ Daten aktuell', 'ok'); showToast('Sync ✓ — Daten geladen'); gistShowUI(); }
   } catch(e) {
-    gistSetStatus('Fehler beim Herunterladen', 'err');
+    if (!silent) gistSetStatus('Fehler beim Herunterladen', 'err');
   }
 }
 
@@ -3555,8 +3555,14 @@ async function loadHealthData() {
   // checkBackupReminder(); // Banner removed
   // Auto-pull from GitHub Gist on start (silent)
   if (localStorage.getItem('_gist_token') && localStorage.getItem('_gist_id')) {
-    gistPull().catch(function(){});
+    gistPull(true).catch(function(){});
   }
+  // Auto-pull when app comes back into focus (switching between devices)
+  document.addEventListener('visibilitychange', function() {
+    if (!document.hidden && localStorage.getItem('_gist_token') && localStorage.getItem('_gist_id')) {
+      gistPull(true).catch(function(){});
+    }
+  });
   // Register service worker for PWA
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js').catch(()=>{});
