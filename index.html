@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#ede8de">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="90 Tage">
@@ -15,15 +15,15 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
-  --ink:#0f172a;--cream:#f8fafc;--warm:#f1f5f9;--paper:#ffffff;
-  --gold:#6366f1;--rust:#4f46e5;--sage:#10b981;--muted:#94a3b8;
-  --border:rgba(99,102,241,0.14);--border2:rgba(15,23,42,0.08);
-  --timer-bg:#1e1b4b;
+  --ink:#1c1508;--cream:#ede8de;--warm:#e6dfd3;--paper:#f5f0e8;
+  --gold:#c45a28;--rust:#a03f18;--sage:#5a8a5e;--muted:#8a7b6a;
+  --border:rgba(180,150,110,0.22);--border2:rgba(28,21,8,0.09);
+  --timer-bg:#1c1508;
 }
 body{background:var(--cream);color:var(--ink);font-family:'Inter',sans-serif;min-height:100vh;font-size:16px;}
 
 /* ── SIDEBAR ── */
-.sidebar{position:fixed;left:0;top:0;bottom:0;width:220px;background:#ffffff;border-right:1px solid rgba(15,23,42,0.07);display:flex;flex-direction:column;padding:28px 0;z-index:200;}
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:220px;background:#f5f0e8;border-right:1px solid rgba(180,150,110,0.2);display:flex;flex-direction:column;padding:28px 0;z-index:200;}
 .sidebar-logo{padding:0 22px 22px;border-bottom:1px solid rgba(15,23,42,0.06);margin-bottom:14px;}
 .logo-eyebrow{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:4px;}
 .logo-title{font-size:1.2rem;font-weight:600;color:var(--ink);line-height:1.15;letter-spacing:-0.3px;}
@@ -428,6 +428,42 @@ body{background:var(--cream);color:var(--ink);font-family:'Inter',sans-serif;min
   #review-q-grid{grid-template-columns:1fr!important;}
 }
 
+/* ===== MOON PHASE ===== */
+.moon-widget{display:flex;align-items:center;gap:10px;background:var(--paper);border:1px solid var(--border);border-radius:12px;padding:10px 16px;margin-bottom:16px;}
+.moon-svg-wrap{flex-shrink:0;}
+.moon-info{flex:1;min-width:0;}
+.moon-phase-name{font-size:0.9rem;font-weight:600;color:var(--ink);}
+.moon-phase-sub{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);margin-top:2px;letter-spacing:1px;}
+.moon-day-progress{margin-top:6px;height:3px;background:var(--warm);border-radius:99px;overflow:hidden;}
+.moon-day-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--rust));border-radius:99px;transition:width 0.5s;}
+
+/* ===== GOALS PAGE ===== */
+.goals-page{padding:26px 34px 80px;}
+.goal-card{background:var(--paper);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:12px;transition:box-shadow 0.2s;}
+.goal-card:hover{box-shadow:0 4px 16px rgba(28,21,8,0.07);}
+.goal-card-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;}
+.goal-title-wrap{flex:1;min-width:0;}
+.goal-title{font-size:1.05rem;font-weight:600;color:var(--ink);margin-bottom:4px;}
+.goal-why{font-size:0.85rem;color:var(--muted);line-height:1.5;font-style:italic;}
+.goal-progress-row{display:flex;gap:8px;flex-wrap:wrap;}
+.goal-prog-btn{display:flex;align-items:center;gap:5px;padding:6px 14px;border:1.5px solid var(--border);border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:10px;cursor:pointer;background:var(--warm);color:var(--muted);transition:all 0.15s;user-select:none;}
+.goal-prog-btn:hover{border-color:var(--gold);color:var(--ink);}
+.goal-prog-btn.active{background:var(--gold);border-color:var(--gold);color:white;}
+.goal-prog-btn.done{background:var(--sage);border-color:var(--sage);color:white;}
+.goal-del-btn{background:none;border:none;color:var(--muted);cursor:pointer;font-size:1rem;padding:4px;opacity:0.5;transition:opacity 0.15s;flex-shrink:0;}
+.goal-del-btn:hover{opacity:1;color:var(--rust);}
+.goal-add-form{background:var(--paper);border:1px dashed var(--border);border-radius:14px;padding:18px;margin-bottom:20px;}
+.goal-add-title{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+.goal-inp{width:100%;border:none;border-bottom:1.5px solid var(--border);background:transparent;font-family:'Inter',sans-serif;font-size:1rem;color:var(--ink);padding:6px 4px;outline:none;margin-bottom:12px;}
+.goal-inp:focus{border-bottom-color:var(--gold);}
+.goal-inp::placeholder{color:var(--muted);}
+.goal-ta{width:100%;border:1px solid var(--border);border-radius:8px;background:var(--warm);font-family:'Inter',sans-serif;font-size:0.88rem;color:var(--ink);padding:10px 12px;outline:none;resize:vertical;min-height:70px;line-height:1.5;margin-bottom:12px;}
+.goal-ta:focus{border-color:var(--gold);}
+.goal-ta::placeholder{color:var(--muted);}
+.goal-add-btn{background:var(--gold);color:white;border:none;padding:10px 22px;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;border-radius:9px;transition:all 0.15s;box-shadow:0 3px 10px rgba(196,90,40,0.25);}
+.goal-add-btn:hover{background:var(--rust);}
+.goal-empty{text-align:center;padding:40px 20px;color:var(--muted);font-size:0.9rem;}
+
 /* ===== HEALTH PAGE ===== */
 .health-loading{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:var(--muted);padding:80px 0;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;}
 .health-spinner{width:36px;height:36px;border:3px solid rgba(192,154,82,0.2);border-top-color:var(--gold);border-radius:50%;animation:health-spin 0.9s linear infinite;}
@@ -519,6 +555,7 @@ body{background:var(--cream);color:var(--ink);font-family:'Inter',sans-serif;min
   <div class="nav-item" onclick="showPage('tracker',this)"><span class="nav-icon">⏱</span> Time</div>
   <div class="nav-item" onclick="showPage('einnahmen',this)"><span class="nav-icon">💶</span> Einnahmen</div>
   <div class="nav-item" onclick="showPage('health',this)"><span class="nav-icon">🫀</span> Health</div>
+  <div class="nav-item" onclick="showPage('goals',this)"><span class="nav-icon">🎯</span> Goals</div>
   <div class="nav-item" onclick="openBackup()"><span class="nav-icon">💾</span> Datensicherung</div>
   <div class="sidebar-footer">
     <div class="prinzip-card">
@@ -542,8 +579,8 @@ body{background:var(--cream);color:var(--ink);font-family:'Inter',sans-serif;min
   <button class="mobile-nav-item" onclick="showPage('health',this)" id="mn-health">
     <span class="mobile-nav-icon">🫀</span>Health
   </button>
-  <button class="mobile-nav-item" onclick="openBackup()" id="mn-backup">
-    <span class="mobile-nav-icon">💾</span>Sicherung
+  <button class="mobile-nav-item" onclick="showPage('goals',this)" id="mn-goals">
+    <span class="mobile-nav-icon">🎯</span>Goals
   </button>
 </nav>
 <div class="modal-overlay" id="mobile-more-overlay" style="align-items:flex-end;padding-top:0;">
@@ -571,6 +608,16 @@ body{background:var(--cream);color:var(--ink);font-family:'Inter',sans-serif;min
     <button class="phase-tab active" onclick="setPhase(1,this)">Phase I · T 1–30</button>
     <button class="phase-tab" onclick="setPhase(2,this)">Phase II · T 31–60</button>
     <button class="phase-tab" onclick="setPhase(3,this)">Phase III · T 61–90</button>
+  </div>
+
+  <!-- Moon Phase Widget -->
+  <div class="moon-widget" id="moon-widget">
+    <div class="moon-svg-wrap"><svg id="moon-svg" width="44" height="44" viewBox="0 0 44 44"></svg></div>
+    <div class="moon-info">
+      <div class="moon-phase-name" id="moon-phase-name">Vollmond</div>
+      <div class="moon-phase-sub" id="moon-phase-sub">Tag 1 · Zyklustag 1</div>
+      <div class="moon-day-progress"><div class="moon-day-fill" id="moon-day-fill" style="width:100%"></div></div>
+    </div>
   </div>
 
   <div class="stats-row" id="stats-row"></div>
@@ -974,6 +1021,25 @@ body{background:var(--cream);color:var(--ink);font-family:'Inter',sans-serif;min
   </div>
 </div>
 
+<!-- ═══ GOALS PAGE ═══ -->
+<div class="page goals-page" id="page-goals">
+  <div class="topbar">
+    <div class="topbar-left"><h2>Meine <em>Goals</em></h2></div>
+  </div>
+
+  <!-- Add Goal Form -->
+  <div class="goal-add-form">
+    <div class="goal-add-title">+ Neues Ziel hinzufügen</div>
+    <input class="goal-inp" id="goal-title-inp" type="text" placeholder="Mein Ziel (z.B. 10 km Joggen)">
+    <textarea class="goal-ta" id="goal-why-inp" placeholder="Warum ist mir dieses Ziel wichtig? Was motiviert mich?..." rows="3"></textarea>
+    <button class="goal-add-btn" onclick="addGoal()">Ziel speichern</button>
+  </div>
+
+  <!-- Goals List -->
+  <div class="section-label">Deine Ziele</div>
+  <div id="goals-list"></div>
+</div>
+
 <!-- BACKUP REMINDER BANNER -->
 <div class="backup-banner" id="backup-banner" onclick="dismissBanner()">
   <span>⚠ Kein Backup seit mehr als 7 Tagen — tippe zum Schließen</span>
@@ -1227,6 +1293,7 @@ function showPage(id, navEl) {
   else if (id==='review') { reviewRender(); }
   else if (id==='content') { ctFiltP='Alle'; ctFiltS='Alle'; document.getElementById('ct-filters').innerHTML=''; ctRender(); }
   else if (id==='health') { loadHealthData(); }
+  else if (id==='goals') { renderGoals(); }
 }
 
 // ════════════════════════════════════════════════════════
@@ -1334,6 +1401,9 @@ function loadForm(dayKey, slot) {
   document.getElementById('active-day-num').textContent = slot;
   document.getElementById('active-day-date').textContent = fmtShort(dayKey);
   document.getElementById('checkin-day-label').textContent = isTdy ? 'Heute' : fmtShort(dayKey);
+  // Render moon for this day
+  const totalSlot = (curPhase - 1) * 30 + slot;
+  if (typeof window.renderMoon === 'function') window.renderMoon(totalSlot);
 
   getHabits().forEach(hb => { st[hb.id] = {checked:false,val:0,selected:[]}; });
   const e = getE(curPhase, dayKey);
@@ -3487,6 +3557,126 @@ async function loadHealthData() {
     navigator.serviceWorker.register('/sw.js').catch(()=>{});
   }
 })();
+
+// ════════════════════════════════════════════════════════
+// MOON PHASE
+// ════════════════════════════════════════════════════════
+(function(){
+  const PHASE_NAMES = [
+    'Vollmond','Abnehmendes Mondviertel','Letztes Viertel','Abnehmende Sichel',
+    'Neumond','Zunehmende Sichel','Erstes Viertel','Zunehmendes Mondviertel'
+  ];
+  const MOON_COLOR = '#f0e8d0';
+  const DARK_COLOR = '#1a1508';
+
+  function getMoonPath(cyclePos, r, cx, cy) {
+    // cyclePos: 0=Vollmond, 0.5=Neumond, 1=Vollmond wieder
+    if (cyclePos < 0.02 || cyclePos > 0.98) {
+      // Full moon - full circle
+      return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${MOON_COLOR}"/>`;
+    }
+    if (cyclePos > 0.48 && cyclePos < 0.52) {
+      // New moon - dark
+      return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${DARK_COLOR}"/>`;
+    }
+    const angle = cyclePos * 2 * Math.PI;
+    const tx = r * Math.cos(angle); // terminator x from center
+    const termRx = Math.abs(tx);
+    const waxing = cyclePos > 0.5;
+    const outerSweep = waxing ? 1 : 0;
+    const termSweep = tx > 0 ? 1 : 0;
+    const top = `${cx},${cy - r}`;
+    const bot = `${cx},${cy + r}`;
+    const litPath = `M ${top} A ${r},${r} 0 0,${outerSweep} ${bot} A ${termRx},${r} 0 0,${termSweep} ${top} Z`;
+    return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${DARK_COLOR}"/>
+      <path d="${litPath}" fill="${MOON_COLOR}"/>`;
+  }
+
+  function getPhaseName(cyclePos) {
+    const idx = Math.round(cyclePos * 8) % 8;
+    return PHASE_NAMES[idx];
+  }
+
+  window.renderMoon = function(dayNum) {
+    // Day 1 = Vollmond. 29.5 day cycle.
+    const cyclePos = ((dayNum - 1) / 29.5) % 1;
+    const svg = document.getElementById('moon-svg');
+    if (!svg) return;
+    const size = 44, r = 19, cx = 22, cy = 22;
+    svg.innerHTML = getMoonPath(cyclePos, r, cx, cy);
+
+    const name = document.getElementById('moon-phase-name');
+    const sub = document.getElementById('moon-phase-sub');
+    const fill = document.getElementById('moon-day-fill');
+    const cycleDay = Math.round(cyclePos * 29.5) + 1;
+    if (name) name.textContent = getPhaseName(cyclePos);
+    if (sub) sub.textContent = `Tag ${dayNum} · Mondtag ${cycleDay}`;
+    if (fill) fill.style.width = ((1 - cyclePos) * 100) + '%';
+  };
+})();
+
+// ════════════════════════════════════════════════════════
+// GOALS
+// ════════════════════════════════════════════════════════
+function loadGoals() { try { return JSON.parse(localStorage.getItem('t90_goals') || '[]'); } catch(e) { return []; } }
+function saveGoals(goals) { localStorage.setItem('t90_goals', JSON.stringify(goals)); }
+
+function addGoal() {
+  const title = (document.getElementById('goal-title-inp').value || '').trim();
+  const why = (document.getElementById('goal-why-inp').value || '').trim();
+  if (!title) { showToast('Bitte Ziel eingeben'); return; }
+  const goals = loadGoals();
+  goals.push({ id: Date.now(), title, why, progress: 0 });
+  saveGoals(goals);
+  document.getElementById('goal-title-inp').value = '';
+  document.getElementById('goal-why-inp').value = '';
+  renderGoals();
+  showToast('Ziel gespeichert ✓');
+}
+
+function setGoalProgress(id, pct) {
+  const goals = loadGoals();
+  const g = goals.find(g => g.id === id);
+  if (g) { g.progress = g.progress === pct ? 0 : pct; saveGoals(goals); renderGoals(); }
+}
+
+function deleteGoal(id) {
+  const goals = loadGoals().filter(g => g.id !== id);
+  saveGoals(goals);
+  renderGoals();
+  showToast('Ziel gelöscht');
+}
+
+function renderGoals() {
+  const container = document.getElementById('goals-list');
+  if (!container) return;
+  const goals = loadGoals();
+  if (!goals.length) {
+    container.innerHTML = '<div class="goal-empty">🎯 Noch keine Ziele — füge dein erstes Ziel hinzu!</div>';
+    return;
+  }
+  container.innerHTML = goals.map(g => {
+    const progs = [25, 50, 75, 100];
+    const progBtns = progs.map(p => {
+      const cls = g.progress >= p ? (p === 100 ? 'goal-prog-btn done' : 'goal-prog-btn active') : 'goal-prog-btn';
+      const label = p === 100 ? '🏆 100%' : `${p}%`;
+      return `<button class="${cls}" onclick="setGoalProgress(${g.id},${p})">${label}</button>`;
+    }).join('');
+    const progressBar = g.progress > 0 ? `<div style="margin-top:10px;height:4px;background:var(--warm);border-radius:99px;overflow:hidden;">
+      <div style="width:${g.progress}%;height:100%;background:linear-gradient(90deg,var(--gold),var(--rust));border-radius:99px;transition:width 0.5s;"></div></div>` : '';
+    return `<div class="goal-card">
+      <div class="goal-card-top">
+        <div class="goal-title-wrap">
+          <div class="goal-title">${g.title}</div>
+          ${g.why ? `<div class="goal-why">${g.why}</div>` : ''}
+          ${progressBar}
+        </div>
+        <button class="goal-del-btn" onclick="deleteGoal(${g.id})" title="Löschen">✕</button>
+      </div>
+      <div class="goal-progress-row">${progBtns}</div>
+    </div>`;
+  }).join('');
+}
 </script>
 </body>
 </html>

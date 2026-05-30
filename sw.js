@@ -1,4 +1,4 @@
-const CACHE = 'transform90-v1';
+const CACHE = 'transform90-v3';
 const ASSETS = ['./', './index.html', './manifest.json'];
 
 self.addEventListener('install', e => {
@@ -12,16 +12,14 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
-  if (e.request.url.includes('jsonbin.io') || e.request.url.includes('googleapis') || e.request.url.includes('google.com/spreadsheets')) return;
+  if (e.request.url.includes('jsonbin.io') || e.request.url.includes('googleapis') || e.request.url.includes('google.com/spreadsheets') || e.request.url.includes('fonts.')) return;
+  // Network-first: always try fresh, fall back to cache
   e.respondWith(
-    caches.match(e.request).then(cached => {
-      const network = fetch(e.request).then(resp => {
-        if (resp && resp.status === 200 && e.request.method === 'GET') {
-          caches.open(CACHE).then(c => c.put(e.request, resp.clone()));
-        }
-        return resp;
-      }).catch(() => cached);
-      return cached || network;
-    })
+    fetch(e.request).then(resp => {
+      if (resp && resp.status === 200 && e.request.method === 'GET') {
+        caches.open(CACHE).then(c => c.put(e.request, resp.clone()));
+      }
+      return resp;
+    }).catch(() => caches.match(e.request))
   );
 });
