@@ -1080,10 +1080,10 @@ body{background:var(--cream);color:var(--ink);font-family:'Inter',sans-serif;min
           Einmalig: Erstelle ein <strong>GitHub Token</strong> unter <code>github.com → Settings → Developer settings → Personal access tokens → Tokens (classic)</code> mit dem Scope <strong>gist</strong>.
         </div>
         <div style="display:flex;flex-direction:column;gap:8px;">
-          <input id="gist-token-inp" class="sync-input" style="letter-spacing:1px;font-size:0.85rem;" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" type="password" autocapitalize="none" autocorrect="off" spellcheck="false">
+          <input id="gist-token-inp" class="sync-input" style="letter-spacing:1px;font-size:0.85rem;" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" type="text" autocapitalize="none" autocorrect="off" spellcheck="false" inputmode="url">
           <button class="btn btn-dark" onclick="gistConnect()">✦ Verbinden & Daten hochladen</button>
           <div style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);padding:2px 0;">— oder bestehendes Gist verbinden —</div>
-          <input id="gist-id-inp" class="sync-input" style="letter-spacing:1px;font-size:0.85rem;" placeholder="Gist-ID (z.B. a1b2c3d4e5...)" autocapitalize="none" autocorrect="off" spellcheck="false" autocomplete="off">
+          <input id="gist-id-inp" class="sync-input" style="letter-spacing:1px;font-size:0.85rem;" placeholder="Gist-ID (z.B. a1b2c3d4e5...)" type="text" autocapitalize="none" autocorrect="off" spellcheck="false" autocomplete="off" inputmode="url">
           <button class="btn btn-gold" onclick="gistJoin()">⬇ Gist verbinden & Daten laden</button>
         </div>
         <div id="gist-connect-status" style="margin-top:8px;min-height:18px;"></div>
@@ -3011,6 +3011,8 @@ async function gistConnect() {
   var inp = document.getElementById('gist-token-inp');
   var token = inp ? inp.value.trim() : '';
   if (!token) { showToast('Bitte Token eingeben'); return; }
+  // Normalize: tokens are always lowercase on GitHub
+  token = token.replace(/\s/g,'');
   gistSetStatus('⏳ Erstelle Gist…', 'loading');
   try {
     var resp = await fetch(GIST_API, {
@@ -3040,8 +3042,8 @@ async function gistConnect() {
 async function gistJoin() {
   var tokenInp = document.getElementById('gist-token-inp');
   var idInp    = document.getElementById('gist-id-inp');
-  var token    = tokenInp ? tokenInp.value.trim() : '';
-  var gistId   = idInp    ? idInp.value.trim().toLowerCase() : '';
+  var token    = tokenInp ? tokenInp.value.trim().replace(/\s/g,'') : '';
+  var gistId   = idInp    ? idInp.value.trim().toLowerCase().replace(/\s/g,'') : '';
   if (!token)  { showToast('Bitte Token eingeben');    return; }
   if (!gistId) { showToast('Bitte Gist-ID eingeben');  return; }
   try {
