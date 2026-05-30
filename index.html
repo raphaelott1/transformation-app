@@ -313,7 +313,7 @@ body{background:var(--cream);color:var(--ink);font-family:'Inter',sans-serif;min
 .import-drop-zone input[type=file]{display:none;}
 
 .sync-code-display{font-family:'JetBrains Mono',monospace;font-size:1.4rem;letter-spacing:6px;color:var(--gold);background:var(--ink);padding:14px 20px;border-radius:10px;text-align:center;margin:10px 0;}
-.sync-input{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:1.1rem;letter-spacing:4px;text-align:center;text-transform:uppercase;outline:none;background:white;}
+.sync-input{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:0.9rem;letter-spacing:1px;text-align:center;outline:none;background:white;}
 .sync-input:focus{border-color:var(--gold);}
 .sync-status{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;padding:5px 10px;border-radius:2px;display:inline-block;margin-top:6px;}
 .sync-status.ok{background:rgba(90,122,94,0.15);color:var(--sage);}
@@ -1080,10 +1080,10 @@ body{background:var(--cream);color:var(--ink);font-family:'Inter',sans-serif;min
           Einmalig: Erstelle ein <strong>GitHub Token</strong> unter <code>github.com → Settings → Developer settings → Personal access tokens → Tokens (classic)</code> mit dem Scope <strong>gist</strong>.
         </div>
         <div style="display:flex;flex-direction:column;gap:8px;">
-          <input id="gist-token-inp" class="sync-input" style="letter-spacing:1px;font-size:0.85rem;" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" type="password">
+          <input id="gist-token-inp" class="sync-input" style="letter-spacing:1px;font-size:0.85rem;" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" type="password" autocapitalize="none" autocorrect="off" spellcheck="false">
           <button class="btn btn-dark" onclick="gistConnect()">✦ Verbinden & Daten hochladen</button>
           <div style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);padding:2px 0;">— oder bestehendes Gist verbinden —</div>
-          <input id="gist-id-inp" class="sync-input" style="letter-spacing:1px;font-size:0.85rem;" placeholder="Gist-ID (z.B. a1b2c3d4e5...)">
+          <input id="gist-id-inp" class="sync-input" style="letter-spacing:1px;font-size:0.85rem;" placeholder="Gist-ID (z.B. a1b2c3d4e5...)" autocapitalize="none" autocorrect="off" spellcheck="false" autocomplete="off">
           <button class="btn btn-gold" onclick="gistJoin()">⬇ Gist verbinden & Daten laden</button>
         </div>
         <div id="gist-connect-status" style="margin-top:8px;min-height:18px;"></div>
@@ -1095,8 +1095,10 @@ body{background:var(--cream);color:var(--ink);font-family:'Inter',sans-serif;min
           <span style="font-family:'JetBrains Mono',monospace;font-size:9px;background:rgba(90,122,94,0.15);color:var(--sage);padding:4px 10px;border-radius:99px;">✓ Verbunden</span>
           <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);" id="gist-sync-time"></span>
         </div>
-        <div style="background:var(--warm);border-radius:10px;padding:9px 12px;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);margin-bottom:12px;">
-          Gist-ID: <span id="gist-id-display" style="color:var(--ink);user-select:all;"></span>
+        <div style="background:var(--warm);border-radius:10px;padding:9px 12px;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span>Gist-ID:</span>
+          <span id="gist-id-display" style="color:var(--ink);user-select:all;word-break:break-all;flex:1;"></span>
+          <button onclick="copyGistId()" style="background:var(--gold);color:white;border:none;border-radius:6px;padding:4px 10px;font-family:'JetBrains Mono',monospace;font-size:9px;cursor:pointer;white-space:nowrap;">📋 Kopieren</button>
         </div>
         <div style="font-size:0.82rem;color:var(--muted);margin-bottom:10px;">Gib diese ID auf einem anderen Gerät ein (mit deinem Token) um dich zu verbinden.</div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
@@ -3039,7 +3041,7 @@ async function gistJoin() {
   var tokenInp = document.getElementById('gist-token-inp');
   var idInp    = document.getElementById('gist-id-inp');
   var token    = tokenInp ? tokenInp.value.trim() : '';
-  var gistId   = idInp    ? idInp.value.trim()    : '';
+  var gistId   = idInp    ? idInp.value.trim().toLowerCase() : '';
   if (!token)  { showToast('Bitte Token eingeben');    return; }
   if (!gistId) { showToast('Bitte Gist-ID eingeben');  return; }
   try {
@@ -3113,6 +3115,18 @@ function gistReset() {
   localStorage.removeItem('_gist_last_sync');
   gistShowUI();
   showToast('GitHub Sync getrennt');
+}
+function copyGistId() {
+  const id = localStorage.getItem('_gist_id') || '';
+  if (!id) return;
+  navigator.clipboard.writeText(id).then(() => showToast('Gist-ID kopiert ✓')).catch(() => {
+    // Fallback für ältere Browser
+    const el = document.getElementById('gist-id-display');
+    const range = document.createRange(); range.selectNode(el);
+    window.getSelection().removeAllRanges(); window.getSelection().addRange(range);
+    document.execCommand('copy'); window.getSelection().removeAllRanges();
+    showToast('Gist-ID kopiert ✓');
+  });
 }
 
 // ════════════════════════════════════════════════════════
