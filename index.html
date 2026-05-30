@@ -472,8 +472,8 @@ body{background:var(--cream);color:var(--ink);font-family:'Inter',sans-serif;min
 .h-hero{background:linear-gradient(145deg,#1a1814 0%,#12100e 60%,#1c1a16 100%);border-radius:16px;padding:32px 24px 28px;margin-bottom:16px;position:relative;overflow:hidden;}
 .h-hero::before{content:'';position:absolute;top:-60px;right:-60px;width:220px;height:220px;background:radial-gradient(circle,rgba(192,154,82,0.08) 0%,transparent 70%);pointer-events:none;}
 .h-hero-top{display:flex;align-items:center;gap:24px;flex-wrap:nowrap;}
-.h-gauge-wrap{position:relative;width:110px;height:110px;flex-shrink:0;overflow:hidden;}
-.h-gauge-svg{width:110px;height:110px;max-width:110px;max-height:110px;transform:rotate(-90deg);display:block;}
+.h-gauge-wrap{position:relative;flex:0 0 110px;width:110px;min-width:110px;max-width:110px;height:110px;min-height:110px;max-height:110px;overflow:hidden;}
+.h-gauge-svg{width:110px!important;height:110px!important;max-width:110px;max-height:110px;transform:rotate(-90deg);display:block;}
 .h-gauge-bg{fill:none;stroke:rgba(255,255,255,0.08);stroke-width:9;}
 .h-gauge-fill{fill:none;stroke-width:9;stroke-linecap:round;transition:stroke-dashoffset 1s ease;}
 .h-gauge-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;}
@@ -955,7 +955,7 @@ body{background:var(--cream);color:var(--ink);font-family:'Inter',sans-serif;min
       <div class="h-hero-top">
         <!-- SVG Gauge Ring -->
         <div class="h-gauge-wrap">
-          <svg class="h-gauge-svg" viewBox="0 0 110 110">
+          <svg class="h-gauge-svg" width="110" height="110" viewBox="0 0 110 110">
             <circle class="h-gauge-bg" cx="55" cy="55" r="46"/>
             <circle class="h-gauge-fill" id="h-gauge-circle" cx="55" cy="55" r="46"
               stroke="#c09a52" stroke-dasharray="289" stroke-dashoffset="289"/>
