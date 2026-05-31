@@ -929,9 +929,14 @@ body{background:var(--cream);color:var(--ink);font-family:'Inter',sans-serif;min
       <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">🔑 Gemini API-Key</div>
       <div style="font-size:0.85rem;color:var(--muted);margin-bottom:10px;">Wird lokal gespeichert — nie übertragen.</div>
       <div style="display:flex;gap:8px;">
-        <input id="gemini-key-inp" type="password" class="sync-input" style="flex:1;" placeholder="AIzaSy...">
+        <input id="gemini-key-inp" type="password" class="sync-input" style="flex:1;" placeholder="AIzaSy..." autocapitalize="none" autocorrect="off">
         <button class="btn btn-dark btn-sm" onclick="saveGeminiKey()">✓ Speichern</button>
         <button class="btn btn-outline btn-sm" onclick="document.getElementById('health-key-setup').style.display='none'">✕</button>
+      </div>
+      <div style="margin-top:12px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;">🎯 Coach-Ziele & Kontext</div>
+        <textarea id="coach-goals-inp" rows="3" style="width:100%;border:1.5px solid var(--border);border-radius:8px;padding:8px 12px;font-size:0.85rem;font-family:inherit;resize:vertical;outline:none;background:white;" placeholder="z.B. Ich möchte 90 Tage lang 10kg abnehmen, besser schlafen und täglich 30 min Sport machen..."></textarea>
+        <button class="btn btn-outline btn-sm" onclick="saveCoachGoals()" style="margin-top:6px;">✓ Ziele speichern</button>
       </div>
     </div>
   </div>
@@ -2609,7 +2614,7 @@ function revDrawTable() {
       '<td>'+fmt(cats.Kapitalerträge||0)+'</td>'+
       '<td>'+fmt(cats.Provisionen||0)+'</td>'+
       '<td style="'+ausColor+'">'+fmt(-r.aus)+'</td>'+
-      '<td style="font-weight:600;color:var(--gold)">'+fmt(r.ein)+'</td>';
+      '<td style="font-weight:600;color:var(--sage)">'+fmt(r.ein)+'</td>';
     tb.appendChild(tr);
   });
   t.appendChild(tb);
@@ -3196,11 +3201,19 @@ function saveGeminiKey() {
   if (v.trim()) { localStorage.setItem('_gemini_key', v.trim()); showToast('Gemini Key gespeichert ✓'); }
   document.getElementById('health-key-setup').style.display = 'none';
 }
+function saveCoachGoals() {
+  var v = (document.getElementById('coach-goals-inp') || {}).value || '';
+  localStorage.setItem('_coach_goals', v.trim());
+  showToast('Ziele gespeichert ✓');
+}
+function getCoachGoals() { return localStorage.getItem('_coach_goals') || ''; }
 function showHealthKeySetup() {
   var s = document.getElementById('health-key-setup');
   s.style.display = s.style.display === 'none' ? 'block' : 'none';
   var inp = document.getElementById('gemini-key-inp');
   if (inp) inp.value = getGeminiKey();
+  var gi = document.getElementById('coach-goals-inp');
+  if (gi) gi.value = getCoachGoals();
 }
 
 // ── Readiness calculation ──
@@ -3442,7 +3455,13 @@ async function callGemini(systemPrompt, userMessage) {
       generationConfig: { maxOutputTokens: 600, temperature: 0.8 }
     })
   });
-  if (!resp.ok) throw new Error('Gemini HTTP '+resp.status);
+  if (!resp.ok) {
+    var errMsg = 'Gemini HTTP '+resp.status;
+    if (resp.status === 429) errMsg = 'Gemini-Limit erreicht (429) — bitte kurz warten und nochmal versuchen.';
+    else if (resp.status === 400) errMsg = 'Gemini API-Fehler (400) — prüfe deinen Key.';
+    else if (resp.status === 403) errMsg = 'Gemini Key ungültig oder kein Zugriff (403).';
+    throw new Error(errMsg);
+  }
   var json = await resp.json();
   return json.candidates[0].content.parts[0].text;
 }
@@ -3456,8 +3475,10 @@ function buildCoachSystemPrompt(d) {
     return k+': HRV='+hm.hrv_wert+'ms, Schlaf='+hm.schlaf_stunden+'h, Batterie='+hm.body_battery_end+', Stress='+hm.stress_avg;
   }).join('\n') : '';
 
+  var goals = getCoachGoals();
   return 'Du bist ein persönlicher Gesundheits- und Life-Coach. Antworte immer auf Deutsch, kurz und direkt — maximal 3-4 Sätze. '
-    + 'Du kennst die Garmin-Daten deines Nutzers (Raphael) und gibst konkrete, motivierende Hinweise auf Basis der echten Werte.\n\n'
+    + 'Du kennst die Garmin-Daten deines Nutzers (Raphael) und gibst konkrete, motivierende Hinweise auf Basis der echten Werte.'
+    + (goals ? '\n\nPersönliche Ziele des Nutzers:\n'+goals : '') + '\n\n'
     + 'Heutige Garmin-Daten ('+d.date+'):\n'
     + '• Schlaf: '+(m.schlaf_stunden||'?')+'h | Score: '+(m.schlaf_score||'?')+'\n'
     + '• HRV: '+(m.hrv_wert||'?')+' ms | Status: '+(m.hrv_status||'?')+'\n'
@@ -3485,7 +3506,8 @@ async function generateInitialCoachMessage(d) {
     _coachHistory[_coachHistory.length-1] = {role:'assistant', text: reply};
   } catch(e) {
     coachRemoveThinking();
-    coachAddMessage('assistant', 'KI-Coach konnte nicht geladen werden: '+e.message+'\n\nTipp: Prüfe deinen Gemini-Key über das 🔑-Symbol oben.');
+    var tip = e.message.includes('429') ? 'Einfach nochmal auf „Senden" tippen.' : 'Tipp: Prüfe deinen Gemini-Key über das 🔑-Symbol oben.';
+    coachAddMessage('assistant', 'KI-Coach: '+e.message+'\n\n'+tip);
   }
   if (btn) btn.disabled = false;
 }
@@ -3608,9 +3630,16 @@ async function loadHealthData() {
   if (localStorage.getItem('_gist_token') && localStorage.getItem('_gist_id')) {
     gistPull(true).catch(function(){});
   }
-  // Auto-pull when app comes back into focus (switching between devices)
+  // Auto-sync on visibility change
   document.addEventListener('visibilitychange', function() {
-    if (!document.hidden && localStorage.getItem('_gist_token') && localStorage.getItem('_gist_id')) {
+    var hasSync = localStorage.getItem('_gist_token') && localStorage.getItem('_gist_id');
+    if (!hasSync) return;
+    if (document.hidden) {
+      // App goes to background — push immediately (before iOS suspends timers)
+      clearTimeout(_gistSyncTimer);
+      gistPush(true);
+    } else {
+      // App comes to foreground — pull latest data
       gistPull(true).catch(function(){});
     }
   });
