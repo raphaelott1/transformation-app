@@ -1185,14 +1185,15 @@ function migrateData() {
 
 let DB = migrateData();
 
-// ── Auto-Sync debounce ──
+// ── Auto-Sync ──
 var _gistSyncTimer = null;
+var _gistPushing = false;
 function persist() {
   localStorage.setItem(SK, JSON.stringify(DB));
-  // Auto-push to GitHub Gist after 4s of inactivity
+  // Debounced push: 1.5s after last change (short enough to beat iOS background suspension)
   if (localStorage.getItem('_gist_token') && localStorage.getItem('_gist_id')) {
     clearTimeout(_gistSyncTimer);
-    _gistSyncTimer = setTimeout(function() { gistPush(true); }, 4000);
+    _gistSyncTimer = setTimeout(function() { gistPush(true); }, 1500);
   }
 }
 

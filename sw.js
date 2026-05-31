@@ -1,4 +1,4 @@
-const CACHE = 'transform90-v4';
+const CACHE = 'transform90-v5';
 const ASSETS = ['./', './index.html', './manifest.json'];
 
 self.addEventListener('install', e => {
