@@ -2522,17 +2522,16 @@ function revRender() {
     return { m: m, ein: rows.reduce(function(a,r) { return a+r.ein; }, 0), aus: rows.reduce(function(a,r) { return a+r.aus; }, 0) };
   });
   var totalEin = revData.reduce(function(a,r) { return a+r.ein; }, 0);
-  var totalAus = revData.reduce(function(a,r) { return a+r.aus; }, 0);
-  var lastM = mTotals[mTotals.length-1] || {ein:0,aus:0};
-  var prevM = mTotals[mTotals.length-2] || {ein:0};
+  // Last non-zero month
+  var nonZero = mTotals.filter(function(m) { return m.ein > 0; });
+  var lastM = nonZero[nonZero.length-1] || {m:'—', ein:0};
+  var prevM = nonZero[nonZero.length-2] || {ein:0};
   var delta = prevM.ein > 0 ? Math.round((lastM.ein - prevM.ein) / prevM.ein * 100) : 0;
 
   var kpi = document.getElementById('rev-kpi'); kpi.innerHTML = '';
   [
-    {icon:'💶', label:'Gesamt Einnahmen', val:'€'+totalEin.toLocaleString('de-DE'), sub: months.length+' Monate'},
-    {icon:'📈', label:'Letzter Monat', val:'€'+lastM.ein.toLocaleString('de-DE'), sub:(delta>=0?'+':'')+delta+'% ggü. Vormonat', col: delta>=0?'var(--sage)':'var(--rust)'},
-    {icon:'📉', label:'Gesamt Ausgaben', val:'€'+totalAus.toLocaleString('de-DE'), sub:'Ø €'+Math.round(totalAus/Math.max(1,months.length)).toLocaleString('de-DE')+'/Monat'},
-    {icon:'💰', label:'Gewinn gesamt', val:'€'+(totalEin-totalAus).toLocaleString('de-DE'), sub:'Marge '+Math.round((totalEin-totalAus)/Math.max(1,totalEin)*100)+'%'}
+    {icon:'💶', label:'Gesamt Einnahmen', val:'€'+totalEin.toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2}), sub: nonZero.length+' Monate'},
+    {icon:'📈', label:'Letzter Monat', val:'€'+lastM.ein.toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2}), sub:(delta>=0?'+':'')+delta+'% ggü. Vormonat ('+lastM.m+')', col: delta>=0?'var(--sage)':'var(--rust)'}
   ].forEach(function(c) {
     var card = document.createElement('div'); card.className = 'stat-card';
     card.innerHTML = '<div class="stat-icon">'+c.icon+'</div><div class="stat-label">'+c.label+'</div><div class="stat-value" style="font-size:1.2rem;">'+c.val+'</div><div class="stat-sub"'+(c.col?' style="color:'+c.col+'"':'')+'>'+c.sub+'</div>';
@@ -2595,11 +2594,22 @@ function revDrawPie() {
 
 function revDrawTable() {
   var t = document.getElementById('rev-table');
-  t.innerHTML = '<thead><tr>'+'Monat,Einnahme,Ausgabe,Gewinn,Kategorie'.split(',').map(function(h){return '<th>'+h+'</th>';}).join('')+'</tr></thead>';
+  var headers = ['Monat','Freiberuflich','Sonstiges','Kapitalerträge','Provisionen','Ausgaben','Gesamt'];
+  t.innerHTML = '<thead><tr>'+headers.map(function(h){return '<th>'+h+'</th>';}).join('')+'</tr></thead>';
   var tb = document.createElement('tbody');
+  function fmt(n) { return n === 0 ? '0' : n.toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2}); }
   revData.forEach(function(r) {
-    var p = r.ein-r.aus, tr = document.createElement('tr');
-    tr.innerHTML = '<td>'+r.monat+'</td><td style="color:var(--sage)">€'+r.ein.toLocaleString('de-DE')+'</td><td style="color:var(--rust)">€'+r.aus.toLocaleString('de-DE')+'</td><td style="font-weight:600;color:'+(p>=0?'var(--sage)':'var(--rust)')+'">€'+p.toLocaleString('de-DE')+'</td><td style="color:var(--muted)">'+r.kat+'</td>';
+    var cats = r._cats || {};
+    var tr = document.createElement('tr');
+    var ausColor = r.aus > 0 ? 'color:var(--rust)' : '';
+    tr.innerHTML =
+      '<td style="font-weight:600">'+r.monat+'</td>'+
+      '<td>'+fmt(cats.Freiberuflich||0)+'</td>'+
+      '<td>'+fmt(cats.Sonstiges||0)+'</td>'+
+      '<td>'+fmt(cats.Kapitalerträge||0)+'</td>'+
+      '<td>'+fmt(cats.Provisionen||0)+'</td>'+
+      '<td style="'+ausColor+'">'+fmt(-r.aus)+'</td>'+
+      '<td style="font-weight:600;color:var(--gold)">'+fmt(r.ein)+'</td>';
     tb.appendChild(tr);
   });
   t.appendChild(tb);
