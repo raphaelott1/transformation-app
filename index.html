@@ -3194,6 +3194,7 @@ function copyGistId() {
 var _healthData = null;
 var _coachHistory = [];
 var _healthChartMetric = 'hrv';
+var _geminiCooldownUntil = 0; // timestamp ms — no auto-calls before this
 
 // ── Gemini Key ──
 function getGeminiKey() { return localStorage.getItem('_gemini_key') || ''; }
@@ -3286,13 +3287,13 @@ function renderHealthMetrics(m) {
     { icon:'💓', label:'HRV', value: m.hrv_wert ? m.hrv_wert+' ms' : '–',
       sub: m.hrv_status||'–', status: metricStatus(m.hrv_wert,50,35),
       fill: m.hrv_wert ? Math.min(100,Math.round(m.hrv_wert/80*100)) : 0, trend: trend('hrv_wert') },
-    { icon:'🔋', label:'Body Battery', value: m.body_battery_end !== undefined ? m.body_battery_end+'/100' : '–',
-      sub: m.body_battery_end >= 70 ? 'Sehr gut' : m.body_battery_end >= 40 ? 'Mittel' : 'Niedrig',
+    { icon:'🔋', label:'Body Battery', value: m.body_battery_end != null ? m.body_battery_end+'/100' : '–',
+      sub: m.body_battery_end >= 70 ? 'Sehr gut' : m.body_battery_end >= 40 ? 'Mittel' : m.body_battery_end != null ? 'Niedrig' : '–',
       status: metricStatus(m.body_battery_end,70,40),
       fill: m.body_battery_end||0, trend: trend('body_battery_end') },
-    { icon:'🧠', label:'Stress', value: m.stress_avg !== undefined ? m.stress_avg : '–',
-      sub: m.stress_avg < 25 ? 'Sehr niedrig' : m.stress_avg < 50 ? 'Moderat' : 'Hoch',
-      status: metricStatus(m.stress_avg !== undefined ? 100-m.stress_avg : null, 60, 40),
+    { icon:'🧠', label:'Stress', value: m.stress_avg != null ? m.stress_avg : '–',
+      sub: m.stress_avg != null ? (m.stress_avg < 25 ? 'Sehr niedrig' : m.stress_avg < 50 ? 'Moderat' : 'Hoch') : '–',
+      status: metricStatus(m.stress_avg != null ? 100-m.stress_avg : null, 60, 40),
       fill: m.stress_avg ? Math.max(0,100-m.stress_avg) : 0, trend: '' },
     { icon:'👟', label:'Schritte', value: m.schritte ? m.schritte.toLocaleString('de-DE') : '–',
       sub: m.schritte >= 10000 ? '✓ Tagesziel' : m.schritte ? Math.round((m.schritte/10000)*100)+'% von 10k' : '–',
@@ -3494,6 +3495,18 @@ function buildCoachSystemPrompt(d) {
 }
 
 async function generateInitialCoachMessage(d) {
+  // Check cooldown after 429
+  var now = Date.now();
+  if (_geminiCooldownUntil > now) {
+    var secs = Math.ceil((_geminiCooldownUntil - now) / 1000);
+    coachAddMessage('assistant', 'Rate-Limit aktiv — bitte noch '+secs+' Sekunden warten, dann nochmal auf „Senden" tippen.');
+    // Auto-retry after cooldown
+    setTimeout(function() {
+      document.getElementById('coach-messages').innerHTML = '';
+      generateInitialCoachMessage(d);
+    }, _geminiCooldownUntil - Date.now() + 500);
+    return;
+  }
   var btn = document.getElementById('coach-send-btn');
   if (btn) btn.disabled = true;
   coachShowThinking();
@@ -3507,8 +3520,16 @@ async function generateInitialCoachMessage(d) {
     _coachHistory[_coachHistory.length-1] = {role:'assistant', text: reply};
   } catch(e) {
     coachRemoveThinking();
-    var tip = e.message.includes('429') ? 'Einfach nochmal auf „Senden" tippen.' : 'Tipp: Prüfe deinen Gemini-Key über das 🔑-Symbol oben.';
-    coachAddMessage('assistant', 'KI-Coach: '+e.message+'\n\n'+tip);
+    if (e.message.includes('429')) {
+      _geminiCooldownUntil = Date.now() + 90000; // 90s cooldown
+      coachAddMessage('assistant', 'Gemini Rate-Limit erreicht — automatischer Neuversuch in 90 Sekunden.');
+      setTimeout(function() {
+        document.getElementById('coach-messages').innerHTML = '';
+        generateInitialCoachMessage(d);
+      }, 91000);
+    } else {
+      coachAddMessage('assistant', 'KI-Coach: '+e.message+'\n\nTipp: Prüfe deinen Gemini-Key über das 🔑-Symbol oben.');
+    }
   }
   if (btn) btn.disabled = false;
 }
