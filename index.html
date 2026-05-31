@@ -2477,11 +2477,39 @@ function revLoad() {
 }
 
 function revParseCSV(txt) {
-  var rows = txt.trim().split('\n').slice(1);
-  revData = rows.map(function(r) {
-    var cols = r.split(',').map(function(c) { return c.trim().replace(/^"|"$/g,''); });
-    return { monat: cols[0]||'', ein: parseFloat(cols[1])||0, aus: parseFloat(cols[2])||0, kat: cols[3]||'Sonstiges' };
-  }).filter(function(r) { return r.monat; });
+  // Proper CSV parser for quoted German numbers ("1.082,21" or "1082,21")
+  function parseLine(line) {
+    var result = [], cur = '', inQ = false;
+    for (var i = 0; i < line.length; i++) {
+      var c = line[i];
+      if (c === '"') { inQ = !inQ; }
+      else if (c === ',' && !inQ) { result.push(cur.trim()); cur = ''; }
+      else { cur += c; }
+    }
+    result.push(cur.trim());
+    return result;
+  }
+  function deNum(s) {
+    // Convert German number format: "1.082,21" → 1082.21 or "-37,79" → -37.79
+    if (!s) return 0;
+    var neg = s.startsWith('-');
+    s = s.replace(/^-/,'').replace(/\./g,'').replace(',','.');
+    return (parseFloat(s)||0) * (neg ? -1 : 1);
+  }
+  // Columns: Monat | Freiberuflich | Sonstiges | Kapitalerträge | Provisionen | Ausgaben | Gesamt
+  var CATS = ['Freiberuflich','Sonstiges','Kapitalerträge','Provisionen'];
+  revData = [];
+  txt.split('\n').forEach(function(line) {
+    var cols = parseLine(line.replace(/\r/g,''));
+    var monat = cols[0];
+    if (!monat || monat === 'Spalte 1' || monat === 'Gesamt' || !cols[6]) return;
+    var frei = deNum(cols[1]), sonst = deNum(cols[2]), kap = deNum(cols[3]), prov = deNum(cols[4]);
+    var aus  = Math.abs(deNum(cols[5]));
+    var gesamt = deNum(cols[6]);
+    if (gesamt === 0 && frei === 0 && sonst === 0) return; // skip empty months
+    revData.push({ monat: monat, ein: gesamt > 0 ? gesamt : (frei+sonst+kap+prov), aus: aus,
+      kat: 'Gesamt', _cats: { Freiberuflich: frei, Sonstiges: sonst, Kapitalerträge: kap, Provisionen: prov } });
+  });
   revRender();
 }
 
@@ -2540,7 +2568,13 @@ function revDrawBar(months, mTotals) {
 function revDrawPie() {
   var canvas = document.getElementById('rev-pie');
   var ctx = canvas.getContext('2d');
-  var cats = {}; revData.forEach(function(r) { cats[r.kat] = (cats[r.kat]||0)+r.ein; });
+  var cats = {};
+  revData.forEach(function(r) {
+    if (r._cats) { Object.keys(r._cats).forEach(function(k) { cats[k] = (cats[k]||0) + r._cats[k]; }); }
+    else { cats[r.kat] = (cats[r.kat]||0) + r.ein; }
+  });
+  // Remove zero-value categories
+  Object.keys(cats).forEach(function(k) { if (!cats[k]) delete cats[k]; });
   var total = Object.values(cats).reduce(function(a,b){return a+b;},0)||1;
   var W=200,H=160,cx=W/2,cy=H/2,r=62;
   canvas.width=W; canvas.height=H; ctx.clearRect(0,0,W,H);
