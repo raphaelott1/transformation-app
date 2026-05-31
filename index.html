@@ -2453,9 +2453,16 @@ function revSaveUrl() {
 function revLoad() {
   var url = DB._revUrl || '';
   if (!url) { document.getElementById('rev-setup').style.display = 'block'; return; }
-  var m = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
-  if (!m) return;
-  var csvUrl = 'https://docs.google.com/spreadsheets/d/' + m[1] + '/export?format=csv';
+  // If it's already a direct CSV/pub URL, use it as-is
+  var csvUrl;
+  if (url.includes('output=csv') || url.includes('export?format=csv')) {
+    csvUrl = url;
+  } else {
+    // Try to extract regular sheet ID
+    var m = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+    if (!m) return;
+    csvUrl = 'https://docs.google.com/spreadsheets/d/' + m[1] + '/export?format=csv';
+  }
   setText('rev-status', 'Lade Daten…');
   fetch(csvUrl).then(function(r) {
     if (!r.ok) throw new Error(r.status);
