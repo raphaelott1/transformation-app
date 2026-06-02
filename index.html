@@ -810,6 +810,16 @@ body{background:var(--cream);color:var(--ink);font-family:'Inter',sans-serif;min
       <button class="add-row-btn" onclick="addWorkCatSetting()">+ Kategorie hinzufügen</button>
     </div>
     <button class="modal-save" onclick="saveSettings()">◈ Einstellungen speichern</button>
+
+    <div class="modal-section" style="margin-top:20px;border-top:1px solid var(--border);padding-top:18px;">
+      <div class="modal-section-label" style="color:var(--rust);">🔄 Challenge neu starten</div>
+      <div style="font-size:0.85rem;color:var(--muted);margin-bottom:10px;">Setzt alle Tracking-Daten (Habits, Zeiterfassung, Todos) zurück. Einstellungen, Sync und Ziele bleiben erhalten.</div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;">
+        <label style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);">STARTDATUM</label>
+        <input type="date" id="restart-date-inp" style="border:1px solid var(--border);border-radius:6px;padding:6px 10px;font-family:'JetBrains Mono',monospace;font-size:11px;outline:none;">
+      </div>
+      <button class="btn btn-outline" onclick="restartChallenge()" style="color:var(--rust);border-color:var(--rust);">🔄 Jetzt neu starten</button>
+    </div>
   </div>
 </div>
 
@@ -1297,6 +1307,7 @@ function showPage(id, navEl) {
 // PHASE HELPERS
 // ════════════════════════════════════════════════════════
 function getPhaseStart(p) {
+  if (p === 1 && DB._challengeStart) return DB._challengeStart;
   const e = ph(p); const s = Object.keys(e).sort();
   return s.length ? s[0] : todayKey();
 }
@@ -1996,7 +2007,40 @@ function renderChart() {
 // ════════════════════════════════════════════════════════
 // SETTINGS
 // ════════════════════════════════════════════════════════
-function openSettings(){renderHabitSettings();renderGoalSettings();renderWorkCatSettings();document.getElementById('settings-overlay').classList.add('open');}
+function openSettings(){
+  renderHabitSettings();renderGoalSettings();renderWorkCatSettings();
+  // Pre-fill restart date with tomorrow
+  var tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate()+1);
+  var inp = document.getElementById('restart-date-inp');
+  if (inp) inp.value = tomorrow.toISOString().split('T')[0];
+  document.getElementById('settings-overlay').classList.add('open');
+}
+function restartChallenge() {
+  var inp = document.getElementById('restart-date-inp');
+  var date = inp ? inp.value : '';
+  if (!date) { showToast('Bitte Startdatum wählen'); return; }
+  if (!confirm('Challenge neu starten ab ' + date + '? Alle Tracking-Daten werden gelöscht.')) return;
+  // Keep settings, wipe tracking data
+  var keep = ['_gist_token','_gist_id','_gist_last_sync','_gemini_key','_coach_goals','_revUrl','_reminder_days'];
+  var saved = {};
+  keep.forEach(function(k){ saved[k] = localStorage.getItem(k); });
+  // Reset DB but keep habits/goals/workcats config
+  var newDB = {
+    habits: DB.habits,
+    goals: DB.goals,
+    workCats: DB.workCats,
+    _challengeStart: date
+  };
+  DB = newDB;
+  persist();
+  // Restore localStorage keys
+  keep.forEach(function(k){ if (saved[k]) localStorage.setItem(k, saved[k]); });
+  // Reset phase to 1
+  curPhase = 1;
+  setPhase(1, document.querySelector('.phase-tab'));
+  closeSettings();
+  showToast('Challenge neu gestartet — Tag 1 beginnt am ' + date + ' ✓');
+}
 function closeSettings(){document.getElementById('settings-overlay').classList.remove('open');}
 document.getElementById('settings-overlay').addEventListener('click',e=>{if(e.target===document.getElementById('settings-overlay'))closeSettings();});
 
