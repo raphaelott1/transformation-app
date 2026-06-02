@@ -3618,12 +3618,16 @@ async function loadHealthData() {
     // Show content
     loading.style.display = 'none';
     content.style.display = 'block';
+    window._lastHealthData = d; // store for manual coach start
 
-    // KI Coach — reset & generate fresh message
+    // KI Coach — reset, show start button (don't auto-call to avoid rate limits)
     _coachHistory = [];
-    document.getElementById('coach-messages').innerHTML = '';
+    var msgs = document.getElementById('coach-messages');
+    msgs.innerHTML = '';
     if (getGeminiKey()) {
-      generateInitialCoachMessage(d);
+      msgs.innerHTML = '<div style="display:flex;justify-content:center;padding:24px 0;">'
+        + '<button onclick="this.closest(\'div\').remove();generateInitialCoachMessage(window._lastHealthData);" '
+        + 'style="background:var(--gold);color:white;border:none;border-radius:10px;padding:12px 28px;font-family:\'JetBrains Mono\',monospace;font-size:11px;letter-spacing:2px;cursor:pointer;">▶ COACH STARTEN</button></div>';
     } else {
       coachAddMessage('assistant', 'KI-Coach bereit — bitte zuerst deinen Gemini API-Key über das 🔑-Symbol oben eintragen.');
     }
