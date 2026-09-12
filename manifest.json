@@ -1,14 +1,16 @@
 {
-  "name": "90 Tage Transformation",
-  "short_name": "90 Tage",
-  "description": "Habit Tracker & Zeiterfassung",
+  "name": "Der friedvolle Krieger",
+  "short_name": "Krieger",
+  "description": "31-Tage-Challenge · Habits, Ehre und Erfahrung",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#f4efe4",
-  "theme_color": "#12100e",
-  "orientation": "portrait-primary",
+  "orientation": "portrait",
+  "background_color": "#ede8de",
+  "theme_color": "#ede8de",
+  "lang": "de",
   "icons": [
-    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
-    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
   ]
 }
