@@ -910,7 +910,7 @@ button{font-family:inherit;}
     <div class="modal-section" style="margin-top:20px;border-top:1px solid var(--border);padding-top:18px;">
       <div class="modal-section-label" style="color:var(--danger);">⚠ Punkte auf 0 setzen</div>
       <div style="font-size:0.85rem;color:var(--muted);margin-bottom:10px;">Setzt Ehre, XP, Level und Schilde auf 0. Alle Tageseinträge, Schmiede-Einträge, Zähler, Erfolge und die Zeiterfassung bleiben erhalten.</div>
-      <div class="mono" style="font-size:9px;color:var(--muted);margin-top:14px;">App-Version v9</div>
+      <div class="mono" style="font-size:9px;color:var(--muted);margin-top:14px;">App-Version v10</div>
       <button class="btn btn-outline" onclick="resetPoints()" style="color:var(--danger);border-color:var(--danger);">⚠ Alles auf 0 setzen</button>
     </div>
   </div>
@@ -1205,6 +1205,7 @@ function onValInput(id, v) {
     st[id].checked = true;
     var card=document.getElementById('card-'+id), chk=document.getElementById('chk-'+id);
     if (card) card.classList.add('checked'); if (chk) chk.textContent='✓';
+    var hb = getHabits().find(h=>h.id===id); showToast('+'+(hb?hb.pts||10:10)+' Ehre · '+(hb?hb.name:''), 'plus');
   }
   autoSaveDay();
 }
@@ -1226,6 +1227,8 @@ function toggleDropOpt(hid, opt, ev) {
   const idx = sel.indexOf(opt);
   if (idx >= 0) sel.splice(idx,1); else sel.push(opt);
   st[hid].checked = sel.length > 0;
+  var hb = getHabits().find(h=>h.id===hid), p = hb ? (hb.pts||10) : 10;
+  showToast((idx >= 0 ? '−' : '+') + p + ' Ehre · ' + (hb ? hb.name + ' ' : '') + opt, idx >= 0 ? 'minus' : 'plus');
   renderCheckinGrid(); autoSaveDay();
 }
 
@@ -2371,7 +2374,11 @@ function fullRerender() {
   var _lastDay = todayKey();
   setInterval(function(){ var t = todayKey(); if (t !== _lastDay) { _lastDay = t; if (curDay < t) jumpToToday(); else renderChallengeCols(); } }, 60000);
   document.addEventListener('visibilitychange', function(){ if (!document.hidden) { var t = todayKey(); if (t !== _lastDay) { _lastDay = t; jumpToToday(); } } });
-  if ('serviceWorker' in navigator) navigator.serviceWorker.register("./sw.js").catch(()=>{});
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js', {updateViaCache:'none'}).then(function(reg){ reg.update(); }).catch(()=>{});
+    var _reloaded = false;
+    navigator.serviceWorker.addEventListener('controllerchange', function(){ if (_reloaded) return; _reloaded = true; location.reload(); });
+  }
 })();
 </script>
 </body>
