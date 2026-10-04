@@ -59,6 +59,7 @@ button{font-family:inherit;}
 .topbar-right{display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
 .shield-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(90,138,94,0.12);border:1px solid rgba(90,138,94,0.35);color:var(--sage);border-radius:20px;padding:5px 12px;font-family:'JetBrains Mono',monospace;font-size:11px;cursor:pointer;white-space:nowrap;}
 .shield-badge b{font-size:13px;font-weight:600;}
+.honor-badge{background:var(--honor-bg);border-color:rgba(184,137,31,0.35);color:var(--honor);}
 .shield-badge.empty{background:var(--warm);border-color:var(--border);color:var(--muted);}
 .date-badge{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:1px;}
 .btn{border:none;padding:8px 16px;font-family:'Inter',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.3px;cursor:pointer;border-radius:8px;transition:all 0.15s;}
@@ -125,15 +126,17 @@ button{font-family:inherit;}
 .pts-bar{width:100%;max-width:18px;border-radius:3px 3px 0 0;background:rgba(176,58,46,0.35);min-height:0;transition:height 0.4s;}
 .pts-col.hit .pts-bar{background:var(--gold);}
 .pts-col.shield .pts-bar{background:var(--sage);}
-.pts-col.open .pts-bar{background:rgba(196,90,40,0.3);}
+.pts-col.open .pts-bar{background:rgba(196,90,40,0.55);}
 .pts-col.today .pts-bar{outline:1.5px solid var(--ink);outline-offset:1px;}
 .pts-col.sel .pts-bar{box-shadow:0 0 0 2px rgba(196,90,40,0.35);}
 .pts-col .sh{font-size:9px;line-height:1;margin-bottom:2px;}
 .pts-x{display:grid;grid-template-columns:28px minmax(0,1fr);margin-top:4px;}
 .pts-x div{display:flex;gap:2px;padding:0 2px;}
 .pts-x span{flex:1;text-align:center;font-family:'JetBrains Mono',monospace;font-size:7.5px;color:var(--muted);min-width:0;}
-.pts-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--muted);}
-.pts-legend i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:4px;vertical-align:-1px;}
+.pts-legend{display:grid;grid-template-columns:repeat(4,max-content);gap:6px 18px;margin-top:12px;font-family:'Inter',sans-serif;font-size:11px;color:var(--muted);align-items:center;}
+.pts-legend span{display:inline-flex;align-items:center;white-space:nowrap;}
+.pts-col .pv{font-family:'JetBrains Mono',monospace;font-size:7.5px;color:var(--muted);line-height:1;margin-bottom:2px;}
+.pts-legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:6px;flex-shrink:0;}
 
 /* ── MOON ── */
 .moon-widget{display:flex;align-items:center;gap:10px;background:var(--paper);border:1px solid var(--border);border-radius:12px;padding:10px 16px;margin-bottom:16px;}
@@ -218,7 +221,7 @@ button{font-family:inherit;}
 /* ── HEATMAP ── */
 .heatmap-wrap{background:white;border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:18px;}
 .heatmap-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;}
-.days-row{display:grid;grid-template-columns:repeat(8,1fr);gap:5px;}
+.days-row{display:grid;grid-template-columns:repeat(8,1fr);gap:5px;row-gap:14px;padding-bottom:8px;}
 .day-cell{aspect-ratio:1;border-radius:10px;background:var(--warm);border:1px solid var(--border);cursor:pointer;position:relative;transition:transform 0.12s,box-shadow 0.12s;display:flex;align-items:center;justify-content:center;}
 .day-cell:hover{transform:scale(1.12);z-index:10;box-shadow:0 3px 8px rgba(18,16,14,0.12);}
 .day-num{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);pointer-events:none;}
@@ -228,7 +231,10 @@ button{font-family:inherit;}
 .day-cell.full .day-num{color:var(--gold);}
 .day-cell.bad{box-shadow:inset 0 0 0 2px var(--danger);}
 .day-cell.active-day{border:2px solid var(--gold)!important;box-shadow:0 0 0 2px rgba(196,90,40,0.2);}
-.day-cell.today-cell{outline:2px solid var(--rust);outline-offset:1px;}
+.day-cell.today-cell{outline:2.5px solid var(--ink);outline-offset:2px;}
+.day-cell.today-cell .day-num{font-weight:700;color:var(--ink);}
+.day-cell.today-cell.full .day-num{color:var(--gold);}
+.day-cell.today-cell::after{content:'heute';position:absolute;bottom:-13px;left:50%;transform:translateX(-50%);font-family:'JetBrains Mono',monospace;font-size:6.5px;letter-spacing:0.5px;color:var(--ink);}
 .day-cell.future{opacity:0.45;cursor:default;}
 .day-cell.future:hover{transform:none;box-shadow:none;}
 
@@ -308,6 +314,7 @@ button{font-family:inherit;}
 .shop-cost.gain{color:var(--sage);}
 .shop-btn.check{border-color:var(--sage);color:var(--sage);}
 .shop-btn.check:hover{background:var(--sage);color:white;}
+.shop-btn.check.flash{background:var(--sage);color:white;transform:scale(1.03);}
 .shop-btn.undo{font-size:10px;}
 .shop-add{border:1.5px dashed var(--border2,var(--border));background:transparent;justify-content:center;cursor:pointer;color:var(--muted);min-height:170px;}
 .shop-add:hover{border-color:var(--gold);color:var(--gold);transform:none;box-shadow:none;}
@@ -318,8 +325,30 @@ button{font-family:inherit;}
 .forge-kind{border:1.5px solid var(--border);background:white;border-radius:10px;padding:10px;font-family:'Inter',sans-serif;font-size:0.9rem;font-weight:500;color:var(--ink);cursor:pointer;line-height:1.35;}
 .forge-kind small{font-weight:400;font-size:0.72rem;color:var(--muted);}
 .forge-kind.sel{border-color:var(--gold);background:rgba(196,90,40,0.06);}
+.emoji-pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(34px,1fr));gap:4px;margin-top:8px;max-height:118px;overflow-y:auto;padding:6px;border:1px solid var(--border);border-radius:8px;background:var(--paper);}
+.emoji-pick button{border:none;background:transparent;font-size:1.15rem;padding:4px 0;border-radius:6px;cursor:pointer;line-height:1.2;}
+.emoji-pick button:hover{background:var(--warm);}
+.emoji-pick button.sel{background:rgba(196,90,40,0.15);}
 .forge-check{display:flex;align-items:center;gap:8px;font-size:0.9rem;margin-top:12px;cursor:pointer;}
 .ach-section{margin-top:4px;}
+
+/* ══════ ERFOLGE ══════ */
+.erf-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-bottom:18px;}
+.erf-card{background:white;border:1px solid var(--border);border-radius:12px;padding:12px 14px;}
+.erf-card .v{font-size:1.5rem;font-weight:600;line-height:1.1;}
+.erf-card .l{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-top:4px;}
+.erf-miles{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px;}
+.erf-mile{background:rgba(196,90,40,0.08);border:1px solid rgba(196,90,40,0.3);color:var(--rust);border-radius:20px;padding:5px 11px;font-size:0.82rem;}
+.erf-list{background:white;border:1px solid var(--border);border-radius:12px;padding:4px 14px;margin-bottom:12px;}
+.erf-row{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:8px;align-items:center;padding:9px 0;border-bottom:1px solid rgba(180,150,110,0.15);font-size:0.9rem;}
+.erf-row:last-child{border-bottom:none;}
+.erf-row.sub{padding:5px 0 5px 22px;font-size:0.82rem;color:var(--muted);}
+.erf-row .n{min-width:0;}
+.erf-row .n small{display:block;font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--muted);margin-top:1px;}
+.erf-row .c{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;color:var(--ink);white-space:nowrap;}
+.erf-empty{color:var(--muted);font-style:italic;font-size:0.85rem;padding:12px 0;}
+.erf-month-nav{display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:10px;}
+.erf-month-nav button{border:1px solid var(--border);background:white;border-radius:6px;width:26px;height:24px;cursor:pointer;color:var(--ink);}
 
 /* ══════ TRACKER ══════ */
 .tracker-page-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;margin-bottom:20px;align-items:start;}
@@ -478,6 +507,8 @@ button{font-family:inherit;}
 .mobile-nav{display:none;}
 @media(max-width:960px){
   .pts-wrap{padding:14px 12px 10px;}
+  .pts-legend{grid-template-columns:repeat(2,max-content);}
+  .pts-col:not(.today) .pv{display:none;}
   .ch-col{padding:7px 4px;font-size:0.8rem;}
   .pts-chart{height:150px;grid-template-columns:24px minmax(0,1fr);}
   .pts-x{grid-template-columns:24px minmax(0,1fr);}
@@ -536,6 +567,7 @@ button{font-family:inherit;}
   <div class="nav-item" onclick="showPage('shop',this)"><span class="nav-icon">🔨</span> Schmiede</div>
   <div class="nav-item" onclick="showPage('tracker',this)"><span class="nav-icon">⏱</span> Time</div>
   <div class="nav-item" onclick="showPage('einnahmen',this)"><span class="nav-icon">💶</span> Einnahmen</div>
+  <div class="nav-item" onclick="showPage('erfolge',this)"><span class="nav-icon">🏆</span> Erfolge</div>
   <div class="nav-item" onclick="openBackup()"><span class="nav-icon">💾</span> Datensicherung</div>
   <div class="sidebar-footer">
     <div class="prinzip-card">
@@ -557,6 +589,7 @@ button{font-family:inherit;}
   <div style="background:var(--paper);width:100%;border-radius:16px 16px 0 0;padding:20px 16px 36px;">
     <div class="section-label">Mehr</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <button class="btn btn-outline" onclick="showPage('erfolge',null);closeMobileMore()" style="padding:12px;font-size:10px;">🏆 Erfolge</button>
       <button class="btn btn-outline" onclick="closeMobileMore();openBackup()" style="padding:12px;font-size:10px;">💾 Sicherung</button>
       <button class="btn btn-outline" onclick="closeMobileMore();openSettings()" style="padding:12px;font-size:10px;">⚙ Einstellungen</button>
     </div>
@@ -571,6 +604,7 @@ button{font-family:inherit;}
       <h2>Tag <em id="active-day-num">—</em> <span id="active-day-date" style="font-weight:300;font-size:1.1rem;color:var(--muted)"></span></h2>
     </div>
     <div class="topbar-right">
+      <div class="shield-badge honor-badge" onclick="showPage('shop',null)" title="Ehre">✦ <b id="honor-count">0</b> Ehre</div>
       <div class="shield-badge" id="shield-badge" onclick="shieldInfo()" title="Schilde">🛡 <b id="shield-count">0</b> <span id="shield-word">Schilde</span></div>
       <div class="date-badge" id="date-display"></div>
       <button class="btn btn-dark btn-sm" onclick="jumpToToday()">↺ Heute</button>
@@ -587,7 +621,7 @@ button{font-family:inherit;}
       <div class="section-label" style="margin:0" id="pts-title">Punkte pro Tag</div>
     </div>
     <div class="pts-chart" id="pts-chart"></div>
-    <div class="pts-legend"><span><i style="background:var(--gold)"></i>100 erreicht</span><span><i style="background:var(--sage)"></i>mit 🛡 ausgeglichen</span><span><i style="background:rgba(176,58,46,0.35)"></i>verfehlt</span></div>
+    <div class="pts-legend"><span><i style="background:var(--gold)"></i>100 erreicht</span><span><i style="background:var(--sage)"></i>Schild eingesetzt</span><span><i style="background:rgba(176,58,46,0.35)"></i>verfehlt</span><span><i style="background:rgba(196,90,40,0.55)"></i>heute</span></div>
   </div>
 
   <div class="stats-row" id="stats-row"></div>
@@ -664,18 +698,19 @@ button{font-family:inherit;}
         <div><div class="forge-lbl">Icon</div><input class="forge-inp" id="fi-icon" maxlength="4" style="text-align:center;"></div>
         <div><div class="forge-lbl">Name</div><input class="forge-inp" id="fi-name" placeholder="z. B. 10 km joggen"></div>
       </div>
+      <div class="emoji-pick" data-target="fi-icon"><button type="button" onclick="pickEmoji('🎯',this)">🎯</button><button type="button" onclick="pickEmoji('🏃',this)">🏃</button><button type="button" onclick="pickEmoji('🧘',this)">🧘</button><button type="button" onclick="pickEmoji('📖',this)">📖</button><button type="button" onclick="pickEmoji('✍️',this)">✍️</button><button type="button" onclick="pickEmoji('💪',this)">💪</button><button type="button" onclick="pickEmoji('🧠',this)">🧠</button><button type="button" onclick="pickEmoji('🎬',this)">🎬</button><button type="button" onclick="pickEmoji('📹',this)">📹</button><button type="button" onclick="pickEmoji('🎙',this)">🎙</button><button type="button" onclick="pickEmoji('💻',this)">💻</button><button type="button" onclick="pickEmoji('📈',this)">📈</button><button type="button" onclick="pickEmoji('💶',this)">💶</button><button type="button" onclick="pickEmoji('💼',this)">💼</button><button type="button" onclick="pickEmoji('🤝',this)">🤝</button><button type="button" onclick="pickEmoji('📞',this)">📞</button><button type="button" onclick="pickEmoji('✉️',this)">✉️</button><button type="button" onclick="pickEmoji('🏆',this)">🏆</button><button type="button" onclick="pickEmoji('🥇',this)">🥇</button><button type="button" onclick="pickEmoji('🎖',this)">🎖</button><button type="button" onclick="pickEmoji('🏅',this)">🏅</button><button type="button" onclick="pickEmoji('⭐',this)">⭐</button><button type="button" onclick="pickEmoji('✨',this)">✨</button><button type="button" onclick="pickEmoji('🔥',this)">🔥</button><button type="button" onclick="pickEmoji('⚡',this)">⚡</button><button type="button" onclick="pickEmoji('🌊',this)">🌊</button><button type="button" onclick="pickEmoji('🏔',this)">🏔</button><button type="button" onclick="pickEmoji('🧗',this)">🧗</button><button type="button" onclick="pickEmoji('🚴',this)">🚴</button><button type="button" onclick="pickEmoji('🏊',this)">🏊</button><button type="button" onclick="pickEmoji('🥾',this)">🥾</button><button type="button" onclick="pickEmoji('🤸',this)">🤸</button><button type="button" onclick="pickEmoji('🛡',this)">🛡</button><button type="button" onclick="pickEmoji('⚔',this)">⚔</button><button type="button" onclick="pickEmoji('👑',this)">👑</button><button type="button" onclick="pickEmoji('🎁',this)">🎁</button><button type="button" onclick="pickEmoji('🍣',this)">🍣</button><button type="button" onclick="pickEmoji('🍕',this)">🍕</button><button type="button" onclick="pickEmoji('☕',this)">☕</button><button type="button" onclick="pickEmoji('🎧',this)">🎧</button><button type="button" onclick="pickEmoji('🎮',this)">🎮</button><button type="button" onclick="pickEmoji('📚',this)">📚</button><button type="button" onclick="pickEmoji('🧳',this)">🧳</button><button type="button" onclick="pickEmoji('✈️',this)">✈️</button><button type="button" onclick="pickEmoji('🏖',this)">🏖</button><button type="button" onclick="pickEmoji('🛍',this)">🛍</button><button type="button" onclick="pickEmoji('👟',this)">👟</button><button type="button" onclick="pickEmoji('🎒',this)">🎒</button><button type="button" onclick="pickEmoji('❤️',this)">❤️</button><button type="button" onclick="pickEmoji('🌱',this)">🌱</button><button type="button" onclick="pickEmoji('🌞',this)">🌞</button><button type="button" onclick="pickEmoji('🌙',this)">🌙</button><button type="button" onclick="pickEmoji('🙏',this)">🙏</button><button type="button" onclick="pickEmoji('🎨',this)">🎨</button><button type="button" onclick="pickEmoji('🎸',this)">🎸</button><button type="button" onclick="pickEmoji('🧩',this)">🧩</button><button type="button" onclick="pickEmoji('📅',this)">📅</button><button type="button" onclick="pickEmoji('✅',this)">✅</button><button type="button" onclick="pickEmoji('💎',this)">💎</button></div>
       <div class="forge-lbl">Beschreibung (optional)</div>
       <input class="forge-inp" id="fi-desc" placeholder="Kurze Notiz">
       <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;">
         <div><div class="forge-lbl" id="fi-pts-lbl">Punkte</div><input class="forge-inp" id="fi-pts" type="number" min="0" step="5" inputmode="numeric"></div>
         <div><div class="forge-lbl">Ordner</div><select class="forge-inp" id="fi-cat"></select></div>
       </div>
+      <label class="forge-check"><input type="checkbox" id="fi-repeat"> <span id="fi-repeat-lbl">Mehrmals abhakbar (Punkte summieren sich)</span></label>
       <div id="fi-reward-extra">
-        <label class="forge-check"><input type="checkbox" id="fi-repeat"> Mehrmals einlösbar</label>
         <div class="forge-lbl">Effekt</div>
         <select class="forge-inp" id="fi-effect">
           <option value="">Kein Effekt</option>
-          <option value="shield">🛡 Schutzschild +1 (rettet deine Serie)</option>
+          <option value="shield">🛡 Schild +1 (gleicht einen Tag unter 100 aus)</option>
           <option value="leit">📜 Neuer Leitsatz in der Seitenleiste</option>
         </select>
       </div>
@@ -685,6 +720,7 @@ button{font-family:inherit;}
         <div><div class="forge-lbl">Icon</div><input class="forge-inp" id="fc-icon" maxlength="4" style="text-align:center;"></div>
         <div><div class="forge-lbl">Ordnername</div><input class="forge-inp" id="fc-name" placeholder="z. B. Laufen"></div>
       </div>
+      <div class="emoji-pick" data-target="fc-icon"><button type="button" onclick="pickEmoji('🎯',this)">🎯</button><button type="button" onclick="pickEmoji('🏃',this)">🏃</button><button type="button" onclick="pickEmoji('🧘',this)">🧘</button><button type="button" onclick="pickEmoji('📖',this)">📖</button><button type="button" onclick="pickEmoji('✍️',this)">✍️</button><button type="button" onclick="pickEmoji('💪',this)">💪</button><button type="button" onclick="pickEmoji('🧠',this)">🧠</button><button type="button" onclick="pickEmoji('🎬',this)">🎬</button><button type="button" onclick="pickEmoji('📹',this)">📹</button><button type="button" onclick="pickEmoji('🎙',this)">🎙</button><button type="button" onclick="pickEmoji('💻',this)">💻</button><button type="button" onclick="pickEmoji('📈',this)">📈</button><button type="button" onclick="pickEmoji('💶',this)">💶</button><button type="button" onclick="pickEmoji('💼',this)">💼</button><button type="button" onclick="pickEmoji('🤝',this)">🤝</button><button type="button" onclick="pickEmoji('📞',this)">📞</button><button type="button" onclick="pickEmoji('✉️',this)">✉️</button><button type="button" onclick="pickEmoji('🏆',this)">🏆</button><button type="button" onclick="pickEmoji('🥇',this)">🥇</button><button type="button" onclick="pickEmoji('🎖',this)">🎖</button><button type="button" onclick="pickEmoji('🏅',this)">🏅</button><button type="button" onclick="pickEmoji('⭐',this)">⭐</button><button type="button" onclick="pickEmoji('✨',this)">✨</button><button type="button" onclick="pickEmoji('🔥',this)">🔥</button><button type="button" onclick="pickEmoji('⚡',this)">⚡</button><button type="button" onclick="pickEmoji('🌊',this)">🌊</button><button type="button" onclick="pickEmoji('🏔',this)">🏔</button><button type="button" onclick="pickEmoji('🧗',this)">🧗</button><button type="button" onclick="pickEmoji('🚴',this)">🚴</button><button type="button" onclick="pickEmoji('🏊',this)">🏊</button><button type="button" onclick="pickEmoji('🥾',this)">🥾</button><button type="button" onclick="pickEmoji('🤸',this)">🤸</button><button type="button" onclick="pickEmoji('🛡',this)">🛡</button><button type="button" onclick="pickEmoji('⚔',this)">⚔</button><button type="button" onclick="pickEmoji('👑',this)">👑</button><button type="button" onclick="pickEmoji('🎁',this)">🎁</button><button type="button" onclick="pickEmoji('🍣',this)">🍣</button><button type="button" onclick="pickEmoji('🍕',this)">🍕</button><button type="button" onclick="pickEmoji('☕',this)">☕</button><button type="button" onclick="pickEmoji('🎧',this)">🎧</button><button type="button" onclick="pickEmoji('🎮',this)">🎮</button><button type="button" onclick="pickEmoji('📚',this)">📚</button><button type="button" onclick="pickEmoji('🧳',this)">🧳</button><button type="button" onclick="pickEmoji('✈️',this)">✈️</button><button type="button" onclick="pickEmoji('🏖',this)">🏖</button><button type="button" onclick="pickEmoji('🛍',this)">🛍</button><button type="button" onclick="pickEmoji('👟',this)">👟</button><button type="button" onclick="pickEmoji('🎒',this)">🎒</button><button type="button" onclick="pickEmoji('❤️',this)">❤️</button><button type="button" onclick="pickEmoji('🌱',this)">🌱</button><button type="button" onclick="pickEmoji('🌞',this)">🌞</button><button type="button" onclick="pickEmoji('🌙',this)">🌙</button><button type="button" onclick="pickEmoji('🙏',this)">🙏</button><button type="button" onclick="pickEmoji('🎨',this)">🎨</button><button type="button" onclick="pickEmoji('🎸',this)">🎸</button><button type="button" onclick="pickEmoji('🧩',this)">🧩</button><button type="button" onclick="pickEmoji('📅',this)">📅</button><button type="button" onclick="pickEmoji('✅',this)">✅</button><button type="button" onclick="pickEmoji('💎',this)">💎</button></div>
     </div>
     <div style="display:flex;gap:8px;margin-top:18px;">
       <button class="btn btn-outline" id="forge-del-btn" onclick="forgeDelete()" style="color:var(--rust);border-color:var(--rust);">🗑 Löschen</button>
@@ -793,6 +829,21 @@ button{font-family:inherit;}
 </div>
 
 <!-- ═══════════════ EINNAHMEN ═══════════════ -->
+<div class="page" id="page-erfolge">
+  <div class="topbar"><div class="topbar-left"><h2>Deine <em>Erfolge</em></h2></div></div>
+  <div class="erf-cards" id="erf-cards"></div>
+  <div class="section-label">Meilensteine</div>
+  <div class="erf-miles" id="erf-miles"></div>
+  <div class="section-label">Deine Zahlen · gesamt</div>
+  <div class="erf-list" id="erf-list"></div>
+  <div class="section-head" style="margin-top:22px;">
+    <div class="section-label" style="margin:0">Monatsauswertung</div>
+    <div class="erf-month-nav"><button onclick="erfMonth(-1)">‹</button><span id="erf-month-lbl"></span><button onclick="erfMonth(1)">›</button></div>
+  </div>
+  <div class="erf-cards" id="erf-mcards"></div>
+  <div class="erf-list" id="erf-mlist"></div>
+</div>
+
 <div class="page" id="page-einnahmen">
   <div class="topbar">
     <div class="topbar-left"><h2>Einnahmen <em>Dashboard</em></h2></div>
@@ -857,8 +908,9 @@ button{font-family:inherit;}
       <button class="btn btn-outline" onclick="restartChallenge()" style="color:var(--rust);border-color:var(--rust);">🔄 Jetzt neu starten</button>
     </div>
     <div class="modal-section" style="margin-top:20px;border-top:1px solid var(--border);padding-top:18px;">
-      <div class="modal-section-label" style="color:var(--danger);">⚠ Punkte komplett auf 0 setzen</div>
-      <div style="font-size:0.85rem;color:var(--muted);margin-bottom:10px;">Setzt Ehre, XP, Level, Errungenschaften, Serien-Rekord und Schutzschilde auf 0 und löscht alle Tageseinträge aus früheren Runden. Erledigte Ziele in der Schmiede werden wieder offen. Habits, Laster, Schmiede-Einträge, Zeiterfassung und Sync bleiben.</div>
+      <div class="modal-section-label" style="color:var(--danger);">⚠ Punkte auf 0 setzen</div>
+      <div style="font-size:0.85rem;color:var(--muted);margin-bottom:10px;">Setzt Ehre, XP, Level und Schilde auf 0. Alle Tageseinträge, Schmiede-Einträge, Zähler, Erfolge und die Zeiterfassung bleiben erhalten.</div>
+      <div class="mono" style="font-size:9px;color:var(--muted);margin-top:14px;">App-Version v9</div>
       <button class="btn btn-outline" onclick="resetPoints()" style="color:var(--danger);border-color:var(--danger);">⚠ Alles auf 0 setzen</button>
     </div>
   </div>
@@ -986,8 +1038,18 @@ function normalizeDB() {
   if (!DB || typeof DB !== 'object') DB = {};
   ['p2','p3'].forEach(function(k){ if (DB[k]) { if (!DB.archive) DB.archive = {}; Object.keys(DB[k]).forEach(function(dk){ if (!(DB.p1 && DB.p1[dk])) DB.archive[dk] = DB[k][dk]; }); delete DB[k]; } });
   if (!DB._leitV3) { DB.leitsatz = LEITSAETZE[0]; DB.leitIdx = 0; DB._leitV3 = true; }
+  // Einträge, die vor dem geplanten Start gemacht wurden, zählen als Tag 1
+  if (DB._challengeStart && DB.p1) { var ks = Object.keys(DB.p1).sort(); if (ks.length && ks[0] < DB._challengeStart) DB._challengeStart = ks[0]; }
   var had = !!(DB.forge && DB.forge.cats);
   getForge();
+  if (!DB._repeatV1) { DB.forge.items.forEach(function(it){ if (it.kind==='goal') it.repeat = true; }); DB._repeatV1 = true; had = false; }
+  if (!DB._shieldV2) {
+    DB.forge.items.forEach(function(it){ if (it.kind==='reward' && !it.effect && /schild/i.test(it.name||'')) { it.effect='shield'; it.repeat=true; } });
+    var bought = forgeLog().filter(function(l){ var it = forgeItem(l.item); return it && it.effect==='shield' && l.pts<0; }).length;
+    DB.shields = Math.max(0, (DB.shields||0) - bought);
+    DB._shieldV2 = true; had = false;
+  }
+  if (!DB._zeroV9) { zeroPoints(); DB._zeroV9 = true; had = false; }
   if (!had) { try { localStorage.setItem(SK, JSON.stringify(DB)); } catch(e){} }
 }
 
@@ -1042,11 +1104,13 @@ const WD=['So','Mo','Di','Mi','Do','Fr','Sa'];
 const MO=['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'];
 const MF=['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
 const WF=['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
-function todayKey() { return new Date().toISOString().split('T')[0]; }
+function localKey(d) { return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function todayKey() { return localKey(new Date()); }
+function keyOfIso(iso) { return iso ? localKey(new Date(iso)) : ''; }
 function fmtLong(k) { const d=new Date(k+'T12:00:00'); return `${WF[d.getDay()]}, ${d.getDate()}. ${MF[d.getMonth()]} ${d.getFullYear()}`; }
 function fmtShort(k) { const d=new Date(k+'T12:00:00'); return `${WD[d.getDay()]} ${d.getDate()}. ${MO[d.getMonth()]}`; }
 function fmtDM(k) { const d=new Date(k+'T12:00:00'); return d.getDate()+'.'+(d.getMonth()+1)+'.'; }
-function addDays(k, n) { const d=new Date(k+'T12:00:00'); d.setDate(d.getDate()+n); return d.toISOString().split('T')[0]; }
+function addDays(k, n) { const d=new Date(k+'T12:00:00'); d.setDate(d.getDate()+n); return localKey(d); }
 
 // ════════════════════════════════════════════════════════
 // STATE
@@ -1073,6 +1137,7 @@ function showPage(id, navEl) {
   if (id==='tracker') { setTrackerDay(curDay,curSlot); renderTrackerHeatmap(); renderWorkStats(); setTimeout(renderGoalChart,50); }
   else if (id==='shop') { setTimeout(renderShop,30); }
   else if (id==='einnahmen') { revLoad(); }
+  else if (id==='erfolge') { renderErfolge(); }
 }
 function openMobileMore() { document.getElementById('mobile-more-overlay').classList.add('open'); }
 function closeMobileMore() { document.getElementById('mobile-more-overlay').classList.remove('open'); }
@@ -1205,7 +1270,6 @@ function autoSaveDay() {
   var prevLevel = getLevel();
   var entry = buildEntry();
   setE(curPhase, curDay, entry);
-  if (isPerfectDay(entry) && !(window._perfectToast === curDay)) { window._perfectToast = curDay; showToast('🛡 Perfekter Tag — Schild verdient','gold'); }
   renderHeatmap(); renderStats(); renderChart(); renderGamification(); renderChallengeCols();
   const ind = document.getElementById('autosave-indicator');
   if (ind) { ind.style.opacity='1'; clearTimeout(ind._t); ind._t=setTimeout(()=>ind.style.opacity='0',1800); }
@@ -1264,14 +1328,17 @@ function renderChallengeCols() {
 const DAY_GOAL = 100;
 function dayPoints(e) { var b = dayBreakdown(e); return b.plus - b.minus; }
 function isPerfectDay(e) { var h = getHabits(); return !!e && h.length > 0 && h.every(function(x){ return isDoneHabit(e, x); }); }
-// Schilde: jeder perfekte Tag (alle Habits mind. einmal) = +1 Schild.
-// Ein vergangener Tag unter 100 Punkten verbraucht automatisch einen Schild (falls vorhanden).
+// Schilde gibt es nur über die Schmiede. Ein vergangener Tag unter 100 Punkten verbraucht automatisch einen Schild (falls vorhanden).
+function shieldBuys() { var m = {}, cut = DB.shieldCutoff || ''; forgeLog().forEach(function(l){ var it = forgeItem(l.item); if (it && it.effect==='shield' && l.pts<0 && (!cut || (l.at||'') >= cut)) { var k = keyOfIso(l.at); m[k] = (m[k]||0)+1; } }); return m; }
+function forgeDayPts(dk) { return forgeLog().reduce(function(s,l){ return s + (l.pts>0 && keyOfIso(l.at)===dk ? l.pts : 0); }, 0); }
+function dayTotal(dk, src) { var e = (src || ph(1))[dk]; return Math.max(0, (e ? dayPoints(e) : 0) + forgeDayPts(dk) + workPts(dk)); }
 function shieldLedger() {
-  var p = ph(1), tdy = todayKey(), start = runStart(), bank = DB.shields || 0, status = {};
+  var tdy = todayKey(), start = runStart(), bank = DB.shields || 0, status = {}, buys = shieldBuys();
+  Object.keys(buys).forEach(function(k){ if (k < start) bank += buys[k]; });
   var end = addDays(start, PHASES*CHALLENGE_DAYS - 1); if (end > tdy) end = tdy;
   for (var d = start; d <= end; d = addDays(d, 1)) {
-    var e = p[d], pts = e ? dayPoints(e) : 0;
-    if (isPerfectDay(e)) bank++;
+    bank += buys[d] || 0;
+    var pts = dayTotal(d);
     if (pts >= DAY_GOAL) status[d] = 'hit';
     else if (d === tdy) status[d] = 'open';
     else if (bank > 0) { bank--; status[d] = 'shield'; }
@@ -1282,7 +1349,7 @@ function shieldLedger() {
 function renderPointsChart() {
   var box = document.getElementById('pts-chart'); if (!box) return;
   var L = shieldLedger(), p = ph(1), tdy = todayKey(), vals = [], max = DAY_GOAL;
-  for (var i = 1; i <= CHALLENGE_DAYS; i++) { var dk = getDayKeyForSlot(curPhase, i), e = p[dk], v = e ? Math.max(0, dayPoints(e)) : 0; vals.push({dk: dk, v: v, i: i}); if (v > max) max = v; }
+  for (var i = 1; i <= CHALLENGE_DAYS; i++) { var dk = getDayKeyForSlot(curPhase, i), v = dk > tdy ? 0 : dayTotal(dk); vals.push({dk: dk, v: v, i: i}); if (v > max) max = v; }
   var top = Math.ceil((max * 1.15) / 50) * 50; if (top < 150) top = 150;
   var y = ''; for (var t = 0; t <= top; t += 50) y += '<span style="bottom:' + (t/top*100) + '%">' + t + '</span>';
   var bars = vals.map(function(o){
@@ -1290,7 +1357,7 @@ function renderPointsChart() {
     var cls = 'pts-col ' + st + (o.dk === tdy ? ' today' : '') + (o.dk === curDay ? ' sel' : '');
     var tip = 'Tag ' + o.i + ' · ' + fmtShort(o.dk) + ' · ' + o.v + ' Punkte' + (st === 'shield' ? ' · mit Schild ausgeglichen' : '');
     var click = o.dk <= tdy ? ' onclick="pickDay(\'' + o.dk + '\',' + o.i + ')"' : '';
-    return '<div class="' + cls + '" title="' + tip + '"' + click + '>' + (st === 'shield' ? '<span class="sh">🛡</span>' : '') + '<div class="pts-bar" style="height:' + (o.v/top*100).toFixed(1) + '%"></div></div>';
+    return '<div class="' + cls + '" title="' + tip + '"' + click + '>' + (o.v > 0 ? '<span class="pv">' + o.v + '</span>' : '') + (st === 'shield' ? '<span class="sh">🛡</span>' : '') + '<div class="pts-bar" style="height:' + (o.v/top*100).toFixed(1) + '%"></div></div>';
   }).join('');
   box.innerHTML = '<div class="pts-y">' + y + '</div><div class="pts-plot"><div class="pts-goal" style="bottom:' + (DAY_GOAL/top*100) + '%"><b>100</b></div>' + bars + '</div>';
   var xl = vals.map(function(o){ return '<span>' + ((o.i === 1 || o.i % 5 === 0) ? o.i : '') + '</span>'; }).join('');
@@ -1301,7 +1368,60 @@ function renderPointsChart() {
   setText('shield-count', L.bank); setText('shield-word', L.bank === 1 ? 'Schild' : 'Schilde');
   var sb = document.getElementById('shield-badge'); if (sb) sb.classList.toggle('empty', L.bank === 0);
 }
-function shieldInfo() { var n = shieldLedger().bank; showToast('🛡 ' + n + (n===1?' Schild':' Schilde') + ' · Tag mit allen Habits = +1 · gleicht einen Tag unter 100 aus', 'gold'); }
+function shieldInfo() { var n = shieldLedger().bank; showToast('🛡 ' + n + (n===1?' Schild':' Schilde') + ' · in der Schmiede kaufen · gleicht einen Tag unter 100 aus', 'gold'); }
+// ── ERFOLGE ──
+var erfOffset = 0;
+function erfMonth(d) { erfOffset += d; if (erfOffset > 0) erfOffset = 0; renderErfolge(); }
+function streakOf(days) { var s = Array.from(new Set(days)).sort(), best = 0, run = 0, prev = null; s.forEach(function(d){ run = (prev && dayDiff(prev,d)===1) ? run+1 : 1; if (run > best) best = run; prev = d; }); return best; }
+function collectStats(inRange) {
+  var a = allEntries(), keys = Object.keys(a).filter(inRange).sort(), habits = getHabits();
+  var H = habits.map(function(h){ return {h:h, days:[], sum:0, opts:{}}; });
+  var perfect = 0, hit = 0, pts = 0;
+  keys.forEach(function(dk){ var e = a[dk]; if (!e) return;
+    H.forEach(function(x){ if (isDoneHabit(e, x.h)) { x.days.push(dk); if (x.h.type==='number') x.sum += parseFloat(e['v_'+x.h.id]||0)||0;
+      if (x.h.type==='dropdown') (e['sel_'+x.h.id]||[]).forEach(function(o){ (x.opts[o] = x.opts[o] || []).push(dk); }); } });
+    if (isPerfectDay(e)) perfect++;
+  });
+  var allDays = Array.from(new Set(keys.concat(Object.keys(DB.sessions||{}).filter(inRange)).concat(forgeLog().map(function(l){ return keyOfIso(l.at); }).filter(inRange))));
+  allDays.forEach(function(dk){ var t = dayTotal(dk, a); pts += t; if (t >= DAY_GOAL) hit++; });
+  var work = Object.keys(DB.sessions||{}).filter(inRange).reduce(function(s,dk){ return s + workSecs(dk); }, 0);
+  var goals = {}; forgeLog().forEach(function(l){ if (!(l.pts > 0) || !inRange(keyOfIso(l.at))) return; var it = forgeItem(l.item); if (it && it.kind!=='goal') return; var k = l.item || l.name; (goals[k] = goals[k] || {name: it ? it.name : l.name, icon: it ? it.icon : '🎯', n:0, pts:0}); goals[k].n++; goals[k].pts += l.pts; });
+  return {days: keys.filter(function(k){ return scoreEntry(a[k]) > 0; }).length, perfect:perfect, hit:hit, pts:pts, work:work, H:H, goals:goals, active: allDays.length};
+}
+function tageStr(n) { return n + (n === 1 ? ' Tag' : ' Tage'); }
+function fmtNum(v) { return (Math.round(v*10)/10).toLocaleString('de-DE'); }
+function statRows(S) {
+  var rows = '';
+  S.H.forEach(function(x){ var n = x.days.length; if (!n) return;
+    var extra = x.h.type==='number' && x.sum ? ' · ' + fmtNum(x.sum) + ' ' + escHtml(x.h.unit||'') : '';
+    rows += '<div class="erf-row"><span>' + x.h.icon + '</span><span class="n">' + escHtml(x.h.name) + '<small>längste Serie ' + tageStr(streakOf(x.days)) + extra + '</small></span><span class="c">' + n + '×</span></div>';
+    Object.keys(x.opts).sort(function(p,q){ return x.opts[q].length - x.opts[p].length; }).forEach(function(o){ rows += '<div class="erf-row sub"><span></span><span class="n">' + escHtml(o) + ' <small>längste Serie ' + tageStr(streakOf(x.opts[o])) + '</small></span><span class="c">' + x.opts[o].length + '×</span></div>'; });
+  });
+  Object.keys(S.goals).forEach(function(k){ var g = S.goals[k]; rows += '<div class="erf-row"><span>' + escHtml(g.icon||'🎯') + '</span><span class="n">' + escHtml(g.name) + '<small>Schmiede · +' + g.pts + ' Punkte</small></span><span class="c">' + g.n + '×</span></div>'; });
+  return rows || '<div class="erf-empty">Noch keine Einträge in diesem Zeitraum.</div>';
+}
+function erfCards(S) {
+  var c = [['Tage eingetragen', S.days], ['Tage mit 100+', S.hit], ['Perfekte Tage', S.perfect], ['Punkte gesammelt', S.pts.toLocaleString('de-DE')], ['Stunden gearbeitet', fmtNum(S.work/3600)]];
+  return c.map(function(x){ return '<div class="erf-card"><div class="v">' + x[1] + '</div><div class="l">' + x[0] + '</div></div>'; }).join('');
+}
+function renderErfolge() {
+  var S = collectStats(function(){ return true; });
+  var best = Math.max(DB.bestStreak||0, calcStreak(ph(1)).best);
+  document.getElementById('erf-cards').innerHTML = erfCards(S) + '<div class="erf-card"><div class="v">' + best + '</div><div class="l">Längste Serie</div></div>';
+  var TH = [5,10,25,50,100,250,500,1000], miles = [];
+  function mile(n, label) { var t = TH.filter(function(x){ return n >= x; }).pop(); if (t) miles.push({t:t, n:n, label:label}); }
+  S.H.forEach(function(x){ mile(x.days.length, x.h.icon + ' ' + x.h.name); Object.keys(x.opts).forEach(function(o){ mile(x.opts[o].length, x.h.icon + ' ' + o); }); var sk = streakOf(x.days); if (sk >= 7) miles.push({t:sk, n:sk, label:x.h.icon + ' ' + x.h.name + '-Serie', streak:true}); });
+  Object.keys(S.goals).forEach(function(k){ var g = S.goals[k]; mile(g.n, (g.icon||'🎯') + ' ' + g.name); });
+  miles.sort(function(p,q){ return q.n - p.n; });
+  document.getElementById('erf-miles').innerHTML = miles.length ? miles.map(function(m){ return '<span class="erf-mile">' + (m.streak ? m.n + ' Tage ' + escHtml(m.label) : m.n + '× ' + escHtml(m.label)) + '</span>'; }).join('') : '<div class="erf-empty">Ab 5× tauchen hier deine Meilensteine auf.</div>';
+  document.getElementById('erf-list').innerHTML = statRows(S);
+  var d = new Date(); d.setDate(1); d.setMonth(d.getMonth() + erfOffset);
+  var ym = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0');
+  setText('erf-month-lbl', MF[d.getMonth()] + ' ' + d.getFullYear());
+  var M = collectStats(function(k){ return k && k.slice(0,7) === ym; });
+  document.getElementById('erf-mcards').innerHTML = erfCards(M) + '<div class="erf-card"><div class="v">' + (M.active ? Math.round(M.pts / M.active) : 0) + '</div><div class="l">Ø Punkte / Tag</div></div>';
+  document.getElementById('erf-mlist').innerHTML = statRows(M);
+}
 function pickDay(dk, slot) { loadForm(dk, slot); renderHeatmap(); renderPointsChart(); setTrackerDay(dk, slot); document.getElementById('checkin-grid').scrollIntoView({behavior:'smooth',block:'start'}); }
 
 // ════════════════════════════════════════════════════════
@@ -1508,10 +1628,12 @@ function cleanStreak() {
 function viceCost(id) { var v=getVices().find(x=>x.id===id); return v?v.cost:10; }
 
 // Per-day breakdown: {plus, minus, xp}
+// Auswahl-Habits: jede angeklickte Option zählt (z. B. Routine morgens + abends = 2×)
+function habitTimes(e, h) { if (h.type==='dropdown') { var s = e['sel_'+h.id]; return (s && s.length) ? s.length : 1; } return 1; }
 function dayBreakdown(e) {
   if (!e) return {plus:0, minus:0, xp:0, items:[]};
   var habits=getHabits(), plus=0, minus=0, items=[];
-  habits.forEach(h => { if (isDoneHabit(e,h)) { plus += (h.pts||10); items.push({n:h.name,v:+(h.pts||10)}); } });
+  habits.forEach(h => { if (isDoneHabit(e,h)) { var n = habitTimes(e,h), v = (h.pts||10)*n; plus += v; items.push({n:h.name+(n>1?' ×'+n:''),v:v}); } });
   var pct = entryPct(e);
   if (pct>=1 && habits.length) { plus += BONUS.dayComplete; items.push({n:'Perfekter Tag',v:BONUS.dayComplete}); }
   else if (pct>=0.5) { plus += BONUS.dayHalf; items.push({n:'Halber Tag',v:BONUS.dayHalf}); }
@@ -1526,13 +1648,29 @@ function streakBonus() {
 function achievementXP() { var u=DB.achievements||[]; return ACHIEVEMENTS.filter(a=>u.includes(a.id)).reduce((s,a)=>s+a.xp,0); }
 
 // XP: permanent (positives only + bonuses)
-function calcXP() {
+const WORK_PTS_PER_H = 10;
+function workSecs(dk) { var a = (DB.sessions||{})[dk]; return a ? a.reduce(function(s,x){ return s + (x.secs||0); }, 0) : 0; }
+function workPts(dk) { return Math.floor(workSecs(dk)/3600) * WORK_PTS_PER_H; }
+function workPtsTotal() { return Object.keys(DB.sessions||{}).reduce(function(s,dk){ return s + workPts(dk); }, 0); }
+function rawXP() {
+  var a=allEntries(), xp=0;
+  Object.keys(a).forEach(k => { xp += dayBreakdown(a[k]).plus; });
+  return xp + streakBonus() + achievementXP() + forgeXP() + workPtsTotal();
+}
+function rawHonor() {
+  var a=allEntries(), h=0;
+  Object.keys(a).forEach(k => { var b=dayBreakdown(a[k]); h += b.plus - b.minus; });
+  return h + streakBonus() + achievementXP() + forgeHonor() + workPtsTotal() - (DB.spentHonor||0);
+}
+function calcXP() { return Math.max(0, rawXP() - (DB.xpBase||0)); }
+function calcHonor() { return Math.max(0, rawHonor() - (DB.honorBase||0)); }
+function calcXP_old() {
   var a=allEntries(), xp=0;
   Object.keys(a).forEach(k => { xp += dayBreakdown(a[k]).plus; });
   return xp + streakBonus() + achievementXP() + forgeXP();
 }
 // Honor: earned − vices − spent
-function calcHonor() {
+function calcHonor_old() {
   var a=allEntries(), h=0;
   Object.keys(a).forEach(k => { var b=dayBreakdown(a[k]); h += b.plus - b.minus; });
   h += streakBonus() + achievementXP() + forgeHonor() - (DB.spentHonor||0);
@@ -1584,7 +1722,7 @@ function renderGamification() {
   setText('hb-xp-sub', level>=LEVELS.length-1 ? 'Höchstes Level erreicht' : 'Noch '+(next-xp)+' XP bis '+LEVELS[level+1].name);
   // Sidebar
   setText('sb-level-num', level+1); setText('sb-level-name', LEVELS[level].name); setText('sb-level-sub', honor+' Ehre · 🛡 '+shieldLedger().bank);
-  setText('shop-wallet', honor);
+  setText('shop-wallet', honor); setText('honor-count', honor.toLocaleString('de-DE'));
   renderDayBalance(); renderCorrelations(); applyLeitsatz(); renderPointsChart();
 }
 function applyLeitsatz() { var t=document.getElementById('prinzip-text'); if (t && DB.leitsatz) t.textContent=DB.leitsatz; }
@@ -1639,7 +1777,11 @@ function renderShop() {
   }
   g.className = 'shop-grid';
   var cat = forgeCatObj(shopFilter);
-  bar.innerHTML = cat ? '<button onclick="openForgeCat(\''+cat.id+'\')">✎ Ordner bearbeiten</button>' : '';
+  var ci = cat ? F.cats.indexOf(cat) : -1;
+  bar.innerHTML = cat ? '<button onclick="openForgeCat(\''+cat.id+'\')">✎ Umbenennen</button>'
+    + (ci > 0 ? '<button onclick="forgeMoveCat(\''+cat.id+'\',-1)">← nach links</button>' : '')
+    + (ci < F.cats.length-1 ? '<button onclick="forgeMoveCat(\''+cat.id+'\',1)">nach rechts →</button>' : '')
+    + '<button onclick="forgeDeleteCat(\''+cat.id+'\')" style="color:var(--rust);">🗑 Ordner löschen</button>' : '';
   var items = F.items.filter(function(i){ return shopFilter==='all' || i.cat===shopFilter; });
   var html = items.map(function(it){
     var lg = itemLog(it.id), n = lg.length, isGoal = it.kind==='goal';
@@ -1647,7 +1789,12 @@ function renderShop() {
     var cls = '', btn = '', cost, extra = '';
     if (isGoal) {
       cost = '<div class="shop-cost gain">+'+it.pts+' Ehre &amp; XP</div>';
-      if (n) { cls = ' goal-done'; tag += ''; btn = '<button class="shop-btn check" style="background:var(--sage);color:white;" onclick="forgeCheck(\''+it.id+'\')">✓ Erreicht</button>'; }
+      if (it.repeat) {
+        if (n) cost = '<div class="shop-cost gain">+'+it.pts+' je Mal · '+n+'× erledigt</div>';
+        btn = '<button class="shop-btn check" data-fid="'+it.id+'" onclick="forgeCheck(\''+it.id+'\')">✓ Abhaken</button>';
+        if (n) btn += '<button class="shop-btn undo" style="margin-top:6px;border:none;" onclick="forgeUndoGoal(\''+it.id+'\')">↺ Letztes zurücknehmen</button>';
+      }
+      else if (n) { cls = ' goal-done'; btn = '<button class="shop-btn check" style="background:var(--sage);color:white;" onclick="forgeCheck(\''+it.id+'\')">✓ Erreicht</button>'; }
       else btn = '<button class="shop-btn check" onclick="forgeCheck(\''+it.id+'\')">Abhaken</button>';
     } else {
       cost = '<div class="shop-cost">✦ '+it.pts+' Ehre'+(it.repeat && n ? ' · '+n+'× eingelöst' : '')+'</div>';
@@ -1675,16 +1822,28 @@ function afterForgeChange(prevLevel) {
 function forgeCheck(id) {
   var it = forgeItem(id); if (!it) return; var prev = getLevel();
   var lg = itemLog(id);
-  if (lg.length) { DB.forgeLog = forgeLog().filter(function(l){ return l.item!==id; }); showToast('↺ '+it.name+' wieder offen · −'+it.pts+' Ehre','minus'); }
+  if (lg.length && !it.repeat) { DB.forgeLog = forgeLog().filter(function(l){ return l.item!==id; }); showToast('↺ '+it.name+' wieder offen · −'+it.pts+' Ehre','minus'); }
   else { forgeLog().push({id:uid('l'), item:id, name:it.name, pts:it.pts, at:new Date().toISOString()}); showToast('🎯 '+it.name+' erreicht · +'+it.pts+' Ehre & XP','gold'); }
   afterForgeChange(prev);
+  if (it.repeat) { var b = document.querySelector('[data-fid="'+id+'"]'); if (b) { b.classList.add('flash'); b.textContent = '✓ +'+it.pts; setTimeout(function(){ b.classList.remove('flash'); b.textContent = '✓ Abhaken'; }, 900); } }
 }
+function forgeUndoGoal(id) {
+  var it = forgeItem(id); if (!it) return;
+  var lg = forgeLog(); for (var i=lg.length-1;i>=0;i--) { if (lg[i].item===id) { lg.splice(i,1); break; } }
+  showToast('↺ '+it.name+' einmal zurückgenommen · −'+it.pts+' Ehre','minus');
+  afterForgeChange();
+}
+function forgeMoveCat(id, dir) {
+  var c = getForge().cats, i = c.findIndex(function(x){ return x.id===id; }), j = i + dir;
+  if (i < 0 || j < 0 || j >= c.length) return;
+  var t = c[i]; c[i] = c[j]; c[j] = t; persist(); renderShop();
+}
+function forgeDeleteCat(id) { forgeEdit = {type:'cat', id:id}; forgeDelete(); }
 function forgeRedeem(id) {
   var it = forgeItem(id); if (!it) return;
   if (!it.repeat && itemLog(id).length) return;
   if (calcHonor() < it.pts) { showToast('Nicht genug Ehre','minus'); return; }
   forgeLog().push({id:uid('l'), item:id, name:it.name, pts:-it.pts, at:new Date().toISOString()});
-  if (it.effect==='shield') DB.shields = (DB.shields||0) + 1;
   if (it.effect==='leit') { var idx=((DB.leitIdx||0)+1)%LEITSAETZE.length; DB.leitIdx=idx; DB.leitsatz=LEITSAETZE[idx]; }
   showToast((it.icon||'🎁')+' '+it.name+' eingelöst · −'+it.pts+' Ehre','gold');
   afterForgeChange();
@@ -1692,7 +1851,6 @@ function forgeRedeem(id) {
 function forgeUndo(id) {
   var it = forgeItem(id); if (!it) return;
   var lg = forgeLog(); for (var i=lg.length-1;i>=0;i--) { if (lg[i].item===id) { lg.splice(i,1); break; } }
-  if (it.effect==='shield' && DB.shields>0) DB.shields--;
   showToast('↺ Einlösen rückgängig · +'+it.pts+' Ehre');
   afterForgeChange();
 }
@@ -1705,6 +1863,7 @@ function setForgeKind(k) {
   document.getElementById('fk-reward').classList.toggle('sel', k==='reward');
   document.getElementById('fi-reward-extra').style.display = k==='reward' ? 'block' : 'none';
   setText('fi-pts-lbl', k==='goal' ? 'Bringt Ehre' : 'Kostet Ehre');
+  setText('fi-repeat-lbl', k==='goal' ? 'Mehrmals abhakbar (Punkte summieren sich)' : 'Mehrmals einlösbar');
 }
 function openForgeItem(id) {
   var F = getForge();
@@ -1721,7 +1880,7 @@ function openForgeItem(id) {
   document.getElementById('fi-name').value = it ? it.name : '';
   document.getElementById('fi-desc').value = it ? (it.desc||'') : '';
   document.getElementById('fi-pts').value = it ? it.pts : 50;
-  document.getElementById('fi-repeat').checked = it ? !!it.repeat : false;
+  document.getElementById('fi-repeat').checked = it ? !!it.repeat : true;
   document.getElementById('fi-effect').value = it ? (it.effect||'') : '';
   document.getElementById('forge-del-btn').style.display = it ? '' : 'none';
   setForgeKind(it ? it.kind : 'goal');
@@ -1738,6 +1897,7 @@ function openForgeCat(id) {
   document.getElementById('forge-del-btn').style.display = c ? '' : 'none';
   document.getElementById('forge-overlay').classList.add('open');
 }
+function pickEmoji(e, btn) { var box = btn.parentNode, inp = document.getElementById(box.dataset.target); if (inp) inp.value = e; box.querySelectorAll('button').forEach(function(b){ b.classList.toggle('sel', b===btn); }); }
 function closeForgeModal() { document.getElementById('forge-overlay').classList.remove('open'); forgeEdit = null; }
 function forgeSave() {
   if (!forgeEdit) return; var F = getForge(), prev = getLevel();
@@ -1751,7 +1911,7 @@ function forgeSave() {
   var nm = document.getElementById('fi-name').value.trim(); if (!nm) { showToast('Bitte einen Namen eingeben'); return; }
   var pts = Math.max(0, Math.round(parseFloat(document.getElementById('fi-pts').value)||0));
   var data = {cat:document.getElementById('fi-cat').value, kind:forgeKind, icon:document.getElementById('fi-icon').value.trim(), name:nm, desc:document.getElementById('fi-desc').value.trim(), pts:pts,
-    repeat: forgeKind==='reward' && document.getElementById('fi-repeat').checked, effect: forgeKind==='reward' ? document.getElementById('fi-effect').value : ''};
+    repeat: document.getElementById('fi-repeat').checked, effect: forgeKind==='reward' ? document.getElementById('fi-effect').value : ''};
   var it = forgeEdit.id ? forgeItem(forgeEdit.id) : null;
   if (it) {
     var kindChanged = it.kind !== data.kind;
@@ -2033,7 +2193,7 @@ function revDrawTable() {
 function openSettings(){
   renderHabitSettings();renderViceSettings();renderGoalSettings();renderWorkCatSettings();
   var tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate()+1);
-  var inp = document.getElementById('restart-date-inp'); if (inp) inp.value = tomorrow.toISOString().split('T')[0];
+  var inp = document.getElementById('restart-date-inp'); if (inp) inp.value = localKey(tomorrow);
   document.getElementById('settings-overlay').classList.add('open');
 }
 function closeSettings(){document.getElementById('settings-overlay').classList.remove('open');}
@@ -2050,12 +2210,19 @@ function restartChallenge() {
   fullRerender();
   closeSettings(); showToast('Neue Runde — Challenge I beginnt am ' + date + ' ✓','gold');
 }
+// Punkte & Schilde auf 0 – alle Einträge, Ordner und Zähler bleiben erhalten
+function zeroPoints() {
+  var sk = calcStreak(ph(1)).best; if (sk > (DB.bestStreak||0)) DB.bestStreak = sk;
+  checkAchievements();
+  DB.xpBase = 0; DB.honorBase = 0;
+  DB.xpBase = rawXP(); DB.honorBase = rawHonor();
+  DB.shields = 0; DB.shieldDays = []; DB.shieldCutoff = new Date().toISOString();
+}
 function resetPoints() {
-  if (!confirm('Wirklich alle Punkte auf 0 setzen? Ehre, XP, Level, Errungenschaften und Rekorde gehen verloren. Das lässt sich nicht rückgängig machen (außer über ein Backup).')) return;
-  delete DB.archive; delete DB.bestStreakChallenge;
-  DB.achievements = []; DB.forgeLog = []; DB.spentHonor = 0; DB.bestStreak = 0; DB.shields = 0; DB.shieldDays = [];
+  if (!confirm('Ehre, XP, Level und Schilde auf 0 setzen? Deine Einträge, Ordner und Zähler bleiben erhalten.')) return;
+  zeroPoints();
   persist(); closeSettings(); fullRerender(); renderShop();
-  showToast('Alles auf 0 — dein Weg beginnt neu ✓','gold');
+  showToast('Punkte & Schilde auf 0 — deine Einträge bleiben ✓','gold');
 }
 document.getElementById('settings-overlay').addEventListener('click',e=>{if(e.target===document.getElementById('settings-overlay'))closeSettings();});
 document.getElementById('mobile-more-overlay').addEventListener('click',function(e){if(e.target===this)closeMobileMore();});
@@ -2200,6 +2367,10 @@ function fullRerender() {
     var hasSync = localStorage.getItem('_gist_token') && localStorage.getItem('_gist_id'); if (!hasSync) return;
     if (document.hidden) { clearTimeout(_gistSyncTimer); gistPush(true); } else gistPull(true).catch(function(){});
   });
+  // Tageswechsel: springt automatisch auf den neuen Tag (und die nächste Challenge)
+  var _lastDay = todayKey();
+  setInterval(function(){ var t = todayKey(); if (t !== _lastDay) { _lastDay = t; if (curDay < t) jumpToToday(); else renderChallengeCols(); } }, 60000);
+  document.addEventListener('visibilitychange', function(){ if (!document.hidden) { var t = todayKey(); if (t !== _lastDay) { _lastDay = t; jumpToToday(); } } });
   if ('serviceWorker' in navigator) navigator.serviceWorker.register("./sw.js").catch(()=>{});
 })();
 </script>
