@@ -57,6 +57,9 @@ button{font-family:inherit;}
 .topbar-left h2{font-size:1.6rem;font-weight:700;letter-spacing:-0.5px;}
 .topbar-left h2 em{font-style:normal;color:var(--gold);}
 .topbar-right{display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
+.shield-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(90,138,94,0.12);border:1px solid rgba(90,138,94,0.35);color:var(--sage);border-radius:20px;padding:5px 12px;font-family:'JetBrains Mono',monospace;font-size:11px;cursor:pointer;white-space:nowrap;}
+.shield-badge b{font-size:13px;font-weight:600;}
+.shield-badge.empty{background:var(--warm);border-color:var(--border);color:var(--muted);}
 .date-badge{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:1px;}
 .btn{border:none;padding:8px 16px;font-family:'Inter',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.3px;cursor:pointer;border-radius:8px;transition:all 0.15s;}
 .btn:active{transform:scale(0.97);}
@@ -101,23 +104,36 @@ button{font-family:inherit;}
 .ch-bar-fill{height:100%;background:var(--gold);border-radius:99px;transition:width 0.6s;}
 .ch-meta{font-family:'JetBrains Mono',monospace;font-size:8px;color:rgba(237,232,222,0.5);margin-top:5px;letter-spacing:1px;}
 
-/* ── 3 × 31 CHALLENGES ── */
-.ch-cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:16px;}
-.ch-col{background:white;border:1px solid var(--border);border-radius:12px;padding:12px 12px 10px;cursor:pointer;transition:border-color 0.15s,box-shadow 0.15s;text-align:left;font-family:inherit;color:inherit;}
-.ch-col:hover{border-color:rgba(196,90,40,0.45);}
-.ch-col.sel{border-color:var(--gold);box-shadow:0 0 0 2px rgba(196,90,40,0.18);}
-.ch-col-top{display:flex;justify-content:space-between;align-items:baseline;gap:6px;margin-bottom:2px;}
-.ch-col-name{font-size:0.95rem;font-weight:600;}
-.ch-col-pct{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold);font-weight:500;}
-.ch-col-meta{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:0.5px;margin-bottom:8px;}
-.ch-col-status{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:7.5px;letter-spacing:1px;text-transform:uppercase;padding:2px 7px;border-radius:4px;margin-bottom:8px;background:var(--warm);color:var(--muted);}
-.ch-col-status.active{background:var(--gold);color:white;}
-.ch-col-status.done{background:rgba(90,138,94,0.15);color:var(--sage);}
-.ch-mini{display:grid;grid-template-columns:repeat(11,1fr);gap:3px;}
-.ch-mini i{display:block;height:9px;border-radius:2px;background:var(--warm);}
-.ch-mini i.p{background:rgba(196,90,40,0.4);}
-.ch-mini i.f{background:var(--ink);}
-.ch-mini i.t{outline:1.5px solid var(--rust);outline-offset:1px;}
+/* ── 3 × 31 CHALLENGES (Auswahl) ── */
+.ch-cols{display:flex;gap:6px;margin-bottom:14px;}
+.ch-col{flex:1;background:transparent;border:1px solid var(--border);border-radius:8px;padding:8px 10px;cursor:pointer;font-family:'Inter',sans-serif;font-size:0.85rem;font-weight:500;color:var(--muted);transition:all 0.15s;}
+.ch-col:hover{border-color:rgba(196,90,40,0.45);color:var(--ink);}
+.ch-col.sel{background:var(--ink);border-color:var(--ink);color:var(--cream);}
+.ch-col.now:not(.sel){color:var(--gold);border-color:rgba(196,90,40,0.45);}
+
+/* ── PUNKTE PRO TAG ── */
+.pts-wrap{background:white;border:1px solid var(--border);border-radius:12px;padding:16px 18px 12px;margin-bottom:18px;}
+.pts-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:8px;}
+.pts-shields{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sage);background:rgba(90,138,94,0.1);border-radius:6px;padding:3px 9px;white-space:nowrap;}
+.pts-chart{display:grid;grid-template-columns:28px minmax(0,1fr);height:170px;}
+.pts-y{position:relative;}
+.pts-y span{position:absolute;right:6px;transform:translateY(50%);font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--muted);}
+.pts-plot{position:relative;border-left:1px solid var(--border);border-bottom:1px solid var(--border);display:flex;align-items:flex-end;gap:2px;padding:0 2px;}
+.pts-goal{position:absolute;left:0;right:0;border-top:1.5px dashed var(--rust);opacity:0.7;pointer-events:none;z-index:2;}
+.pts-goal b{position:absolute;right:0;top:-14px;font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;color:var(--rust);}
+.pts-col{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;position:relative;cursor:pointer;min-width:0;}
+.pts-bar{width:100%;max-width:18px;border-radius:3px 3px 0 0;background:rgba(176,58,46,0.35);min-height:0;transition:height 0.4s;}
+.pts-col.hit .pts-bar{background:var(--gold);}
+.pts-col.shield .pts-bar{background:var(--sage);}
+.pts-col.open .pts-bar{background:rgba(196,90,40,0.3);}
+.pts-col.today .pts-bar{outline:1.5px solid var(--ink);outline-offset:1px;}
+.pts-col.sel .pts-bar{box-shadow:0 0 0 2px rgba(196,90,40,0.35);}
+.pts-col .sh{font-size:9px;line-height:1;margin-bottom:2px;}
+.pts-x{display:grid;grid-template-columns:28px minmax(0,1fr);margin-top:4px;}
+.pts-x div{display:flex;gap:2px;padding:0 2px;}
+.pts-x span{flex:1;text-align:center;font-family:'JetBrains Mono',monospace;font-size:7.5px;color:var(--muted);min-width:0;}
+.pts-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--muted);}
+.pts-legend i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:4px;vertical-align:-1px;}
 
 /* ── MOON ── */
 .moon-widget{display:flex;align-items:center;gap:10px;background:var(--paper);border:1px solid var(--border);border-radius:12px;padding:10px 16px;margin-bottom:16px;}
@@ -461,13 +477,12 @@ button{font-family:inherit;}
 /* ── MOBILE ── */
 .mobile-nav{display:none;}
 @media(max-width:960px){
-  .ch-cols{gap:6px;}
-  .ch-col{padding:8px 8px 7px;}
-  .ch-col-name{font-size:0.8rem;}
-  .ch-col-meta{font-size:7px;letter-spacing:0;}
-  .ch-col-top{flex-direction:column;gap:0;}
-  .ch-mini{gap:2px;}
-  .ch-mini i{height:7px;}
+  .pts-wrap{padding:14px 12px 10px;}
+  .ch-col{padding:7px 4px;font-size:0.8rem;}
+  .pts-chart{height:150px;grid-template-columns:24px minmax(0,1fr);}
+  .pts-x{grid-template-columns:24px minmax(0,1fr);}
+  .pts-plot,.pts-x div{gap:1px;}
+  .pts-col .sh{font-size:7px;}
   .forge-inp{font-size:16px;}
   .sidebar{display:none}
   .page{margin-left:0;padding:14px 14px 96px}
@@ -525,7 +540,7 @@ button{font-family:inherit;}
   <div class="sidebar-footer">
     <div class="prinzip-card">
       <div class="prinzip-label" id="prinzip-label">Leitprinzip</div>
-      <div class="prinzip-text" id="prinzip-text">Eine Sache nach der anderen — mit Sorgfalt.</div>
+      <div class="prinzip-text" id="prinzip-text">Ich möchte ein Mann sein, der aufrecht und mit einem klaren Blick durchs Leben geht – mit dem Schwert in der Hand und einem goldenen Herzen.</div>
     </div>
   </div>
 </nav>
@@ -556,66 +571,26 @@ button{font-family:inherit;}
       <h2>Tag <em id="active-day-num">—</em> <span id="active-day-date" style="font-weight:300;font-size:1.1rem;color:var(--muted)"></span></h2>
     </div>
     <div class="topbar-right">
+      <div class="shield-badge" id="shield-badge" onclick="shieldInfo()" title="Schilde">🛡 <b id="shield-count">0</b> <span id="shield-word">Schilde</span></div>
       <div class="date-badge" id="date-display"></div>
       <button class="btn btn-dark btn-sm" onclick="jumpToToday()">↺ Heute</button>
       <button class="btn btn-gold btn-sm desktop-only" onclick="openSettings()">⚙ Einstellungen</button>
     </div>
   </div>
 
-  <!-- HONOR + XP -->
-  <div class="honor-bar">
-    <div class="honor-card honor">
-      <div class="honor-icon">✦</div>
-      <div class="honor-body">
-        <div class="honor-label">Ehre</div>
-        <div class="honor-val" id="hb-honor">0</div>
-        <div class="honor-sub" id="hb-honor-sub">Heute: <span class="up">+0</span></div>
-      </div>
-    </div>
-    <div class="honor-card xp">
-      <div class="honor-icon">⚔</div>
-      <div class="honor-body">
-        <div class="honor-label">Level <span id="hb-level">1</span> · <span id="hb-level-name">Lehrling</span></div>
-        <div class="honor-val" id="hb-xp">0 XP</div>
-        <div class="xp-track"><div class="xp-fill" id="hb-xp-fill" style="width:0%"></div></div>
-        <div class="honor-sub" id="hb-xp-sub">Noch 100 XP bis Level 2</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- CHALLENGE HEAD -->
-  <div class="challenge-head">
-    <div class="ch-day"><span id="ch-day-num">1</span><small> / 31</small></div>
-    <div class="ch-info">
-      <div class="ch-title" id="ch-title">Challenge I von 3</div>
-      <div class="ch-bar"><div class="ch-bar-fill" id="ch-bar-fill" style="width:0%"></div></div>
-      <div class="ch-meta" id="ch-meta">Gestartet heute · 31 Tage verbleibend</div>
-    </div>
-    <div id="ch-done-badge" style="display:none;font-family:'JetBrains Mono',monospace;font-size:9px;background:var(--gold);color:white;padding:6px 12px;border-radius:8px;letter-spacing:1px;">✓ ABGESCHLOSSEN</div>
-  </div>
-
-  <!-- 3 × 31 CHALLENGES -->
+  <!-- CHALLENGE-AUSWAHL -->
   <div class="ch-cols" id="ch-cols"></div>
 
-  <!-- MOON -->
-  <div class="moon-widget" id="moon-widget">
-    <svg id="moon-svg" width="44" height="44" viewBox="0 0 44 44"></svg>
-    <div class="moon-info">
-      <div class="moon-phase-name" id="moon-phase-name">Vollmond</div>
-      <div class="moon-phase-sub" id="moon-phase-sub">Tag 1 · Mondtag 1</div>
-      <div class="moon-day-progress"><div class="moon-day-fill" id="moon-day-fill" style="width:100%"></div></div>
+  <!-- PUNKTE PRO TAG -->
+  <div class="pts-wrap">
+    <div class="pts-head">
+      <div class="section-label" style="margin:0" id="pts-title">Punkte pro Tag</div>
     </div>
+    <div class="pts-chart" id="pts-chart"></div>
+    <div class="pts-legend"><span><i style="background:var(--gold)"></i>100 erreicht</span><span><i style="background:var(--sage)"></i>mit 🛡 ausgeglichen</span><span><i style="background:rgba(176,58,46,0.35)"></i>verfehlt</span></div>
   </div>
 
   <div class="stats-row" id="stats-row"></div>
-  <div class="streak-row">
-    <div class="streak-card"><div class="streak-num" id="s-streak">0</div><div class="streak-label">🔥 Streak</div></div>
-    <div class="streak-card"><div class="streak-num" id="s-best">0</div><div class="streak-label">⭐ Beste</div></div>
-    <div class="streak-card"><div class="streak-num" id="s-done">0</div><div class="streak-label">📅 Eingetragen</div></div>
-    <div class="streak-card"><div class="streak-num" id="s-left">31</div><div class="streak-label">⏳ Verbleibend</div></div>
-    <div class="streak-card"><div class="streak-num" id="s-shields">0</div><div class="streak-label">🛡 Schilde</div></div>
-  </div>
-
   <!-- HABITS -->
   <div class="section-head">
     <div class="section-label" style="margin:0">Tageseintrag · <span id="checkin-day-label" style="color:var(--gold)">Heute</span></div>
@@ -658,19 +633,6 @@ button{font-family:inherit;}
     <canvas class="chart-canvas" id="progressChart"></canvas>
     <div class="chart-legend" id="chart-legend"></div>
   </div>
-
-  <!-- YEAR HEATMAP -->
-  <div class="heatmap-wrap">
-    <div class="heatmap-header">
-      <div class="section-label" style="margin:0">Jahres-Übersicht</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--muted);">◻ Leer &nbsp;◼ Voll</div>
-    </div>
-    <div class="year-hm-grid" id="year-heatmap"></div>
-    <div class="year-hm-months"><span class="year-hm-month">Jan</span><span class="year-hm-month">Feb</span><span class="year-hm-month">Mär</span><span class="year-hm-month">Apr</span><span class="year-hm-month">Mai</span><span class="year-hm-month">Jun</span><span class="year-hm-month">Jul</span><span class="year-hm-month">Aug</span><span class="year-hm-month">Sep</span><span class="year-hm-month">Okt</span><span class="year-hm-month">Nov</span><span class="year-hm-month">Dez</span></div>
-  </div>
-
-  <div class="section-label">Wochentrophäen</div>
-  <div class="trophies-row" id="trophies-row"></div>
 
   <div class="section-label">Habit-Korrelationen</div>
   <div class="corr-card" id="corr-card"><div class="corr-row" style="color:var(--muted);font-style:italic;">Noch nicht genug Daten — trage mindestens 7 Tage ein.</div></div>
@@ -894,6 +856,11 @@ button{font-family:inherit;}
       </div>
       <button class="btn btn-outline" onclick="restartChallenge()" style="color:var(--rust);border-color:var(--rust);">🔄 Jetzt neu starten</button>
     </div>
+    <div class="modal-section" style="margin-top:20px;border-top:1px solid var(--border);padding-top:18px;">
+      <div class="modal-section-label" style="color:var(--danger);">⚠ Punkte komplett auf 0 setzen</div>
+      <div style="font-size:0.85rem;color:var(--muted);margin-bottom:10px;">Setzt Ehre, XP, Level, Errungenschaften, Serien-Rekord und Schutzschilde auf 0 und löscht alle Tageseinträge aus früheren Runden. Erledigte Ziele in der Schmiede werden wieder offen. Habits, Laster, Schmiede-Einträge, Zeiterfassung und Sync bleiben.</div>
+      <button class="btn btn-outline" onclick="resetPoints()" style="color:var(--danger);border-color:var(--danger);">⚠ Alles auf 0 setzen</button>
+    </div>
   </div>
 </div>
 
@@ -1018,6 +985,7 @@ function allEntries() { var a = {}; Object.assign(a, DB.archive||{}); [1,2,3].fo
 function normalizeDB() {
   if (!DB || typeof DB !== 'object') DB = {};
   ['p2','p3'].forEach(function(k){ if (DB[k]) { if (!DB.archive) DB.archive = {}; Object.keys(DB[k]).forEach(function(dk){ if (!(DB.p1 && DB.p1[dk])) DB.archive[dk] = DB[k][dk]; }); delete DB[k]; } });
+  if (!DB._leitV3) { DB.leitsatz = LEITSAETZE[0]; DB.leitIdx = 0; DB._leitV3 = true; }
   var had = !!(DB.forge && DB.forge.cats);
   getForge();
   if (!had) { try { localStorage.setItem(SK, JSON.stringify(DB)); } catch(e){} }
@@ -1237,8 +1205,7 @@ function autoSaveDay() {
   var prevLevel = getLevel();
   var entry = buildEntry();
   setE(curPhase, curDay, entry);
-  var sd = DB.shieldDays || [];
-  if (sd.includes(curDay) && scoreEntry(entry) > 0) { DB.shieldDays = sd.filter(d => d !== curDay); DB.shields = (DB.shields||0) + 1; persist(); showToast('🛡 Tag nachgetragen — Schutzschild zurück','gold'); }
+  if (isPerfectDay(entry) && !(window._perfectToast === curDay)) { window._perfectToast = curDay; showToast('🛡 Perfekter Tag — Schild verdient','gold'); }
   renderHeatmap(); renderStats(); renderChart(); renderGamification(); renderChallengeCols();
   const ind = document.getElementById('autosave-indicator');
   if (ind) { ind.style.opacity='1'; clearTimeout(ind._t); ind._t=setTimeout(()=>ind.style.opacity='0',1800); }
@@ -1252,7 +1219,6 @@ function loadForm(dayKey, slot) {
   setText('active-day-num', slot);
   setText('active-day-date', fmtShort(dayKey));
   setText('checkin-day-label', isTdy ? 'Heute' : fmtShort(dayKey));
-  if (typeof window.renderMoon === 'function') window.renderMoon(slot);
   getHabits().forEach(hb => { st[hb.id] = {checked:false,val:0,selected:[]}; });
   viceSt = {};
   const e = getE(curPhase, dayKey);
@@ -1288,25 +1254,55 @@ function phaseAvg(p) {
 }
 function renderChallengeCols() {
   var wrap = document.getElementById('ch-cols'); if (!wrap) return;
-  var tdy = todayKey(), html = '';
-  for (var p = 1; p <= PHASES; p++) {
-    var start = getPhaseStart(p), end = getPhaseEnd(p), e = phaseEntries(p);
-    var status, cls;
-    if (tdy < start) { status = 'startet ' + fmtDM(start); cls = ''; }
-    else if (tdy > end) { status = 'abgeschlossen'; cls = 'done'; }
-    else { status = 'aktiv · Tag ' + getSlotForDay(p, tdy); cls = 'active'; }
-    var avg = phaseAvg(p);
-    var cells = '';
-    for (var i = 1; i <= CHALLENGE_DAYS; i++) { var dk = getDayKeyForSlot(p, i), en = e[dk], pc = entryPct(en); cells += '<i class="' + (pc >= 0.6 ? 'f' : (pc > 0 ? 'p' : '')) + (dk === tdy ? ' t' : '') + '"></i>'; }
-    html += '<button class="ch-col' + (p === curPhase ? ' sel' : '') + '" onclick="selectPhase(' + p + ')">'
-      + '<div class="ch-col-top"><span class="ch-col-name">Challenge ' + ROMAN[p-1] + '</span><span class="ch-col-pct">' + (avg === null ? '—' : 'Ø ' + avg + '%') + '</span></div>'
-      + '<div class="ch-col-meta">' + fmtDM(start) + ' – ' + fmtDM(end) + '</div>'
-      + '<span class="ch-col-status ' + cls + '">' + status + '</span>'
-      + '<div class="ch-mini">' + cells + '</div></button>';
-  }
+  var tp = phaseOfDay(todayKey()), html = '';
+  for (var p = 1; p <= PHASES; p++) html += '<button class="ch-col' + (p === curPhase ? ' sel' : '') + (p === tp ? ' now' : '') + '" onclick="selectPhase(' + p + ')">Challenge ' + ROMAN[p-1] + '</button>';
   wrap.innerHTML = html;
   setText('hm-title', 'Challenge ' + ROMAN[curPhase-1] + ' · 31 Tage');
+  renderPointsChart();
 }
+// ── Punkte & Schilde ──
+const DAY_GOAL = 100;
+function dayPoints(e) { var b = dayBreakdown(e); return b.plus - b.minus; }
+function isPerfectDay(e) { var h = getHabits(); return !!e && h.length > 0 && h.every(function(x){ return isDoneHabit(e, x); }); }
+// Schilde: jeder perfekte Tag (alle Habits mind. einmal) = +1 Schild.
+// Ein vergangener Tag unter 100 Punkten verbraucht automatisch einen Schild (falls vorhanden).
+function shieldLedger() {
+  var p = ph(1), tdy = todayKey(), start = runStart(), bank = DB.shields || 0, status = {};
+  var end = addDays(start, PHASES*CHALLENGE_DAYS - 1); if (end > tdy) end = tdy;
+  for (var d = start; d <= end; d = addDays(d, 1)) {
+    var e = p[d], pts = e ? dayPoints(e) : 0;
+    if (isPerfectDay(e)) bank++;
+    if (pts >= DAY_GOAL) status[d] = 'hit';
+    else if (d === tdy) status[d] = 'open';
+    else if (bank > 0) { bank--; status[d] = 'shield'; }
+    else status[d] = 'miss';
+  }
+  return {bank: bank, status: status};
+}
+function renderPointsChart() {
+  var box = document.getElementById('pts-chart'); if (!box) return;
+  var L = shieldLedger(), p = ph(1), tdy = todayKey(), vals = [], max = DAY_GOAL;
+  for (var i = 1; i <= CHALLENGE_DAYS; i++) { var dk = getDayKeyForSlot(curPhase, i), e = p[dk], v = e ? Math.max(0, dayPoints(e)) : 0; vals.push({dk: dk, v: v, i: i}); if (v > max) max = v; }
+  var top = Math.ceil((max * 1.15) / 50) * 50; if (top < 150) top = 150;
+  var y = ''; for (var t = 0; t <= top; t += 50) y += '<span style="bottom:' + (t/top*100) + '%">' + t + '</span>';
+  var bars = vals.map(function(o){
+    var st = o.dk > tdy ? 'future' : (L.status[o.dk] || 'miss');
+    var cls = 'pts-col ' + st + (o.dk === tdy ? ' today' : '') + (o.dk === curDay ? ' sel' : '');
+    var tip = 'Tag ' + o.i + ' · ' + fmtShort(o.dk) + ' · ' + o.v + ' Punkte' + (st === 'shield' ? ' · mit Schild ausgeglichen' : '');
+    var click = o.dk <= tdy ? ' onclick="pickDay(\'' + o.dk + '\',' + o.i + ')"' : '';
+    return '<div class="' + cls + '" title="' + tip + '"' + click + '>' + (st === 'shield' ? '<span class="sh">🛡</span>' : '') + '<div class="pts-bar" style="height:' + (o.v/top*100).toFixed(1) + '%"></div></div>';
+  }).join('');
+  box.innerHTML = '<div class="pts-y">' + y + '</div><div class="pts-plot"><div class="pts-goal" style="bottom:' + (DAY_GOAL/top*100) + '%"><b>100</b></div>' + bars + '</div>';
+  var xl = vals.map(function(o){ return '<span>' + ((o.i === 1 || o.i % 5 === 0) ? o.i : '') + '</span>'; }).join('');
+  var xw = box.nextElementSibling;
+  if (!xw || !xw.classList.contains('pts-x')) { xw = document.createElement('div'); xw.className = 'pts-x'; box.parentNode.insertBefore(xw, box.nextSibling); }
+  xw.innerHTML = '<span></span><div>' + xl + '</div>';
+  setText('pts-shields', '🛡 ' + L.bank + (L.bank === 1 ? ' Schild' : ' Schilde'));
+  setText('shield-count', L.bank); setText('shield-word', L.bank === 1 ? 'Schild' : 'Schilde');
+  var sb = document.getElementById('shield-badge'); if (sb) sb.classList.toggle('empty', L.bank === 0);
+}
+function shieldInfo() { var n = shieldLedger().bank; showToast('🛡 ' + n + (n===1?' Schild':' Schilde') + ' · Tag mit allen Habits = +1 · gleicht einen Tag unter 100 aus', 'gold'); }
+function pickDay(dk, slot) { loadForm(dk, slot); renderHeatmap(); renderPointsChart(); setTrackerDay(dk, slot); document.getElementById('checkin-grid').scrollIntoView({behavior:'smooth',block:'start'}); }
 
 // ════════════════════════════════════════════════════════
 // STATS
@@ -1349,7 +1345,6 @@ function renderStats() {
   if (streak.best > (DB.bestStreak||0)) { DB.bestStreak = streak.best; persist(); }
   setText('s-streak',streak.cur); setText('s-best',Math.max(streak.best, DB.bestStreak||0));
   setText('s-done',keys.length); setText('s-left',Math.max(0,CHALLENGE_DAYS-keys.length));
-  setText('s-shields', DB.shields||0);
   // Challenge header (immer der heutige Stand)
   var tdy = todayKey(), tp = phaseOfDay(tdy), overall = dayDiff(runStart(), tdy) + 1, total = PHASES*CHALLENGE_DAYS;
   var slotToday = Math.max(1, getSlotForDay(tp, tdy));
@@ -1361,28 +1356,16 @@ function renderStats() {
   var badge = document.getElementById('ch-done-badge'); if (badge) badge.style.display = allDone ? 'block' : 'none';
 }
 
-function isActiveDay(p, k) { var e = p[k]; return (e && scoreEntry(e) > 0) || (DB.shieldDays||[]).includes(k); }
+function isActiveDay(p, k) { var e = p[k]; return !!(e && scoreEntry(e) > 0); }
 function calcStreak(p) {
   const tdy = todayKey(); let cur = 0; let k = tdy;
   for (let i=0;i<500;i++) { if (isActiveDay(p,k)) cur++; else if (k<tdy) break; k = addDays(k,-1); }
-  var days = Object.keys(p).filter(x => p[x] && scoreEntry(p[x])>0).concat(DB.shieldDays||[]);
+  var days = Object.keys(p).filter(x => p[x] && scoreEntry(p[x])>0);
   days = Array.from(new Set(days)).sort();
   let best=0, run=0, prev=null;
   days.forEach(d => { run = (prev && dayDiff(prev,d)===1) ? run+1 : 1; if (run>best) best=run; prev=d; });
   return {cur, best};
 }
-// Schutzschild: rettet automatisch die Serie, wenn gestern nichts eingetragen wurde
-function applyShields() {
-  if (!(DB.shields > 0)) return;
-  var p = ph(1), tdy = todayKey(), y = addDays(tdy,-1);
-  if (y < runStart()) return;
-  if (!isActiveDay(p, y) && isActiveDay(p, addDays(y,-1))) {
-    if (!DB.shieldDays) DB.shieldDays = [];
-    DB.shieldDays.push(y); DB.shields--; persist();
-    setTimeout(function(){ showToast('🛡 Schutzschild eingesetzt — deine Serie lebt weiter','gold'); }, 600);
-  }
-}
-
 // ════════════════════════════════════════════════════════
 // HEATMAP (31 days)
 // ════════════════════════════════════════════════════════
@@ -1481,10 +1464,11 @@ const LEGACY_SHOP = [
   {id:'b_adler',    type:'badge', icon:'🦅', name:'Adlerblick',          desc:'"Verliert nie das Ziel aus den Augen"', cost:400},
   {id:'b_licht',    type:'badge', icon:'✨', name:'Inneres Licht',       desc:'"Leuchtet auch im Dunkeln"',            cost:600},
   {id:'b_krieger',  type:'badge', icon:'⚜',  name:'Friedvoller Krieger', desc:'Die höchste Auszeichnung',              cost:1500},
-  {id:'i_shield',   type:'item',  icon:'🛡', name:'Schutzschild',        desc:'Rettet einen verpassten Tag deiner Streak. Verbrauchsgegenstand.', cost:150, consumable:true},
+  {id:'i_shield',   type:'item',  icon:'🛡', name:'Schutzschild',        desc:'Gleicht einen Tag unter 100 Punkten aus.', cost:150, consumable:true},
   {id:'i_leit',     type:'item',  icon:'📜', name:'Neues Leitprinzip',   desc:'Wähle einen neuen Leitsatz für deine Sidebar', cost:80, consumable:true},
 ];
 const LEITSAETZE = [
+  'Ich möchte ein Mann sein, der aufrecht und mit einem klaren Blick durchs Leben geht – mit dem Schwert in der Hand und einem goldenen Herzen.',
   'Eine Sache nach der anderen — mit Sorgfalt.',
   'Kraft ohne Gewalt. Fokus ohne Anspannung.',
   'Der Weg ist das Ziel — und heute ist der Weg.',
@@ -1599,9 +1583,9 @@ function renderGamification() {
   var f=document.getElementById('hb-xp-fill'); if (f) f.style.width=pct+'%';
   setText('hb-xp-sub', level>=LEVELS.length-1 ? 'Höchstes Level erreicht' : 'Noch '+(next-xp)+' XP bis '+LEVELS[level+1].name);
   // Sidebar
-  setText('sb-level-num', level+1); setText('sb-level-name', LEVELS[level].name); setText('sb-level-sub', honor+' Ehre');
+  setText('sb-level-num', level+1); setText('sb-level-name', LEVELS[level].name); setText('sb-level-sub', honor+' Ehre · 🛡 '+shieldLedger().bank);
   setText('shop-wallet', honor);
-  renderDayBalance(); renderYearHeatmap(); renderTrophies(); renderCorrelations(); applyLeitsatz();
+  renderDayBalance(); renderCorrelations(); applyLeitsatz(); renderPointsChart();
 }
 function applyLeitsatz() { var t=document.getElementById('prinzip-text'); if (t && DB.leitsatz) t.textContent=DB.leitsatz; }
 
@@ -1671,7 +1655,7 @@ function renderShop() {
       if (!it.repeat && n) { cls = ' redeemed'; btn = '<button class="shop-btn" disabled>Eingelöst ✓</button>'; }
       else btn = '<button class="shop-btn buy" onclick="forgeRedeem(\''+it.id+'\')" '+(can?'':'disabled')+'>'+(can?'Einlösen':'Zu wenig Ehre')+'</button>';
       if (n) btn += '<button class="shop-btn undo" style="margin-top:6px;border:none;" onclick="forgeUndo(\''+it.id+'\')">↺ Rückgängig</button>';
-      if (it.effect==='shield') extra = '<div class="mono" style="font-size:8px;color:var(--muted);margin-bottom:6px;">Im Besitz: '+(DB.shields||0)+' 🛡</div>';
+      if (it.effect==='shield') extra = '<div class="mono" style="font-size:8px;color:var(--muted);margin-bottom:6px;">Verfügbar: '+shieldLedger().bank+' 🛡</div>';
     }
     return '<div class="shop-item'+cls+'">'+tag+'<button class="shop-edit" title="Bearbeiten" onclick="openForgeItem(\''+it.id+'\')">✎</button><div class="shop-icon">'+escHtml(it.icon||'✦')+'</div><div class="shop-name">'+escHtml(it.name)+'</div><div class="shop-desc">'+escHtml(it.desc||'')+'</div>'+extra+cost+btn+'</div>';
   }).join('');
@@ -1797,27 +1781,6 @@ document.getElementById('forge-overlay').addEventListener('click', function(e){ 
 // ════════════════════════════════════════════════════════
 // YEAR HEATMAP / TROPHIES / CORRELATIONS
 // ════════════════════════════════════════════════════════
-function renderYearHeatmap() {
-  var wrap=document.getElementById('year-heatmap'); if (!wrap) return; wrap.innerHTML='';
-  var today=new Date(); var tdk=todayKey(); var soy=new Date(today.getFullYear(),0,1);
-  var a=allEntries();
-  var html='';
-  for (var w=0;w<53;w++) for (var d=0;d<7;d++) {
-    var cd=new Date(soy); cd.setDate(soy.getDate()+w*7+d); var dk=cd.toISOString().split('T')[0];
-    var cls='year-hm-cell';
-    if (cd.getFullYear()===today.getFullYear() && cd<=today) { var e=a[dk]; if (e) { var r=entryPct(e); if (r>=0.9) cls+=' yl4'; else if (r>=0.6) cls+=' yl3'; else if (r>=0.3) cls+=' yl2'; else if (r>0) cls+=' yl1'; } if (dk===tdk) cls+=' today'; }
-    html+='<div class="'+cls+'" title="'+dk+'"></div>';
-  }
-  wrap.innerHTML=html;
-}
-function renderTrophies() {
-  var row=document.getElementById('trophies-row'); if (!row) return;
-  var today=new Date(); var lastMon=new Date(today); lastMon.setDate(today.getDate()-today.getDay()-6);
-  var counts={}, a=allEntries();
-  for (var i=0;i<7;i++) { var d=new Date(lastMon); d.setDate(lastMon.getDate()+i); var e=a[d.toISOString().split('T')[0]]; if (!e) continue; getHabits().forEach(h=>{ if (isDoneHabit(e,h)) counts[h.id]=(counts[h.id]||0)+1; }); }
-  var habits=getHabits();
-  row.innerHTML=habits.map(h=>{ var c=counts[h.id]||0; var earned=c>=5; return '<div class="trophy-badge '+(earned?'earned':'locked-t')+'" title="'+c+'/7 Tage letzte Woche"><span>'+h.icon+'</span><span>'+escHtml(h.name)+' '+c+'/7</span></div>'; }).join('');
-}
 function renderCorrelations() {
   var card=document.getElementById('corr-card'); if (!card) return;
   var a=allEntries(); var days=Object.keys(a); if (days.length<7) return;
@@ -2001,29 +1964,6 @@ function renderGoalChart() {
 }
 
 // ════════════════════════════════════════════════════════
-// MOON
-// ════════════════════════════════════════════════════════
-(function(){
-  const PHASE_NAMES = ['Vollmond','Abnehmendes Mondviertel','Letztes Viertel','Abnehmende Sichel','Neumond','Zunehmende Sichel','Erstes Viertel','Zunehmendes Mondviertel'];
-  const MOON_COLOR = '#f0e8d0', DARK_COLOR = '#1a1508';
-  function getMoonPath(cyclePos, r, cx, cy) {
-    if (cyclePos < 0.02 || cyclePos > 0.98) return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${MOON_COLOR}"/>`;
-    if (cyclePos > 0.48 && cyclePos < 0.52) return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${DARK_COLOR}"/>`;
-    const angle = cyclePos * 2 * Math.PI; const tx = r * Math.cos(angle); const termRx = Math.abs(tx);
-    const waxing = cyclePos > 0.5; const outerSweep = waxing ? 1 : 0; const termSweep = tx > 0 ? 1 : 0;
-    const top = `${cx},${cy - r}`, bot = `${cx},${cy + r}`;
-    return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${DARK_COLOR}"/><path d="M ${top} A ${r},${r} 0 0,${outerSweep} ${bot} A ${termRx},${r} 0 0,${termSweep} ${top} Z" fill="${MOON_COLOR}"/>`;
-  }
-  window.renderMoon = function(dayNum) {
-    const cyclePos = ((dayNum - 1) / 29.5) % 1; const svg = document.getElementById('moon-svg'); if (!svg) return;
-    svg.innerHTML = getMoonPath(cyclePos, 19, 22, 22);
-    const cycleDay = Math.round(cyclePos * 29.5) + 1;
-    setText('moon-phase-name', PHASE_NAMES[Math.round(cyclePos * 8) % 8]); setText('moon-phase-sub', `Tag ${dayNum} · Mondtag ${cycleDay}`);
-    const fill = document.getElementById('moon-day-fill'); if (fill) fill.style.width = ((1 - cyclePos) * 100) + '%';
-  };
-})();
-
-// ════════════════════════════════════════════════════════
 // REVENUE (Google Sheets)
 // ════════════════════════════════════════════════════════
 var revData = []; var REV_COLS = ['#c45a28','#5a8a5e','#8b4513','#4a6b7a','#7a5c6b','#a07840','#2d5c8a'];
@@ -2109,6 +2049,13 @@ function restartChallenge() {
   persist(); curPhase = 1;
   fullRerender();
   closeSettings(); showToast('Neue Runde — Challenge I beginnt am ' + date + ' ✓','gold');
+}
+function resetPoints() {
+  if (!confirm('Wirklich alle Punkte auf 0 setzen? Ehre, XP, Level, Errungenschaften und Rekorde gehen verloren. Das lässt sich nicht rückgängig machen (außer über ein Backup).')) return;
+  delete DB.archive; delete DB.bestStreakChallenge;
+  DB.achievements = []; DB.forgeLog = []; DB.spentHonor = 0; DB.bestStreak = 0; DB.shields = 0; DB.shieldDays = [];
+  persist(); closeSettings(); fullRerender(); renderShop();
+  showToast('Alles auf 0 — dein Weg beginnt neu ✓','gold');
 }
 document.getElementById('settings-overlay').addEventListener('click',e=>{if(e.target===document.getElementById('settings-overlay'))closeSettings();});
 document.getElementById('mobile-more-overlay').addEventListener('click',function(e){if(e.target===this)closeMobileMore();});
@@ -2237,7 +2184,7 @@ function copyGistId() { const id = localStorage.getItem('_gist_id') || ''; if (!
 // INIT
 // ════════════════════════════════════════════════════════
 function fullRerender() {
-  normalizeDB(); applyShields();
+  normalizeDB();
   var tdy=todayKey(); curPhase = phaseOfDay(tdy); var slot=Math.max(1,getSlotForDay(curPhase,tdy));
   loadForm(tdy,slot); renderStats(); renderHeatmap(); renderChart(); renderGamification(); renderChallengeCols();
   if (document.getElementById('page-shop').classList.contains('active')) renderShop();
