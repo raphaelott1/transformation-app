@@ -9,7 +9,8 @@
 <meta name="apple-mobile-web-app-title" content="Krieger">
 <meta name="description" content="Der friedvolle Krieger — 31-Tage-Challenge, Habits, Ehre und Erfahrung">
 <link rel="manifest" href="./manifest.json">
-<link rel="apple-touch-icon" href="./icon-192.png">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<link rel="icon" type="image/png" href="./icon-192.png">
 <title>der friedvolle Krieger</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -910,7 +911,7 @@ button{font-family:inherit;}
     <div class="modal-section" style="margin-top:20px;border-top:1px solid var(--border);padding-top:18px;">
       <div class="modal-section-label" style="color:var(--danger);">⚠ Punkte auf 0 setzen</div>
       <div style="font-size:0.85rem;color:var(--muted);margin-bottom:10px;">Setzt Ehre, XP, Level und Schilde auf 0. Alle Tageseinträge, Schmiede-Einträge, Zähler, Erfolge und die Zeiterfassung bleiben erhalten.</div>
-      <div class="mono" style="font-size:9px;color:var(--muted);margin-top:14px;">App-Version v10</div>
+      <div class="mono" style="font-size:9px;color:var(--muted);margin-top:14px;">App-Version v11</div>
       <button class="btn btn-outline" onclick="resetPoints()" style="color:var(--danger);border-color:var(--danger);">⚠ Alles auf 0 setzen</button>
     </div>
   </div>
@@ -943,6 +944,9 @@ button{font-family:inherit;}
           <div class="mono" style="text-align:center;font-size:9px;color:var(--muted);padding:2px 0;">— oder bestehendes Gist verbinden —</div>
           <input id="gist-id-inp" class="sync-input" style="letter-spacing:1px;font-size:0.85rem;" placeholder="Gist-ID" type="text" autocapitalize="none" autocorrect="off" spellcheck="false">
           <button class="btn btn-gold" onclick="gistJoin()">⬇ Gist verbinden &amp; Daten laden</button>
+          <div class="mono" style="text-align:center;font-size:9px;color:var(--muted);padding:2px 0;">— oder mit Verbindungscode (einfacher) —</div>
+          <input id="sync-code-inp" class="sync-input" style="font-size:0.8rem;" placeholder="Verbindungscode hier einfügen" type="text" autocapitalize="none" autocorrect="off" spellcheck="false">
+          <button class="btn btn-dark" onclick="syncCodeJoin()">🔗 Mit Code verbinden &amp; Daten laden</button>
         </div>
         <div id="gist-connect-status" style="margin-top:8px;min-height:18px;"></div>
       </div>
@@ -960,6 +964,8 @@ button{font-family:inherit;}
           <button class="btn btn-outline btn-sm" onclick="gistPull()" style="flex:1;">⬇ Herunterladen</button>
           <button class="btn btn-outline btn-sm" onclick="gistReset()" style="flex:1;color:var(--rust);">✕ Trennen</button>
         </div>
+        <button class="btn btn-gold btn-sm" onclick="syncCodeCopy()" style="width:100%;margin-top:8px;">🔗 Verbindungscode kopieren (für ein anderes Gerät)</button>
+        <div class="mono" style="font-size:8.5px;color:var(--muted);margin-top:6px;line-height:1.5;">Den Code nur dir selbst schicken – er enthält deinen Zugang zum Gist.</div>
         <div id="gist-status-msg" style="margin-top:8px;"></div>
       </div>
     </div>
@@ -2348,6 +2354,21 @@ async function gistPull(silent) {
     DB = JSON.parse(raw); localStorage.setItem(SK, JSON.stringify(DB)); fullRerender(); localStorage.setItem('_gist_last_sync', new Date().toISOString()); if (!silent) { gistSetStatus('✓ Daten aktuell', 'ok'); showToast('Sync ✓'); gistShowUI(); } } catch(e) { if (!silent) gistSetStatus('Fehler beim Herunterladen', 'err'); }
 }
 function gistReset() { if (!confirm('GitHub Sync trennen? Lokale Daten bleiben.')) return; ['_gist_token','_gist_id','_gist_last_sync'].forEach(k=>localStorage.removeItem(k)); gistShowUI(); showToast('GitHub Sync getrennt'); }
+function syncCodeCopy() {
+  var c = gistGetConfig(); if (!c.token || !c.gistId) { showToast('Noch nicht verbunden'); return; }
+  var code = 'KRIEGER:' + btoa(c.gistId + '|' + c.token);
+  var done = function(){ showToast('Verbindungscode kopiert ✓'); };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(code).then(done).catch(function(){ prompt('Code kopieren:', code); });
+  else prompt('Code kopieren:', code);
+}
+async function syncCodeJoin() {
+  var raw = (document.getElementById('sync-code-inp').value || '').trim().replace(/\s/g,'');
+  try {
+    var dec = atob(raw.replace(/^KRIEGER:/,'')).split('|'); if (dec.length !== 2 || !dec[0] || !dec[1]) throw 0;
+    document.getElementById('gist-id-inp').value = dec[0]; document.getElementById('gist-token-inp').value = dec[1];
+    await gistJoin();
+  } catch(e) { showToast('Code ungültig – bitte komplett einfügen','minus'); }
+}
 function copyGistId() { const id = localStorage.getItem('_gist_id') || ''; if (!id) return; navigator.clipboard.writeText(id).then(() => showToast('Gist-ID kopiert ✓')).catch(() => showToast('Bitte manuell kopieren')); }
 
 // ════════════════════════════════════════════════════════
