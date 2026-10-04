@@ -911,7 +911,7 @@ button{font-family:inherit;}
     <div class="modal-section" style="margin-top:20px;border-top:1px solid var(--border);padding-top:18px;">
       <div class="modal-section-label" style="color:var(--danger);">⚠ Punkte auf 0 setzen</div>
       <div style="font-size:0.85rem;color:var(--muted);margin-bottom:10px;">Setzt Ehre, XP, Level und Schilde auf 0. Alle Tageseinträge, Schmiede-Einträge, Zähler, Erfolge und die Zeiterfassung bleiben erhalten.</div>
-      <div class="mono" style="font-size:9px;color:var(--muted);margin-top:14px;">App-Version v11</div>
+      <div class="mono" style="font-size:9px;color:var(--muted);margin-top:14px;">App-Version v12</div>
       <button class="btn btn-outline" onclick="resetPoints()" style="color:var(--danger);border-color:var(--danger);">⚠ Alles auf 0 setzen</button>
     </div>
   </div>
@@ -2362,12 +2362,17 @@ function syncCodeCopy() {
   else prompt('Code kopieren:', code);
 }
 async function syncCodeJoin() {
-  var raw = (document.getElementById('sync-code-inp').value || '').trim().replace(/\s/g,'');
-  try {
-    var dec = atob(raw.replace(/^KRIEGER:/,'')).split('|'); if (dec.length !== 2 || !dec[0] || !dec[1]) throw 0;
-    document.getElementById('gist-id-inp').value = dec[0]; document.getElementById('gist-token-inp').value = dec[1];
-    await gistJoin();
-  } catch(e) { showToast('Code ungültig – bitte komplett einfügen','minus'); }
+  var raw = (document.getElementById('sync-code-inp').value || '');
+  // robust: Präfix egal ob KRIEGER/Krieger, unsichtbare Zeichen, Leerzeichen und Zeilenumbrüche entfernen
+  var b = raw.replace(/^[^:]*:/, '').replace(/[^A-Za-z0-9+\/=_-]/g, '').replace(/-/g,'+').replace(/_/g,'/');
+  b = b.replace(/=+$/, ''); while (b.length % 4) b += '=';
+  var dec = null;
+  try { dec = atob(b).split('|'); } catch(e) { dec = null; }
+  if (!dec || dec.length !== 2 || !dec[0] || !dec[1] || dec[1].indexOf('gh') !== 0) {
+    showToast('Code ungültig – bitte nochmal komplett kopieren (beginnt mit KRIEGER:)','minus'); return;
+  }
+  document.getElementById('gist-id-inp').value = dec[0].trim(); document.getElementById('gist-token-inp').value = dec[1].trim();
+  await gistJoin();
 }
 function copyGistId() { const id = localStorage.getItem('_gist_id') || ''; if (!id) return; navigator.clipboard.writeText(id).then(() => showToast('Gist-ID kopiert ✓')).catch(() => showToast('Bitte manuell kopieren')); }
 
