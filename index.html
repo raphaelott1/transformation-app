@@ -333,6 +333,33 @@ button{font-family:inherit;}
 .forge-check{display:flex;align-items:center;gap:8px;font-size:0.9rem;margin-top:12px;cursor:pointer;}
 .ach-section{margin-top:4px;}
 
+/* ══════ PSYCHOLOGIE ══════ */
+.psy-card{background:white;border:1px solid var(--border);border-radius:12px;padding:6px 16px;margin-bottom:12px;}
+.psy-q{padding:12px 0;border-bottom:1px solid rgba(180,150,110,0.15);}
+.psy-q:last-child{border-bottom:none;}
+.psy-qh{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:8px;}
+.psy-qt{font-size:0.95rem;font-weight:500;}
+.psy-qs{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--muted);}
+.psy-scale{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;}
+.psy-scale button{border:1px solid var(--border);background:var(--paper);border-radius:8px;padding:9px 0;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink);cursor:pointer;}
+.psy-scale button.sel{background:var(--ink);border-color:var(--ink);color:var(--cream);}
+.psy-chips{display:flex;flex-wrap:wrap;gap:6px;}
+.psy-chips button{border:1px solid var(--border);background:var(--paper);border-radius:20px;padding:7px 13px;font-size:0.85rem;color:var(--ink);cursor:pointer;font-family:'Inter',sans-serif;}
+.psy-chips button.sel{background:var(--gold);border-color:var(--gold);color:white;}
+.psy-ta{width:100%;border:1px solid var(--border);border-radius:8px;background:var(--paper);font-family:'Inter',sans-serif;font-size:0.95rem;color:var(--ink);padding:9px 11px;outline:none;resize:vertical;min-height:58px;line-height:1.45;}
+.psy-ta:focus{border-color:var(--gold);}
+.pe-row{background:var(--paper);border:1px solid var(--border);border-radius:10px;padding:10px;margin-bottom:8px;display:grid;gap:6px;}
+.pe-2{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.pe-act{display:flex;justify-content:flex-end;gap:6px;}
+.pe-act button{border:1px solid var(--border);background:white;border-radius:6px;width:30px;height:26px;cursor:pointer;color:var(--ink);}
+.week-banner{display:none;align-items:center;justify-content:space-between;gap:10px;background:var(--ink);color:var(--cream);border-radius:12px;padding:12px 16px;margin-bottom:14px;cursor:pointer;}
+.week-banner b{font-weight:500;}
+.week-banner span{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--gold);}
+.psy-done{font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--sage);text-align:right;padding:8px 0 4px;}
+.psy-legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:11px;color:var(--muted);padding:6px 0 10px;}
+.psy-legend span{display:inline-flex;align-items:center;gap:5px;}
+.psy-legend i{width:12px;height:3px;border-radius:2px;display:inline-block;}
+
 /* ══════ ERFOLGE ══════ */
 .erf-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-bottom:18px;}
 .erf-card{background:white;border:1px solid var(--border);border-radius:12px;padding:12px 14px;}
@@ -510,6 +537,8 @@ button{font-family:inherit;}
   .pts-wrap{padding:14px 12px 10px;}
   .pts-legend{grid-template-columns:repeat(2,max-content);}
   .pts-col:not(.today) .pv{display:none;}
+  .psy-scale button{padding:11px 0;font-size:13px;}
+  .psy-ta{font-size:16px;}
   .ch-col{padding:7px 4px;font-size:0.8rem;}
   .pts-chart{height:150px;grid-template-columns:24px minmax(0,1fr);}
   .pts-x{grid-template-columns:24px minmax(0,1fr);}
@@ -565,8 +594,9 @@ button{font-family:inherit;}
     </div>
   </div>
   <div class="nav-item active" onclick="showPage('dashboard',this)"><span class="nav-icon">◈</span> Dashboard</div>
-  <div class="nav-item" onclick="showPage('shop',this)"><span class="nav-icon">🔨</span> Schmiede</div>
   <div class="nav-item" onclick="showPage('tracker',this)"><span class="nav-icon">⏱</span> Time</div>
+  <div class="nav-item" onclick="showPage('shop',this)"><span class="nav-icon">🔨</span> Schmiede</div>
+  <div class="nav-item" onclick="showPage('psych',this)"><span class="nav-icon">🧠</span> Psychologie</div>
   <div class="nav-item" onclick="showPage('einnahmen',this)"><span class="nav-icon">💶</span> Einnahmen</div>
   <div class="nav-item" onclick="showPage('erfolge',this)"><span class="nav-icon">🏆</span> Erfolge</div>
   <div class="nav-item" onclick="openBackup()"><span class="nav-icon">💾</span> Datensicherung</div>
@@ -581,15 +611,16 @@ button{font-family:inherit;}
 <!-- MOBILE NAV -->
 <nav class="mobile-nav" id="mobile-nav">
   <button class="mobile-nav-item active" onclick="showPage('dashboard',this)" id="mn-dashboard"><span class="mobile-nav-icon">◈</span>Home</button>
-  <button class="mobile-nav-item" onclick="showPage('shop',this)" id="mn-shop"><span class="mobile-nav-icon">🔨</span>Schmiede</button>
   <button class="mobile-nav-item" onclick="showPage('tracker',this)" id="mn-tracker"><span class="mobile-nav-icon">⏱</span>Time</button>
-  <button class="mobile-nav-item" onclick="showPage('einnahmen',this)" id="mn-einnahmen"><span class="mobile-nav-icon">💶</span>Geld</button>
+  <button class="mobile-nav-item" onclick="showPage('shop',this)" id="mn-shop"><span class="mobile-nav-icon">🔨</span>Schmiede</button>
+  <button class="mobile-nav-item" onclick="showPage('psych',this)" id="mn-psych"><span class="mobile-nav-icon">🧠</span>Psyche</button>
   <button class="mobile-nav-item" onclick="openMobileMore()" id="mn-more"><span class="mobile-nav-icon">···</span>Mehr</button>
 </nav>
 <div class="modal-overlay" id="mobile-more-overlay" style="align-items:flex-end;padding-top:0;">
   <div style="background:var(--paper);width:100%;border-radius:16px 16px 0 0;padding:20px 16px 36px;">
     <div class="section-label">Mehr</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <button class="btn btn-outline" onclick="showPage('einnahmen',null);closeMobileMore()" style="padding:12px;font-size:10px;">💶 Einnahmen</button>
       <button class="btn btn-outline" onclick="showPage('erfolge',null);closeMobileMore()" style="padding:12px;font-size:10px;">🏆 Erfolge</button>
       <button class="btn btn-outline" onclick="closeMobileMore();openBackup()" style="padding:12px;font-size:10px;">💾 Sicherung</button>
       <button class="btn btn-outline" onclick="closeMobileMore();openSettings()" style="padding:12px;font-size:10px;">⚙ Einstellungen</button>
@@ -612,6 +643,8 @@ button{font-family:inherit;}
       <button class="btn btn-gold btn-sm desktop-only" onclick="openSettings()">⚙ Einstellungen</button>
     </div>
   </div>
+
+  <div class="week-banner" id="week-banner" onclick="openWeekReview()"><b>🗓 <span id="week-banner-txt" style="font-family:inherit;font-size:inherit;color:inherit;">Dein Wochenrückblick ist da</span></b><span>ANSEHEN →</span></div>
 
   <!-- CHALLENGE-AUSWAHL -->
   <div class="ch-cols" id="ch-cols"></div>
@@ -830,6 +863,34 @@ button{font-family:inherit;}
 </div>
 
 <!-- ═══════════════ EINNAHMEN ═══════════════ -->
+<div class="page" id="page-psych">
+  <div class="topbar">
+    <div class="topbar-left"><h2>Psycho<em>logie</em></h2></div>
+    <div class="topbar-right"><div class="erf-month-nav"><button onclick="psychShift(-1)">‹</button><span id="psy-day-lbl"></span><button onclick="psychShift(1)">›</button></div><button class="btn btn-outline btn-sm" onclick="openPsyEdit()">✎ Fragen</button></div>
+  </div>
+  <div class="psy-card" id="psy-form"></div>
+  <div class="section-head" style="margin-top:22px;">
+    <div class="section-label" style="margin:0">Verlauf · letzte 30 Tage</div>
+  </div>
+  <div class="psy-card" id="psy-trend"></div>
+  <div class="section-head" style="margin-top:22px;">
+    <div class="section-label" style="margin:0">Wochenrückblick</div>
+    <div class="erf-month-nav"><button onclick="psyWeek(-1)">‹</button><span id="psy-week-lbl"></span><button onclick="psyWeek(1)">›</button></div>
+  </div>
+  <div id="psy-week"></div>
+  <div class="section-head" style="margin-top:22px;">
+    <div class="section-label" style="margin:0">Auswertung</div>
+    <div class="erf-month-nav"><button onclick="psyMonth(-1)">‹</button><span id="psy-month-lbl"></span><button onclick="psyMonth(1)">›</button></div>
+  </div>
+  <div class="erf-cards" id="psy-avg"></div>
+  <div class="section-label">Was dir guttut · erkannte Zusammenhänge</div>
+  <div class="erf-list" id="psy-insights"></div>
+  <div class="section-label">Häufigkeiten</div>
+  <div class="erf-list" id="psy-freq"></div>
+  <button class="btn btn-dark" style="width:100%;margin:6px 0 4px;" onclick="psyExport()">📋 Monat für Claude kopieren</button>
+  <div class="mono" style="font-size:8.5px;color:var(--muted);line-height:1.5;margin-bottom:24px;">Kopiert alle Einträge des Monats (Habits, Punkte, Arbeitszeit, Psychologie, Notizen) als Text. Einfach in den Chat mit Claude einfügen für eine ausführliche Monatsanalyse.</div>
+</div>
+
 <div class="page" id="page-erfolge">
   <div class="topbar"><div class="topbar-left"><h2>Deine <em>Erfolge</em></h2></div></div>
   <div class="erf-cards" id="erf-cards"></div>
@@ -911,7 +972,7 @@ button{font-family:inherit;}
     <div class="modal-section" style="margin-top:20px;border-top:1px solid var(--border);padding-top:18px;">
       <div class="modal-section-label" style="color:var(--danger);">⚠ Punkte auf 0 setzen</div>
       <div style="font-size:0.85rem;color:var(--muted);margin-bottom:10px;">Setzt Ehre, XP, Level und Schilde auf 0. Alle Tageseinträge, Schmiede-Einträge, Zähler, Erfolge und die Zeiterfassung bleiben erhalten.</div>
-      <div class="mono" style="font-size:9px;color:var(--muted);margin-top:14px;">App-Version v12</div>
+      <div class="mono" style="font-size:9px;color:var(--muted);margin-top:14px;">App-Version v14</div>
       <button class="btn btn-outline" onclick="resetPoints()" style="color:var(--danger);border-color:var(--danger);">⚠ Alles auf 0 setzen</button>
     </div>
   </div>
@@ -985,6 +1046,16 @@ button{font-family:inherit;}
         <span style="font-size:0.9rem;">an ein Backup.</span>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- PSYCHOLOGIE: Fragen bearbeiten -->
+<div class="modal-overlay" id="psyedit-overlay">
+  <div class="modal" style="max-width:480px;">
+    <button class="modal-close" onclick="closePsyEdit()">✕</button>
+    <div class="modal-title">Fragen bearbeiten</div>
+    <div id="psyedit-body"></div>
+    <button class="modal-save" onclick="savePsyEdit()">◈ Speichern</button>
   </div>
 </div>
 
@@ -1144,6 +1215,7 @@ function showPage(id, navEl) {
   else if (id==='shop') { setTimeout(renderShop,30); }
   else if (id==='einnahmen') { revLoad(); }
   else if (id==='erfolge') { renderErfolge(); }
+  else if (id==='psych') { psychDay = todayKey(); renderPsych(); }
 }
 function openMobileMore() { document.getElementById('mobile-more-overlay').classList.add('open'); }
 function closeMobileMore() { document.getElementById('mobile-more-overlay').classList.remove('open'); }
@@ -1340,7 +1412,7 @@ function isPerfectDay(e) { var h = getHabits(); return !!e && h.length > 0 && h.
 // Schilde gibt es nur über die Schmiede. Ein vergangener Tag unter 100 Punkten verbraucht automatisch einen Schild (falls vorhanden).
 function shieldBuys() { var m = {}, cut = DB.shieldCutoff || ''; forgeLog().forEach(function(l){ var it = forgeItem(l.item); if (it && it.effect==='shield' && l.pts<0 && (!cut || (l.at||'') >= cut)) { var k = keyOfIso(l.at); m[k] = (m[k]||0)+1; } }); return m; }
 function forgeDayPts(dk) { return forgeLog().reduce(function(s,l){ return s + (l.pts>0 && keyOfIso(l.at)===dk ? l.pts : 0); }, 0); }
-function dayTotal(dk, src) { var e = (src || ph(1))[dk]; return Math.max(0, (e ? dayPoints(e) : 0) + forgeDayPts(dk) + workPts(dk)); }
+function dayTotal(dk, src) { var e = (src || ph(1))[dk]; return Math.max(0, (e ? dayPoints(e) : 0) + forgeDayPts(dk) + workPts(dk) + psyPts(dk)); }
 function shieldLedger() {
   var tdy = todayKey(), start = runStart(), bank = DB.shields || 0, status = {}, buys = shieldBuys();
   Object.keys(buys).forEach(function(k){ if (k < start) bank += buys[k]; });
@@ -1378,6 +1450,229 @@ function renderPointsChart() {
   var sb = document.getElementById('shield-badge'); if (sb) sb.classList.toggle('empty', L.bank === 0);
 }
 function shieldInfo() { var n = shieldLedger().bank; showToast('🛡 ' + n + (n===1?' Schild':' Schilde') + ' · in der Schmiede kaufen · gleicht einen Tag unter 100 aus', 'gold'); }
+// ── PSYCHOLOGIE ──
+// Fragen sind frei bearbeitbar (DB.psychCfg). Die IDs der Standardfragen bleiben gleich, damit alte Einträge erhalten bleiben.
+const PSY_COLORS = ['#a03f18','#c45a28','#4a6b7a','#5a8a5e','#b8891f','#7a5c6b','#8b4513','#3f6e8c'];
+const PSY_DEFAULT = {
+  scales: [
+    {id:'sex',     name:'Sexdrive', lo:'kaum', hi:'stark', pol:'0', color:'#a03f18'},
+    {id:'energie', name:'Energie',  lo:'leer', hi:'voll',  pol:'+', color:'#c45a28'},
+    {id:'stress',  name:'Stress',   lo:'ruhig', hi:'hoch', pol:'-', color:'#4a6b7a'},
+    {id:'sozial',  name:'Sozial',   lo:'zurückgezogen', hi:'verbunden', pol:'+', color:'#5a8a5e'}
+  ],
+  choices: [
+    {id:'schlaf',   name:'Schlaf',   icon:'😴', options:['Perfekt','Erholt','Nicht erholt','Aufgewacht','Nicht eingeschlafen']},
+    {id:'gefuehle', name:'Gefühle',  icon:'💭', options:['Freude','Trauer','Wut']}
+  ],
+  texts: [
+    {id:'dank',   name:'Dankbar für',             ph:'Wofür bist du heute dankbar?'},
+    {id:'besser', name:'Morgen mache ich besser', ph:'Was nimmst du dir vor?'}
+  ]
+};
+const PSY_PTS = 10;
+function psyCfg() { return DB.psychCfg || (DB.psychCfg = JSON.parse(JSON.stringify(PSY_DEFAULT))); }
+var psychDay = todayKey(), psyOffset = 0, psyWeekOffset = 0;
+function psyData() { return DB.psych || (DB.psych = {}); }
+function psyGet(dk) { return psyData()[dk] || {}; }
+// Check-in gilt als erledigt, wenn alle Skalen beantwortet sind → +10 Ehre & XP
+function psyComplete(dk) { var e = psyData()[dk]; if (!e) return false; var sc = psyCfg().scales; return sc.length > 0 && sc.every(function(q){ return !!e[q.id]; }); }
+function psyPts(dk) { return psyComplete(dk) ? PSY_PTS : 0; }
+function psyPtsTotal() { return Object.keys(psyData()).reduce(function(s, dk){ return s + psyPts(dk); }, 0); }
+function psySet(dk, field, val) {
+  var was = psyComplete(dk), d = psyData(), e = d[dk] || (d[dk] = {});
+  e[field] = val; e.at = new Date().toISOString(); persist();
+  var now = psyComplete(dk);
+  if (now !== was) { showToast(now ? '🧠 Check-in komplett · +' + PSY_PTS + ' Ehre & XP' : '−' + PSY_PTS + ' Ehre · Check-in unvollständig', now ? 'gold' : 'minus'); renderGamification(); }
+}
+function psychShift(n) { var t = addDays(psychDay, n); if (t > todayKey()) return; psychDay = t; renderPsych(); }
+function psyScale(id, v) { var e = psyGet(psychDay); psySet(psychDay, id, e[id] === v ? null : v); renderPsychForm(); renderPsychTrend(); renderPsychEval(); renderPsychWeek(); }
+function psyChip(field, v) { var e = psyGet(psychDay), arr = (e[field] || []).slice(), i = arr.indexOf(v); if (i >= 0) arr.splice(i,1); else arr.push(v); psySet(psychDay, field, arr); renderPsychForm(); renderPsychEval(); }
+function psyText(field, el) { psySet(psychDay, field, el.value); var d = document.getElementById('psy-saved'); if (d) d.textContent = '✓ gespeichert'; }
+function renderPsych() { renderPsychForm(); renderPsychTrend(); renderPsychWeek(); renderPsychEval(); }
+function renderPsychForm() {
+  var e = psyGet(psychDay), tdy = todayKey(), C = psyCfg();
+  setText('psy-day-lbl', psychDay === tdy ? 'Heute' : fmtShort(psychDay));
+  var h = '';
+  C.scales.forEach(function(q){
+    var b = ''; for (var i = 1; i <= 7; i++) b += '<button class="' + (e[q.id] === i ? 'sel' : '') + '" onclick="psyScale(\'' + q.id + '\',' + i + ')">' + i + '</button>';
+    h += '<div class="psy-q"><div class="psy-qh"><span class="psy-qt">' + escHtml(q.name) + '</span><span class="psy-qs">1 = ' + escHtml(q.lo||'') + ' · 7 = ' + escHtml(q.hi||'') + '</span></div><div class="psy-scale">' + b + '</div></div>';
+  });
+  C.choices.forEach(function(c){
+    var sel = e[c.id] || [];
+    h += '<div class="psy-q"><div class="psy-qh"><span class="psy-qt">' + escHtml(c.name) + '</span><span class="psy-qs">mehrfach möglich</span></div><div class="psy-chips">' +
+      (c.options||[]).map(function(o, oi){ return '<button class="' + (sel.indexOf(o) >= 0 ? 'sel' : '') + '" data-c="' + c.id + '" data-o="' + oi + '" onclick="psyChipIdx(this)">' + escHtml(o) + '</button>'; }).join('') + '</div></div>';
+  });
+  C.texts.forEach(function(t){
+    h += '<div class="psy-q"><div class="psy-qh"><span class="psy-qt">' + escHtml(t.name) + '</span></div><textarea class="psy-ta" placeholder="' + escHtml(t.ph||'') + '" oninput="psyText(\'' + t.id + '\',this)">' + escHtml(e[t.id] || '') + '</textarea></div>';
+  });
+  var done = psyComplete(psychDay);
+  h += '<div class="psy-done" id="psy-saved">' + (done ? '✓ Check-in komplett · +' + PSY_PTS + ' Ehre' : (C.scales.length ? 'Alle Skalen ausfüllen = +' + PSY_PTS + ' Ehre' : 'speichert automatisch')) + '</div>';
+  document.getElementById('psy-form').innerHTML = h;
+}
+function psyChipIdx(btn) { var c = psyCfg().choices.find(function(x){ return x.id === btn.dataset.c; }); if (!c) return; psyChip(c.id, c.options[+btn.dataset.o]); }
+function renderPsychTrend() {
+  var box = document.getElementById('psy-trend'); if (!box) return;
+  var C = psyCfg(), tdy = todayKey(), days = []; for (var i = 29; i >= 0; i--) days.push(addDays(tdy, -i));
+  var W = 600, H = 240, pl = 30, pr = 10, pt = 10, pb = 28, cw = W - pl - pr, ch = H - pt - pb;
+  var x = function(i){ return pl + i * cw / 29; }, y = function(v){ return pt + ch - (v - 1) / 6 * ch; };
+  var svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" style="width:100%;height:auto;display:block;">';
+  for (var g = 1; g <= 7; g += 2) svg += '<line x1="' + pl + '" x2="' + (W - pr) + '" y1="' + y(g) + '" y2="' + y(g) + '" stroke="rgba(180,150,110,0.18)"/><text x="' + (pl - 6) + '" y="' + (y(g) + 5) + '" font-size="15" text-anchor="end" fill="#8a7b6a" font-family="JetBrains Mono">' + g + '</text>';
+  [0, 7, 14, 21, 29].forEach(function(i){ svg += '<text x="' + x(i) + '" y="' + (H - 6) + '" font-size="15" text-anchor="middle" fill="#8a7b6a" font-family="JetBrains Mono">' + fmtDM(days[i]) + '</text>'; });
+  var any = false;
+  C.scales.forEach(function(q, qi){
+    var col = q.color || PSY_COLORS[qi % PSY_COLORS.length];
+    var pts = []; days.forEach(function(dk, i){ var v = psyGet(dk)[q.id]; if (v) pts.push([x(i), y(v)]); });
+    if (!pts.length) return; any = true;
+    svg += '<polyline fill="none" stroke="' + col + '" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" points="' + pts.map(function(p){ return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join(' ') + '"/>';
+    pts.forEach(function(p){ svg += '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="4" fill="' + col + '"/>'; });
+  });
+  svg += '</svg>';
+  box.innerHTML = '<div class="psy-legend">' + C.scales.map(function(q, qi){ return '<span><i style="background:' + (q.color || PSY_COLORS[qi % PSY_COLORS.length]) + '"></i>' + escHtml(q.name) + '</span>'; }).join('') + '</div>' + (any ? svg : '<div class="erf-empty">Sobald du ein paar Tage eingetragen hast, siehst du hier deinen Verlauf.</div>');
+}
+function psyMonth(d) { psyOffset += d; if (psyOffset > 0) psyOffset = 0; renderPsychEval(); }
+function avg(a) { return a.length ? a.reduce(function(s,x){ return s + x; }, 0) / a.length : null; }
+function f1(v) { return v === null ? '–' : (Math.round(v * 10) / 10).toLocaleString('de-DE'); }
+function psyMonthKey() { var d = new Date(); d.setDate(1); d.setMonth(d.getMonth() + psyOffset); return {ym: d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0'), label: MF[d.getMonth()] + ' ' + d.getFullYear()}; }
+function psyFactors() {
+  var A = allEntries(), f = [];
+  getHabits().forEach(function(h){ f.push({label: h.icon + ' ' + h.name, test: function(dk){ return isDoneHabit(A[dk], h); }});
+    if (h.type === 'dropdown') (h.options || []).forEach(function(o){ f.push({label: h.icon + ' ' + o, test: function(dk){ var e = A[dk]; return !!e && (e['sel_' + h.id] || []).indexOf(o) >= 0; }}); }); });
+  getVices().forEach(function(v){ f.push({label: v.icon + ' ' + v.name, test: function(dk){ var e = A[dk]; return !!e && (e.vices || []).indexOf(v.id) >= 0; }}); });
+  f.push({label: '⏱ 4+ Stunden gearbeitet', test: function(dk){ return workSecs(dk) >= 4 * 3600; }});
+  f.push({label: '🎯 100+ Punkte', test: function(dk){ return dayTotal(dk, A) >= DAY_GOAL; }});
+  psyCfg().choices.forEach(function(c){ (c.options || []).forEach(function(o){ f.push({label: (c.icon || '•') + ' ' + c.name + ': ' + o, test: function(dk){ return (psyGet(dk)[c.id] || []).indexOf(o) >= 0; }}); }); });
+  return f;
+}
+// Zusammenhänge: Ø einer Skala an Tagen MIT vs. OHNE einen Faktor
+function psyInsights(days) {
+  var out = [], factors = psyFactors();
+  psyCfg().scales.forEach(function(q){
+    factors.forEach(function(f){
+      var yes = [], no = [];
+      days.forEach(function(dk){ var v = psyGet(dk)[q.id]; if (!v) return; (f.test(dk) ? yes : no).push(v); });
+      if (yes.length < 3 || no.length < 3) return;
+      var d = avg(yes) - avg(no); if (Math.abs(d) < 0.8) return;
+      var good = q.pol === '0' ? null : ((q.pol === '-' ? -d : d) > 0);
+      out.push({q: q, f: f, d: d, y: avg(yes), n: avg(no), good: good, size: Math.abs(d)});
+    });
+  });
+  out.sort(function(a, b){ return b.size - a.size; });
+  var seen = {}; out = out.filter(function(i){ var k = i.q.id + '|' + f1(i.y) + '|' + f1(i.n); if (seen[k]) return false; seen[k] = 1; return true; });
+  return out.slice(0, 10);
+}
+function insightRows(ins, empty) {
+  return ins.length ? ins.map(function(i){
+    var col = i.good === null ? 'var(--muted)' : (i.good ? 'var(--sage)' : 'var(--danger)');
+    return '<div class="erf-row"><span style="color:' + col + ';font-size:1.1rem;">' + (i.d > 0 ? '↑' : '↓') + '</span><span class="n">' + escHtml(i.q.name) + ' an Tagen mit ' + escHtml(i.f.label) + '<small>Ø ' + f1(i.y) + ' statt ' + f1(i.n) + '</small></span><span class="c" style="color:' + col + '">' + (i.d > 0 ? '+' : '') + f1(i.d) + '</span></div>';
+  }).join('') : '<div class="erf-empty">' + empty + '</div>';
+}
+function renderPsychEval() {
+  var M = psyMonthKey(), C = psyCfg(); setText('psy-month-lbl', M.label);
+  var days = Object.keys(psyData()).filter(function(k){ return k.slice(0,7) === M.ym; }).sort();
+  var cards = C.scales.map(function(q){ var v = avg(days.map(function(dk){ return psyGet(dk)[q.id]; }).filter(Boolean)); return '<div class="erf-card"><div class="v">' + f1(v) + '</div><div class="l">Ø ' + escHtml(q.name) + '</div></div>'; }).join('');
+  document.getElementById('psy-avg').innerHTML = cards + '<div class="erf-card"><div class="v">' + days.filter(psyComplete).length + '</div><div class="l">Check-ins komplett</div></div>';
+  document.getElementById('psy-insights').innerHTML = insightRows(psyInsights(days), 'Ab etwa 7 ausgefüllten Tagen erkennt die App hier Muster, z. B. „Energie an Sport-Tagen +1,5“.');
+  var freq = {};
+  days.forEach(function(dk){ var e = psyGet(dk); C.choices.forEach(function(c){ (e[c.id] || []).forEach(function(x){ var k = (c.icon || '•') + ' ' + x; freq[k] = (freq[k] || 0) + 1; }); }); });
+  var fk = Object.keys(freq).sort(function(a, b){ return freq[b] - freq[a]; });
+  document.getElementById('psy-freq').innerHTML = fk.length ? fk.map(function(k){ return '<div class="erf-row"><span></span><span class="n">' + escHtml(k) + '</span><span class="c">' + freq[k] + '×</span></div>'; }).join('') : '<div class="erf-empty">Noch keine Angaben in diesem Monat.</div>';
+}
+// ── Wochenrückblick (Mo–So) ──
+function weekStart(offset) { var d = new Date(); var wd = (d.getDay() + 6) % 7; d.setDate(d.getDate() - wd + offset * 7); return localKey(d); }
+function psyWeek(d) { psyWeekOffset += d; if (psyWeekOffset > 0) psyWeekOffset = 0; renderPsychWeek(); }
+function renderPsychWeek() {
+  var box = document.getElementById('psy-week'); if (!box) return;
+  var A = allEntries(), C = psyCfg(), start = weekStart(psyWeekOffset), tdy = todayKey(), days = [];
+  for (var i = 0; i < 7; i++) { var dk = addDays(start, i); if (dk <= tdy) days.push(dk); }
+  setText('psy-week-lbl', fmtDM(start) + ' – ' + fmtDM(addDays(start, 6)));
+  var pts = days.map(function(dk){ return {dk: dk, p: dayTotal(dk, A)}; });
+  var total = pts.reduce(function(s, x){ return s + x.p; }, 0), hit = pts.filter(function(x){ return x.p >= DAY_GOAL; }).length;
+  var active = pts.filter(function(x){ return x.p > 0 || psyData()[x.dk]; });
+  if (!active.length) { box.innerHTML = '<div class="erf-empty">Für diese Woche gibt es noch keine Einträge.</div>'; return; }
+  var sorted = active.slice().sort(function(a, b){ return b.p - a.p; });
+  var best = sorted[0], worst = sorted[sorted.length - 1];
+  var h = '<div class="erf-cards" style="margin-bottom:10px;"><div class="erf-card"><div class="v">' + total.toLocaleString('de-DE') + '</div><div class="l">Punkte diese Woche</div></div><div class="erf-card"><div class="v">' + hit + ' / ' + days.length + '</div><div class="l">Tage mit 100+</div></div>';
+  C.scales.forEach(function(q){ var v = avg(days.map(function(dk){ return psyGet(dk)[q.id]; }).filter(Boolean)); if (v !== null) h += '<div class="erf-card"><div class="v">' + f1(v) + '</div><div class="l">Ø ' + escHtml(q.name) + '</div></div>'; });
+  h += '</div><div class="erf-list">';
+  h += '<div class="erf-row"><span>🌞</span><span class="n">Bester Tag: ' + fmtShort(best.dk) + '<small>' + best.p + ' Punkte</small></span><span class="c"></span></div>';
+  if (worst.dk !== best.dk) h += '<div class="erf-row"><span>🌧</span><span class="n">Schwächster Tag: ' + fmtShort(worst.dk) + '<small>' + worst.p + ' Punkte</small></span><span class="c"></span></div>';
+  // Was unterschied die besseren von den schwächeren Tagen?
+  if (active.length >= 4) {
+    var half = Math.floor(active.length / 2), top = sorted.slice(0, half), low = sorted.slice(-half);
+    var diffs = psyFactors().map(function(f){ var a = top.filter(function(x){ return f.test(x.dk); }).length / top.length, b = low.filter(function(x){ return f.test(x.dk); }).length / low.length; return {f: f, d: a - b}; })
+      .filter(function(x){ return Math.abs(x.d) >= 0.5 && x.f.label.indexOf('100+') < 0; }).sort(function(a, b){ return Math.abs(b.d) - Math.abs(a.d); }).slice(0, 4);
+    diffs.forEach(function(x){ h += '<div class="erf-row"><span style="color:' + (x.d > 0 ? 'var(--sage)' : 'var(--danger)') + '">' + (x.d > 0 ? '＋' : '−') + '</span><span class="n">' + escHtml(x.f.label) + '<small>' + (x.d > 0 ? 'meist an deinen besseren Tagen' : 'meist an deinen schwächeren Tagen') + '</small></span><span class="c"></span></div>'; });
+  }
+  var plans = days.map(function(dk){ return psyGet(dk).besser; }).filter(Boolean);
+  if (plans.length) h += '<div class="erf-row"><span>📝</span><span class="n">Deine Vorsätze<small>' + escHtml(plans.slice(-3).join(' · ')) + '</small></span><span class="c"></span></div>';
+  h += '</div>';
+  box.innerHTML = h;
+}
+function psyWeekBanner() {
+  var b = document.getElementById('week-banner'); if (!b) return;
+  var wd = new Date().getDay(); // So = 0, Mo = 1
+  b.style.display = (wd === 0 || wd === 1) ? 'flex' : 'none';
+  setText('week-banner-txt', wd === 0 ? 'Dein Wochenrückblick ist da' : 'Rückblick auf letzte Woche');
+}
+function openWeekReview() { psyWeekOffset = new Date().getDay() === 1 ? -1 : 0; showPage('psych', null); setTimeout(function(){ var w = document.getElementById('psy-week'); if (w) w.scrollIntoView({behavior:'smooth', block:'start'}); }, 150); }
+
+// ── Fragen bearbeiten ──
+var psyEditCfg = null;
+function openPsyEdit() { psyEditCfg = JSON.parse(JSON.stringify(psyCfg())); renderPsyEdit(); document.getElementById('psyedit-overlay').classList.add('open'); }
+function closePsyEdit() { document.getElementById('psyedit-overlay').classList.remove('open'); psyEditCfg = null; }
+function psyEdRow(kind, i, inner) {
+  var len = psyEditCfg[kind].length;
+  return '<div class="pe-row">' + inner + '<div class="pe-act">' + (i > 0 ? '<button onclick="psyEdMove(\'' + kind + '\',' + i + ',-1)">↑</button>' : '') + (i < len - 1 ? '<button onclick="psyEdMove(\'' + kind + '\',' + i + ',1)">↓</button>' : '') + '<button onclick="psyEdDel(\'' + kind + '\',' + i + ')" style="color:var(--rust)">✕</button></div></div>';
+}
+function renderPsyEdit() {
+  var C = psyEditCfg, h = '';
+  h += '<div class="modal-section-label">Skalen 1–7</div>';
+  C.scales.forEach(function(q, i){ h += psyEdRow('scales', i, '<input class="forge-inp" value="' + escHtml(q.name) + '" oninput="psyEditCfg.scales[' + i + '].name=this.value" placeholder="Name"><div class="pe-2"><input class="forge-inp" value="' + escHtml(q.lo||'') + '" oninput="psyEditCfg.scales[' + i + '].lo=this.value" placeholder="1 = …"><input class="forge-inp" value="' + escHtml(q.hi||'') + '" oninput="psyEditCfg.scales[' + i + '].hi=this.value" placeholder="7 = …"></div><select class="forge-inp" onchange="psyEditCfg.scales[' + i + '].pol=this.value"><option value="+"' + (q.pol==='+'?' selected':'') + '>Hoch ist gut</option><option value="-"' + (q.pol==='-'?' selected':'') + '>Niedrig ist gut</option><option value="0"' + (q.pol==='0'?' selected':'') + '>Neutral</option></select>'); });
+  h += '<button class="add-row-btn" onclick="psyEdAdd(\'scales\')">+ Skala hinzufügen</button>';
+  h += '<div class="modal-section-label" style="margin-top:16px;">Auswahl (mehrfach möglich)</div>';
+  C.choices.forEach(function(c, i){ h += psyEdRow('choices', i, '<div class="pe-2" style="grid-template-columns:54px minmax(0,1fr)"><input class="forge-inp" style="text-align:center" maxlength="4" value="' + escHtml(c.icon||'') + '" oninput="psyEditCfg.choices[' + i + '].icon=this.value"><input class="forge-inp" value="' + escHtml(c.name) + '" oninput="psyEditCfg.choices[' + i + '].name=this.value" placeholder="Name"></div><input class="forge-inp" value="' + escHtml((c.options||[]).join(', ')) + '" oninput="psyEditCfg.choices[' + i + '].options=this.value.split(\',\').map(function(s){return s.trim();}).filter(Boolean)" placeholder="Optionen, mit Komma getrennt">'); });
+  h += '<button class="add-row-btn" onclick="psyEdAdd(\'choices\')">+ Auswahl hinzufügen</button>';
+  h += '<div class="modal-section-label" style="margin-top:16px;">Textfelder</div>';
+  C.texts.forEach(function(t, i){ h += psyEdRow('texts', i, '<input class="forge-inp" value="' + escHtml(t.name) + '" oninput="psyEditCfg.texts[' + i + '].name=this.value" placeholder="Frage"><input class="forge-inp" value="' + escHtml(t.ph||'') + '" oninput="psyEditCfg.texts[' + i + '].ph=this.value" placeholder="Hinweistext (optional)">'); });
+  h += '<button class="add-row-btn" onclick="psyEdAdd(\'texts\')">+ Textfeld hinzufügen</button>';
+  document.getElementById('psyedit-body').innerHTML = h;
+}
+function psyEdAdd(kind) {
+  var id = uid('q');
+  if (kind === 'scales') psyEditCfg.scales.push({id:id, name:'', lo:'niedrig', hi:'hoch', pol:'+', color: PSY_COLORS[psyEditCfg.scales.length % PSY_COLORS.length]});
+  if (kind === 'choices') psyEditCfg.choices.push({id:id, name:'', icon:'•', options:[]});
+  if (kind === 'texts') psyEditCfg.texts.push({id:id, name:'', ph:''});
+  renderPsyEdit();
+}
+function psyEdDel(kind, i) { if (!confirm('Frage entfernen? Bereits eingetragene Antworten bleiben gespeichert.')) return; psyEditCfg[kind].splice(i, 1); renderPsyEdit(); }
+function psyEdMove(kind, i, d) { var a = psyEditCfg[kind], j = i + d; var t = a[i]; a[i] = a[j]; a[j] = t; renderPsyEdit(); }
+function savePsyEdit() {
+  ['scales','choices','texts'].forEach(function(k){ psyEditCfg[k] = psyEditCfg[k].filter(function(x){ return (x.name||'').trim(); }); });
+  DB.psychCfg = psyEditCfg; persist(); closePsyEdit(); renderPsych(); renderGamification(); showToast('Fragen gespeichert ✓');
+}
+function psyExport() {
+  var M = psyMonthKey(), A = allEntries(), habits = getHabits(), vices = getVices(), C = psyCfg();
+  var keys = Array.from(new Set(Object.keys(A).concat(Object.keys(psyData())).concat(Object.keys(DB.sessions || {})))).filter(function(k){ return k && k.slice(0,7) === M.ym; }).sort();
+  var L = ['Monatsdaten „Der friedvolle Krieger“ – ' + M.label, 'Skalen 1–7 (' + C.scales.map(function(q){ return q.name + ': 1=' + q.lo + ', 7=' + q.hi; }).join('; ') + '). Bitte analysiere Muster zwischen Verhalten, Arbeit und Befinden und gib mir konkrete Empfehlungen.', ''];
+  keys.forEach(function(dk){
+    var e = A[dk] || {}, p = psyGet(dk), parts = [];
+    var hs = habits.filter(function(h){ return isDoneHabit(e, h); }).map(function(h){ var x = h.name; if (h.type === 'number' && e['v_' + h.id]) x += ' ' + e['v_' + h.id] + (h.unit ? ' ' + h.unit : ''); if (h.type === 'dropdown' && (e['sel_' + h.id] || []).length) x += ' (' + e['sel_' + h.id].join(', ') + ')'; return x; });
+    parts.push('Habits: ' + (hs.join('; ') || '–'));
+    var vs = (e.vices || []).map(function(id){ var v = vices.find(function(x){ return x.id === id; }); return v ? v.name : id; });
+    if (vs.length) parts.push('Laster: ' + vs.join(', '));
+    parts.push('Punkte: ' + dayTotal(dk, A));
+    var ws = workSecs(dk); if (ws) parts.push('Arbeit: ' + fmtNum(ws / 3600) + ' h');
+    var sc = C.scales.filter(function(q){ return p[q.id]; }).map(function(q){ return q.name + ' ' + p[q.id]; }); if (sc.length) parts.push(sc.join(', '));
+    C.choices.forEach(function(c){ if ((p[c.id] || []).length) parts.push(c.name + ': ' + p[c.id].join(', ')); });
+    C.texts.forEach(function(t){ if (p[t.id]) parts.push(t.name + ': ' + String(p[t.id]).replace(/\s+/g, ' ')); });
+    L.push(fmtShort(dk) + ' — ' + parts.join(' | '));
+  });
+  var txt = L.join('\n');
+  var ok = function(){ showToast('Monat kopiert ✓ – jetzt in den Claude-Chat einfügen', 'gold'); };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(ok).catch(function(){ prompt('Text kopieren:', txt); });
+  else prompt('Text kopieren:', txt);
+}
+
 // ── ERFOLGE ──
 var erfOffset = 0;
 function erfMonth(d) { erfOffset += d; if (erfOffset > 0) erfOffset = 0; renderErfolge(); }
@@ -1664,12 +1959,12 @@ function workPtsTotal() { return Object.keys(DB.sessions||{}).reduce(function(s,
 function rawXP() {
   var a=allEntries(), xp=0;
   Object.keys(a).forEach(k => { xp += dayBreakdown(a[k]).plus; });
-  return xp + streakBonus() + achievementXP() + forgeXP() + workPtsTotal();
+  return xp + streakBonus() + achievementXP() + forgeXP() + workPtsTotal() + psyPtsTotal();
 }
 function rawHonor() {
   var a=allEntries(), h=0;
   Object.keys(a).forEach(k => { var b=dayBreakdown(a[k]); h += b.plus - b.minus; });
-  return h + streakBonus() + achievementXP() + forgeHonor() + workPtsTotal() - (DB.spentHonor||0);
+  return h + streakBonus() + achievementXP() + forgeHonor() + workPtsTotal() + psyPtsTotal() - (DB.spentHonor||0);
 }
 function calcXP() { return Math.max(0, rawXP() - (DB.xpBase||0)); }
 function calcHonor() { return Math.max(0, rawHonor() - (DB.honorBase||0)); }
@@ -1945,6 +2240,7 @@ function forgeDelete() {
   }
   closeForgeModal(); afterForgeChange(); showToast('Gelöscht');
 }
+document.getElementById('psyedit-overlay').addEventListener('click', function(e){ if (e.target===this) closePsyEdit(); });
 document.getElementById('forge-overlay').addEventListener('click', function(e){ if (e.target===this) closeForgeModal(); });
 
 // ════════════════════════════════════════════════════════
@@ -2380,7 +2676,7 @@ function copyGistId() { const id = localStorage.getItem('_gist_id') || ''; if (!
 // INIT
 // ════════════════════════════════════════════════════════
 function fullRerender() {
-  normalizeDB();
+  normalizeDB(); psyWeekBanner();
   var tdy=todayKey(); curPhase = phaseOfDay(tdy); var slot=Math.max(1,getSlotForDay(curPhase,tdy));
   loadForm(tdy,slot); renderStats(); renderHeatmap(); renderChart(); renderGamification(); renderChallengeCols();
   if (document.getElementById('page-shop').classList.contains('active')) renderShop();
