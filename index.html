@@ -531,6 +531,121 @@ button{font-family:inherit;}
 .toast.minus{border-left:4px solid var(--danger);}
 .toast.gold{border-left:4px solid var(--gold);}
 
+
+/* ── ANKER (SOS & ZEIT FÜR MICH) ── */
+.ank-entry{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px;}
+.ank-entry button{border:none;border-radius:16px;padding:22px 18px;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:6px;min-height:150px;justify-content:flex-end;position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent;transition:transform .15s;}
+.ank-entry button:active{transform:scale(.98);}
+.ank-entry .i{font-size:2rem;line-height:1;margin-bottom:auto;}
+.ank-entry b{font-size:1.15rem;font-weight:600;letter-spacing:-0.2px;}
+.ank-entry small{font-size:0.8rem;opacity:.7;line-height:1.35;}
+.ank-entry .sos{background:var(--ink);color:var(--cream);}
+.ank-entry .sos b{color:#fff;}
+.ank-entry .sos::after{content:'';position:absolute;right:-40px;top:-40px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(196,90,40,.45),transparent 70%);}
+.ank-entry .zeit{background:white;border:1px solid var(--border);color:var(--ink);}
+.ank-entry .zeit::after{content:'';position:absolute;right:-40px;top:-40px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(90,138,94,.25),transparent 70%);}
+.ank-practice{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-bottom:18px;}
+.ank-practice button{background:white;border:1px solid var(--border);border-radius:10px;padding:11px 12px;text-align:left;cursor:pointer;font-size:0.85rem;color:var(--ink);display:flex;gap:8px;align-items:center;}
+.ank-practice button span{font-size:1.1rem;}
+.ank-jrow{border-bottom:1px solid rgba(180,150,110,0.15);padding:9px 0;}
+.ank-jrow:last-child{border-bottom:none;}
+.ank-jrow summary{cursor:pointer;font-size:0.88rem;list-style:none;display:flex;justify-content:space-between;gap:10px;}
+.ank-jrow summary::-webkit-details-marker{display:none;}
+.ank-jrow summary small{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);white-space:nowrap;}
+.ank-jrow p{white-space:pre-wrap;font-size:0.88rem;line-height:1.5;color:#3a2f1e;margin:8px 0 4px;}
+.ank-x{border:none;background:none;color:var(--muted);cursor:pointer;font-size:12px;padding:2px 6px;}
+.sos-badge{background:var(--ink)!important;color:var(--cream)!important;border-color:var(--ink)!important;}
+
+/* Overlay */
+.ank-ov{--a-bg:#1c1508;--a-fg:#f4efe4;--a-mute:rgba(244,239,228,.55);--a-card:rgba(255,255,255,.06);--a-line:rgba(255,255,255,.12);
+  position:fixed;inset:0;z-index:650;background:var(--a-bg);color:var(--a-fg);display:none;flex-direction:column;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0);}
+.ank-ov.light{--a-bg:#f5f0e8;--a-fg:#1c1508;--a-mute:#8a7b6a;--a-card:white;--a-line:rgba(180,150,110,.25);}
+.ank-ov.open{display:flex;animation:fadeIn .25s;}
+.ank-top{display:flex;align-items:center;justify-content:space-between;padding:14px 18px 4px;max-width:560px;width:100%;margin:0 auto;}
+.ank-top span{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);}
+.ank-top button{border:none;background:var(--a-card);color:var(--a-fg);width:36px;height:36px;border-radius:50%;font-size:15px;cursor:pointer;}
+.ank-body{max-width:560px;width:100%;margin:0 auto;padding:10px 20px 40px;flex:1;display:flex;flex-direction:column;}
+.ank-h{font-size:1.6rem;font-weight:600;letter-spacing:-0.5px;line-height:1.2;margin:14px 0 10px;}
+.ank-p{font-size:0.95rem;line-height:1.55;color:var(--a-mute);margin-bottom:18px;}
+.ank-p.small{font-size:0.85rem;margin-bottom:10px;}
+.ank-cats{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.ank-cat{background:var(--a-card);border:1px solid var(--a-line);color:var(--a-fg);border-radius:14px;padding:16px 14px;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:3px;-webkit-tap-highlight-color:transparent;}
+.ank-cat:active{border-color:var(--gold);}
+.ank-cat .i{font-size:1.6rem;margin-bottom:6px;}
+.ank-cat b{font-size:1rem;font-weight:600;}
+.ank-cat small{font-size:0.75rem;color:var(--a-mute);}
+.ank-cat .m{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--gold);margin-top:4px;}
+.ank-big{font-size:5rem;font-weight:300;text-align:center;line-height:1;margin:26px 0 14px;font-family:'JetBrains Mono',monospace;color:var(--gold);}
+.ank-range{width:100%;accent-color:var(--gold);height:34px;}
+.ank-scale{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--a-mute);margin-bottom:26px;}
+.ank-btn{display:block;width:100%;border:none;background:var(--gold);color:white;font-size:1rem;font-weight:500;padding:16px;border-radius:12px;cursor:pointer;margin-top:10px;}
+.ank-btn.ghost{background:var(--a-card);color:var(--a-fg);border:1px solid var(--a-line);}
+.ank-btn.sage{background:var(--sage);}
+.ank-btn2{display:block;margin:14px auto 0;border:1px solid var(--a-line);background:var(--a-card);color:var(--a-fg);padding:12px 26px;border-radius:30px;font-size:0.95rem;cursor:pointer;}
+.ank-link{display:block;width:100%;border:none;background:none;color:var(--a-mute);font-size:0.85rem;padding:14px;cursor:pointer;text-decoration:underline;text-underline-offset:3px;}
+.ank-actions{margin-top:auto;padding-top:22px;}
+.ank-exh{display:flex;align-items:center;gap:10px;font-size:1.4rem;font-weight:600;margin:12px 0 8px;letter-spacing:-0.3px;}
+.ank-exh span{font-size:1.6rem;}
+.ank-star{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--gold);border:1px solid rgba(196,90,40,.5);border-radius:20px;padding:3px 9px;margin-bottom:10px;}
+/* Atmung */
+.ank-breath{width:230px;height:230px;margin:10px auto 0;position:relative;display:flex;align-items:center;justify-content:center;}
+.ank-ring{position:absolute;inset:0;border-radius:50%;border:1px dashed var(--a-line);}
+.ank-circle{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 50% 45%,rgba(232,140,90,.9),rgba(196,90,40,.35) 60%,rgba(196,90,40,.08));transform:scale(.35);box-shadow:0 0 60px rgba(196,90,40,.35);}
+.ank-bl{position:relative;text-align:center;display:flex;flex-direction:column;gap:4px;}
+.ank-bl b{font-size:1.1rem;font-weight:500;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.3);}
+.ank-ov.light .ank-bl b{color:var(--ink);text-shadow:none;}
+.ank-bl span{font-family:'JetBrains Mono',monospace;font-size:1.6rem;font-weight:300;}
+.ank-sub{text-align:center;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--a-mute);margin-top:12px;min-height:14px;}
+/* Welle */
+.ank-wave{height:150px;margin:10px -20px 0;overflow:hidden;}
+.ank-wave svg{width:100%;height:100%;display:block;}
+.ank-wg{transform-origin:50% 100%;transform-box:fill-box;transform:scaleY(.25);transition:transform 1s ease-in-out;}
+.ank-wp{fill:rgba(196,90,40,.55);animation:ankWave 4s linear infinite;}
+.ank-wp2{fill:rgba(196,90,40,.25);animation:ankWave 6.5s linear infinite reverse;}
+@keyframes ankWave{from{transform:translateX(0)}to{transform:translateX(-200px)}}
+.ank-time{text-align:center;font-family:'JetBrains Mono',monospace;font-size:2.4rem;font-weight:300;margin-top:14px;}
+.ank-line{text-align:center;font-size:1.05rem;line-height:1.5;min-height:66px;margin-top:10px;padding:0 6px;transition:opacity .4s;}
+/* Timer */
+.ank-timer{width:210px;height:210px;margin:10px auto 0;position:relative;}
+.ank-timer svg{width:100%;height:100%;transform:rotate(-90deg);}
+.ank-tr-bg{fill:none;stroke:var(--a-line);stroke-width:6;}
+.ank-tr{fill:none;stroke:var(--gold);stroke-width:6;stroke-linecap:round;stroke-dasharray:552.9;stroke-dashoffset:0;transition:stroke-dashoffset 1s linear;}
+.ank-timer .ank-time{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;margin:0;}
+/* Schritte */
+.ank-dots{display:flex;gap:6px;justify-content:center;margin:10px 0 18px;}
+.ank-dots i{width:7px;height:7px;border-radius:50%;background:var(--a-line);}
+.ank-dots i.on{background:var(--gold);}
+.ank-step{background:var(--a-card);border:1px solid var(--a-line);border-radius:16px;padding:26px 20px;font-size:1.15rem;line-height:1.55;min-height:150px;display:flex;align-items:center;animation:fadeIn .35s;}
+/* Chips, Karten, Text */
+.ank-chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px;}
+.ank-chip{border:1px solid var(--a-line);background:var(--a-card);color:var(--a-fg);border-radius:20px;padding:8px 13px;font-size:0.85rem;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.ank-chip.on{background:var(--gold);border-color:var(--gold);color:white;}
+.ank-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin:16px 0 9px;}
+.ank-ta{width:100%;min-height:120px;border:1px solid var(--a-line);background:var(--a-card);color:var(--a-fg);border-radius:12px;padding:13px;font-family:'Inter',sans-serif;font-size:16px;line-height:1.5;resize:vertical;}
+.ank-ta::placeholder{color:var(--a-mute);}
+.ank-halt{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.ank-halt button{border:1px solid var(--a-line);background:var(--a-card);color:var(--a-fg);border-radius:12px;padding:14px 12px;text-align:left;cursor:pointer;font-size:0.95rem;}
+.ank-halt button b{display:block;font-size:1.3rem;color:var(--gold);font-family:'JetBrains Mono',monospace;}
+.ank-halt button.on{border-color:var(--gold);background:rgba(196,90,40,.18);}
+.ank-tip{background:var(--a-card);border-left:3px solid var(--gold);border-radius:8px;padding:11px 13px;font-size:0.9rem;line-height:1.5;margin-top:8px;}
+.ank-sentence{background:var(--a-card);border:1px solid var(--a-line);border-radius:12px;padding:14px;font-size:1rem;line-height:1.55;margin:4px 0 6px;min-height:52px;}
+.ank-result{display:flex;align-items:center;justify-content:center;gap:18px;margin:20px 0;font-family:'JetBrains Mono',monospace;}
+.ank-result div{text-align:center;}
+.ank-result b{display:block;font-size:2.8rem;font-weight:300;}
+.ank-result small{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--a-mute);}
+.ank-result .arr{font-size:1.6rem;color:var(--gold);}
+.ank-sugg{display:flex;flex-direction:column;gap:9px;}
+.ank-sugg button{display:grid;grid-template-columns:40px 1fr auto;gap:10px;align-items:center;background:var(--a-card);border:1px solid var(--a-line);border-radius:14px;padding:15px 14px;text-align:left;cursor:pointer;color:var(--a-fg);}
+.ank-sugg .i{font-size:1.6rem;text-align:center;}
+.ank-sugg b{display:block;font-size:0.98rem;font-weight:600;}
+.ank-sugg small{font-size:0.78rem;color:var(--a-mute);}
+.ank-sugg .t{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold);white-space:nowrap;}
+.ank-times{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:10px;}
+.ank-times button{background:var(--a-card);border:1px solid var(--a-line);border-radius:14px;padding:22px 8px;cursor:pointer;color:var(--a-fg);font-size:1.4rem;font-weight:300;font-family:'JetBrains Mono',monospace;}
+.ank-times button small{display:block;font-family:'Inter',sans-serif;font-size:0.75rem;color:var(--a-mute);margin-top:4px;}
+.ank-idea{background:var(--a-card);border:1px solid var(--a-line);border-radius:16px;padding:28px 22px;font-size:1.2rem;line-height:1.55;text-align:center;}
+
 /* ── MOBILE ── */
 .mobile-nav{display:none;}
 @media(max-width:960px){
@@ -546,7 +661,7 @@ button{font-family:inherit;}
   .pts-col .sh{font-size:7px;}
   .forge-inp{font-size:16px;}
   .sidebar{display:none}
-  .page{margin-left:0;padding:14px 14px 96px}
+  .page{margin-left:0;padding:calc(14px + env(safe-area-inset-top,0px)) 14px calc(96px + env(safe-area-inset-bottom,0px))}
   .topbar{flex-direction:row;align-items:center;}
   .topbar-left h2{font-size:1.3rem}
   .topbar-right{gap:6px;}
@@ -563,16 +678,16 @@ button{font-family:inherit;}
   .shop-grid{grid-template-columns:repeat(2,1fr);gap:8px;}
   .shop-item{padding:14px 10px 12px;}
   .modal-overlay{padding-top:0;align-items:flex-end;}
-  .modal,.backup-modal{width:100vw;max-width:100vw;border-radius:16px 16px 0 0;padding:20px 18px 36px;max-height:92vh;}
+  .modal,.backup-modal{width:100vw;max-width:100vw;border-radius:16px 16px 0 0;padding:20px 18px calc(36px + env(safe-area-inset-bottom,0px));max-height:92vh;}
   .timer-time{font-size:2rem;}
   .work-stat-cards{grid-template-columns:repeat(2,1fr);}
   #rev-charts-grid{grid-template-columns:1fr!important;}
   input,select,textarea{font-size:16px!important;}
   .val-input,.session-time-inp,.goal-target-inp,.goal-unit-inp,.hs-opts,.vice-cost-inp,.manual-time-inp{font-size:14px!important;}
-  .toast{bottom:80px;right:14px;left:14px;text-align:center;}
+  .toast{bottom:calc(80px + env(safe-area-inset-bottom,0px));right:14px;left:14px;text-align:center;}
   .levelup-title{font-size:2rem;}
-  .mobile-nav{display:flex;position:fixed;bottom:0;left:0;right:0;height:62px;background:var(--ink);z-index:400;border-top:1px solid rgba(255,255,255,0.08);padding-bottom:env(safe-area-inset-bottom,0);}
-  .mobile-nav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;color:rgba(244,239,228,0.4);transition:color 0.15s;font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:0.5px;text-transform:uppercase;border:none;background:none;padding:6px 0;-webkit-tap-highlight-color:transparent;}
+  .mobile-nav{display:flex;position:fixed;bottom:0;left:0;right:0;height:calc(62px + env(safe-area-inset-bottom,0px));background:var(--ink);z-index:400;border-top:1px solid rgba(255,255,255,0.08);padding-bottom:env(safe-area-inset-bottom,0);}
+  .mobile-nav-item{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;color:rgba(244,239,228,0.4);transition:color 0.15s;font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:0.3px;text-transform:uppercase;border:none;background:none;padding:0;height:62px;-webkit-tap-highlight-color:transparent;}
   .mobile-nav-item.active{color:var(--gold);}
   .mobile-nav-icon{font-size:1.2rem;line-height:1;}
 }
@@ -597,6 +712,7 @@ button{font-family:inherit;}
   <div class="nav-item" onclick="showPage('tracker',this)"><span class="nav-icon">⏱</span> Time</div>
   <div class="nav-item" onclick="showPage('shop',this)"><span class="nav-icon">🔨</span> Schmiede</div>
   <div class="nav-item" onclick="showPage('psych',this)"><span class="nav-icon">🧠</span> Psychologie</div>
+  <div class="nav-item" onclick="showPage('anker',this)"><span class="nav-icon">⚓</span> Anker</div>
   <div class="nav-item" onclick="showPage('einnahmen',this)"><span class="nav-icon">💶</span> Einnahmen</div>
   <div class="nav-item" onclick="showPage('erfolge',this)"><span class="nav-icon">🏆</span> Erfolge</div>
   <div class="nav-item" onclick="openBackup()"><span class="nav-icon">💾</span> Datensicherung</div>
@@ -614,10 +730,11 @@ button{font-family:inherit;}
   <button class="mobile-nav-item" onclick="showPage('tracker',this)" id="mn-tracker"><span class="mobile-nav-icon">⏱</span>Time</button>
   <button class="mobile-nav-item" onclick="showPage('shop',this)" id="mn-shop"><span class="mobile-nav-icon">🔨</span>Schmiede</button>
   <button class="mobile-nav-item" onclick="showPage('psych',this)" id="mn-psych"><span class="mobile-nav-icon">🧠</span>Psyche</button>
+  <button class="mobile-nav-item" onclick="showPage('anker',this)" id="mn-anker"><span class="mobile-nav-icon">⚓</span>Anker</button>
   <button class="mobile-nav-item" onclick="openMobileMore()" id="mn-more"><span class="mobile-nav-icon">···</span>Mehr</button>
 </nav>
 <div class="modal-overlay" id="mobile-more-overlay" style="align-items:flex-end;padding-top:0;">
-  <div style="background:var(--paper);width:100%;border-radius:16px 16px 0 0;padding:20px 16px 36px;">
+  <div style="background:var(--paper);width:100%;border-radius:16px 16px 0 0;padding:20px 16px calc(36px + env(safe-area-inset-bottom,0px));">
     <div class="section-label">Mehr</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
       <button class="btn btn-outline" onclick="showPage('einnahmen',null);closeMobileMore()" style="padding:12px;font-size:10px;">💶 Einnahmen</button>
@@ -636,6 +753,7 @@ button{font-family:inherit;}
       <h2>Tag <em id="active-day-num">—</em> <span id="active-day-date" style="font-weight:300;font-size:1.1rem;color:var(--muted)"></span></h2>
     </div>
     <div class="topbar-right">
+      <div class="shield-badge sos-badge" onclick="ankStartSos()" title="SOS · Drang meistern">⚓ <b>SOS</b></div>
       <div class="shield-badge honor-badge" onclick="showPage('shop',null)" title="Ehre">✦ <b id="honor-count">0</b> Ehre</div>
       <div class="shield-badge" id="shield-badge" onclick="shieldInfo()" title="Schilde">🛡 <b id="shield-count">0</b> <span id="shield-word">Schilde</span></div>
       <div class="date-badge" id="date-display"></div>
@@ -891,6 +1009,28 @@ button{font-family:inherit;}
   <div class="mono" style="font-size:8.5px;color:var(--muted);line-height:1.5;margin-bottom:24px;">Kopiert alle Einträge des Monats (Habits, Punkte, Arbeitszeit, Psychologie, Notizen) als Text. Einfach in den Chat mit Claude einfügen für eine ausführliche Monatsanalyse.</div>
 </div>
 
+<div class="page" id="page-anker">
+  <div class="topbar"><div class="topbar-left"><h2>An<em>ker</em></h2></div></div>
+  <div class="ank-entry">
+    <button class="sos" onclick="ankStartSos()"><span class="i">⚓</span><b>SOS</b><small>Ein Drang, Stress oder Wut – jetzt gerade. Schritt für Schritt zurück zu dir.</small></button>
+    <button class="zeit" onclick="ankStartZeit()"><span class="i">🌿</span><b>Zeit für mich</b><small>Ich habe ein paar Minuten – Inspiration, Übungen, Selbsterkenntnis.</small></button>
+  </div>
+  <div class="erf-cards" id="ank-stats"></div>
+  <div class="section-label">Was dir am meisten hilft</div>
+  <div class="erf-list" id="ank-help"></div>
+  <div class="section-label">Deine Auslöser</div>
+  <div class="erf-list" id="ank-trig"></div>
+  <div class="section-label">Deine Wenn-dann-Pläne</div>
+  <div class="erf-list" id="ank-plans"></div>
+  <div class="section-label">Deine Werte</div>
+  <div id="ank-values"></div>
+  <div class="section-label">Tagebuch</div>
+  <div class="erf-list" id="ank-journal"></div>
+  <div class="section-label">Üben, wenn es ruhig ist</div>
+  <div class="mono" style="font-size:9px;color:var(--muted);line-height:1.5;margin:-6px 0 10px;">Was du in ruhigen Momenten übst, steht dir im Stress leichter zur Verfügung.</div>
+  <div class="ank-practice" id="ank-practice"></div>
+</div>
+
 <div class="page" id="page-erfolge">
   <div class="topbar"><div class="topbar-left"><h2>Deine <em>Erfolge</em></h2></div></div>
   <div class="erf-cards" id="erf-cards"></div>
@@ -1069,6 +1209,7 @@ button{font-family:inherit;}
   </div>
 </div>
 
+<div class="ank-ov" id="ank-ov"><div class="ank-top"><span id="ank-crumb"></span><button onclick="ankClose()" aria-label="Schließen">✕</button></div><div class="ank-body" id="ank-body"></div></div>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -1216,6 +1357,7 @@ function showPage(id, navEl) {
   else if (id==='einnahmen') { revLoad(); }
   else if (id==='erfolge') { renderErfolge(); }
   else if (id==='psych') { psychDay = todayKey(); renderPsych(); }
+  else if (id==='anker') { renderAnker(); }
 }
 function openMobileMore() { document.getElementById('mobile-more-overlay').classList.add('open'); }
 function closeMobileMore() { document.getElementById('mobile-more-overlay').classList.remove('open'); }
@@ -1652,7 +1794,7 @@ function savePsyEdit() {
 }
 function psyExport() {
   var M = psyMonthKey(), A = allEntries(), habits = getHabits(), vices = getVices(), C = psyCfg();
-  var keys = Array.from(new Set(Object.keys(A).concat(Object.keys(psyData())).concat(Object.keys(DB.sessions || {})))).filter(function(k){ return k && k.slice(0,7) === M.ym; }).sort();
+  var keys = Array.from(new Set(Object.keys(A).concat(Object.keys(psyData())).concat(Object.keys(DB.sessions || {})).concat(((DB.anker||{}).sos||[]).concat((DB.anker||{}).journal||[]).map(function(x){ return keyOfIso(x.at); })))).filter(function(k){ return k && k.slice(0,7) === M.ym; }).sort();
   var L = ['Monatsdaten „Der friedvolle Krieger“ – ' + M.label, 'Skalen 1–7 (' + C.scales.map(function(q){ return q.name + ': 1=' + q.lo + ', 7=' + q.hi; }).join('; ') + '). Bitte analysiere Muster zwischen Verhalten, Arbeit und Befinden und gib mir konkrete Empfehlungen.', ''];
   keys.forEach(function(dk){
     var e = A[dk] || {}, p = psyGet(dk), parts = [];
@@ -1665,6 +1807,7 @@ function psyExport() {
     var sc = C.scales.filter(function(q){ return p[q.id]; }).map(function(q){ return q.name + ' ' + p[q.id]; }); if (sc.length) parts.push(sc.join(', '));
     C.choices.forEach(function(c){ if ((p[c.id] || []).length) parts.push(c.name + ': ' + p[c.id].join(', ')); });
     C.texts.forEach(function(t){ if (p[t.id]) parts.push(t.name + ': ' + String(p[t.id]).replace(/\s+/g, ' ')); });
+    ankExportLines(dk).forEach(function(x){ parts.push(x); });
     L.push(fmtShort(dk) + ' — ' + parts.join(' | '));
   });
   var txt = L.join('\n');
@@ -2702,6 +2845,423 @@ function fullRerender() {
     navigator.serviceWorker.addEventListener('controllerchange', function(){ if (_reloaded) return; _reloaded = true; location.reload(); });
   }
 })();
+
+// ════════════════════════════════════════════════════════
+// ANKER · SOS (Drang meistern) & ZEIT FÜR MICH
+// ════════════════════════════════════════════════════════
+var ANK_SOS_PTS = 30, ANK_ZEIT_PTS = 10, ANK_ZEIT_MAX = 3;
+
+var ANK_EX = {
+  sigh: {name:'Physiologischer Seufzer', icon:'🌬', kind:'breath', intro:'Zweimal durch die Nase einatmen – beim zweiten Mal kurz nachziehen – dann lange durch den Mund ausatmen. Die lange Ausatmung bremst dein Nervensystem am schnellsten.',
+    pattern:[{t:'Einatmen',s:2,sc:0.85},{t:'Nachziehen',s:1,sc:1},{t:'Lang ausatmen',s:6,sc:0.35}], rounds:6},
+  box: {name:'Box-Atmung', icon:'◻', kind:'breath', intro:'Vier gleich lange Phasen. Gibt dem Kopf einen ruhigen, festen Takt.',
+    pattern:[{t:'Einatmen',s:4,sc:1},{t:'Halten',s:4,sc:1},{t:'Ausatmen',s:4,sc:0.35},{t:'Halten',s:4,sc:0.35}], rounds:5},
+  b478: {name:'4-7-8-Atmung', icon:'🌙', kind:'breath', intro:'Sehr lange Ausatmung, stark beruhigend – gut auch abends vor dem Schlafen.',
+    pattern:[{t:'Einatmen',s:4,sc:1},{t:'Halten',s:7,sc:1},{t:'Ausatmen',s:8,sc:0.35}], rounds:4},
+  exhale: {name:'Lange Ausatmung', icon:'🍃', kind:'breath', intro:'Ausatmen doppelt so lang wie einatmen. Holt dich aus dem Kampfmodus.',
+    pattern:[{t:'Einatmen',s:4,sc:1},{t:'Ausatmen',s:8,sc:0.35}], rounds:8},
+  surf: {name:'Urge Surfing', icon:'🌊', kind:'wave', secs:180, intro:'Ein Drang ist wie eine Welle: Er steigt an, erreicht einen Höhepunkt und ebbt wieder ab – meist innerhalb weniger Minuten. Du musst ihn nicht bekämpfen. Du reitest ihn nur.',
+    lines:['Setz dich bequem hin. Spür deine Füße auf dem Boden.','Wo im Körper spürst du den Drang gerade? Brust, Bauch, Hände, Mund?','Beschreib ihn innerlich: warm, kribbelnd, eng, ziehend?','Atme in diese Stelle hinein. Du beobachtest nur.','Wird er stärker? Das ist okay – Wellen steigen an, bevor sie brechen.','Sag dir: „Da ist ein Drang. Ich bin nicht der Drang.“','Bleib neugierig: Verändert sich die Empfindung? Wandert sie?','Lass die Ausatmung lang werden.','Merkst du, wie die Welle flacher wird?','Du hast gerade gezeigt, dass du einen Drang aushalten kannst.']},
+  delay: {name:'10 Minuten Aufschub', icon:'⏳', kind:'timer', secs:600, intro:'Du sagst nicht „nie“, sondern „nicht jetzt“. Nach 10 Minuten darfst du neu entscheiden – meist ist der Drang dann deutlich schwächer.',
+    lines:['Tu in der Zeit etwas anderes: Wasser trinken, aufstehen, Raum wechseln.','Leg das Handy weg oder in einen anderen Raum.','Der Drang ist ein Gast, kein Chef.','Bewegung hilft: ein paar Schritte, ein paar Kniebeugen.','Die meisten Drangwellen dauern keine 30 Minuten.']},
+  tipp: {name:'Körper-Reset (TIPP)', icon:'❄', kind:'steps', intro:'Aus der DBT: Mit starken Körperreizen schnell runterregulieren.',
+    steps:['Kaltes Wasser: Gesicht 20–30 Sekunden in kaltes Wasser tauchen oder kalt abwaschen. Das löst den Tauchreflex aus und senkt den Puls.','Intensive Bewegung: 60 Sekunden so schnell es geht – Hampelmänner, Kniebeugen, Treppen.','Langsam atmen: 5 Atemzüge, die Ausatmung länger als die Einatmung.','Anspannen und loslassen: Fäuste, Schultern, Bauch – 5 Sekunden fest, dann bewusst lösen.']},
+  ground: {name:'5-4-3-2-1 Erdung', icon:'🌿', kind:'steps', intro:'Holt dich über die Sinne zurück ins Hier und Jetzt.',
+    steps:['Nenne 5 Dinge, die du SIEHST.','Nenne 4 Dinge, die du SPÜRST – Stoff, Boden, Temperatur.','Nenne 3 Dinge, die du HÖRST.','Nenne 2 Dinge, die du RIECHST.','Nenne 1 Sache, die du SCHMECKST – oder schick dir einen freundlichen Gedanken.']},
+  orient: {name:'Orientieren', icon:'👁', kind:'steps', intro:'Polyvagal: Dein Nervensystem prüft ständig, ob du sicher bist. Langsames Umschauen sendet das Signal „hier ist es sicher“.',
+    steps:['Dreh den Kopf langsam nach links und schau dich um, als würdest du den Raum zum ersten Mal sehen.','Jetzt langsam nach rechts. Lass die Augen bei etwas Angenehmem verweilen.','Finde drei Dinge in einer Farbe, die du magst.','Spür, wo dein Körper getragen wird – Stuhl, Boden, Wand.','Bemerke: In diesem Moment bist du sicher. Vielleicht kommt ein Seufzer oder ein Gähnen – lass es zu.']},
+  halt: {name:'HALT-Check', icon:'✋', kind:'halt', intro:'Hinter einem Drang steckt oft ein ganz anderes Bedürfnis. Was davon trifft gerade zu?'},
+  tape: {name:'Den Film zu Ende spielen', icon:'🎞', kind:'steps', intro:'Der Drang zeigt dir nur die ersten fünf Minuten. Spiel den ganzen Film.',
+    steps:['Stell dir vor, du gibst dem Drang jetzt nach. Wie fühlt es sich in den ersten Minuten an?','Wie fühlst du dich eine Stunde später? Was denkst du dann über dich?','Wie startet dein Morgen?','Jetzt die andere Version: Du lässt die Welle vorbeiziehen. Wie fühlst du dich in einer Stunde?','Welcher Mann willst du heute Abend sein?']},
+  compassion: {name:'Selbstmitgefühl', icon:'🤍', kind:'steps', intro:'Nach Kristin Neff: Freundlichkeit statt Härte senkt Stress und macht Rückfälle nachweislich unwahrscheinlicher.',
+    steps:['Leg eine Hand aufs Herz oder auf den Bauch. Spür die Wärme.','Sag dir: „Das ist gerade ein schwerer Moment.“','„Schwere Momente gehören zum Menschsein. Ich bin damit nicht allein.“','„Möge ich freundlich mit mir sein. Was brauche ich jetzt?“']},
+  reach: {name:'Verbindung suchen', icon:'📞', kind:'steps', intro:'Isolation füttert den Drang, Verbindung schwächt ihn.',
+    steps:['Denk an einen Menschen, bei dem du dich wohlfühlst.','Schreib ihm eine kurze Nachricht – es muss nicht ums Thema gehen. Ein „Hey, wie geht’s dir?“ reicht.','Oder ruf an – oder geh unter Menschen: Café, Spaziergang, Gym.']},
+  action: {name:'Eine kleine gute Tat', icon:'🌱', kind:'steps', intro:'Verhaltensaktivierung: Handeln kommt vor der Motivation – nicht umgekehrt.',
+    steps:['Wähl eine Sache, die unter 5 Minuten dauert: Fenster auf, Glas Wasser, Bett machen, kurz raus.','Mach sie jetzt, ohne lange nachzudenken.','Bemerke: Wie fühlt es sich an, etwas getan zu haben?']},
+  fivemin: {name:'5-Minuten-Regel', icon:'⏱', kind:'timer', secs:300, intro:'Du musst die Aufgabe nicht fertig machen. Nur 5 Minuten. Danach darfst du aufhören.',
+    lines:['Was ist der allerkleinste nächste Schritt? Genau den.','Perfektion ist jetzt nicht gefragt, nur Bewegung.','Fang an, auch wenn es sich holprig anfühlt.','Anfangen ist der schwerste Teil – und den machst du gerade.']},
+  ifthen: {name:'Wenn-dann-Plan', icon:'🧭', kind:'write', intro:'Wenn-dann-Pläne erhöhen die Umsetzung deutlich (Gollwitzer). Leg jetzt fest, was du beim nächsten Mal tust.',
+    prompt:'Wenn [Situation / Auslöser], dann [konkrete Handlung].', ph:'Wenn ich abends allein bin und den Drang spüre, dann …'},
+  nvc: {name:'Gefühl & Bedürfnis', icon:'💬', kind:'nvc', intro:'Gewaltfreie Kommunikation: Hinter jedem Gefühl steht ein Bedürfnis. Wenn du es benennst, verliert das Gefühl an Druck.'},
+  stop: {name:'STOP', icon:'🛑', kind:'steps', intro:'Bevor du reagierst:',
+    steps:['S – Stopp. Halte inne. Nichts sagen, nichts tun.','T – Tritt einen Schritt zurück. Atme einmal tief durch.','O – Observiere: Was passiert in mir? Was ist die Situation wirklich?','P – Proceed mindfully: Welche Reaktion macht mich morgen stolz?']},
+  shake: {name:'Abschütteln', icon:'〰', kind:'timer', secs:60, intro:'Tiere schütteln Stress nach einer Gefahr buchstäblich ab. Mach es ihnen nach.',
+    lines:['Schüttel die Hände aus.','Jetzt die Arme und die Schultern.','Die Beine – wipp in den Knien.','Den ganzen Körper, ruhig auch mit Geräuschen.','Langsam werden, zur Ruhe kommen, nachspüren.']},
+  bodyscan: {name:'Body-Scan', icon:'🧘', kind:'steps', intro:'Aufmerksamkeit wandert langsam durch den Körper. Nichts verändern, nur wahrnehmen.',
+    steps:['Leg dich hin oder setz dich bequem. Schließ die Augen.','Spür deine Füße. Wärme, Kälte, Kribbeln – einfach wahrnehmen.','Wandere zu Waden, Knien, Oberschenkeln.','Becken und Bauch. Lass den Bauch weich werden.','Brust und Rücken. Wie bewegt sich der Atem?','Schultern, Arme, Hände. Lass los, was nicht gehalten werden muss.','Nacken, Kiefer, Stirn, Augen.','Spür den ganzen Körper auf einmal. Bleib so lange du magst.']}
+};
+
+var ANK_CATS = [
+  {id:'craving', name:'Verlangen', sub:'Sucht, Laster, Drang', icon:'🌊', q:'Wie stark ist der Drang?', ex:['sigh','surf','halt','delay','tape','tipp','ground','reach','ifthen']},
+  {id:'stress', name:'Stress', sub:'Überforderung, Unruhe', icon:'⚡', q:'Wie stark ist der Stress?', ex:['sigh','orient','ground','box','shake','action','compassion']},
+  {id:'anger', name:'Wut', sub:'Gereiztheit, Konflikt', icon:'🔥', q:'Wie stark ist die Wut?', ex:['stop','exhale','tipp','shake','nvc','compassion']},
+  {id:'sad', name:'Leere', sub:'Traurigkeit, Einsamkeit', icon:'🌧', q:'Wie schwer fühlt es sich an?', ex:['compassion','orient','reach','action','b478','nvc']},
+  {id:'procrast', name:'Aufschieben', sub:'Prokrastination', icon:'🐢', q:'Wie groß ist der Widerstand?', ex:['sigh','fivemin','action','tape','ifthen']}
+];
+var ANK_TRIG = ['Langeweile','Stress','Einsamkeit','Müdigkeit','Abends allein','Social Media','Konflikt','Frust','Belohnung verdient','Gewohnheit / Ort','Alkohol','Andere Menschen'];
+var ANK_HALT = [
+  {k:'H', n:'Hungrig', tip:'Iss etwas Richtiges oder trink ein großes Glas Wasser. Blutzuckertiefs verstärken jeden Drang.'},
+  {k:'A', n:'Angespannt / wütend', tip:'Die Spannung braucht ein Ventil, kein Laster: Bewegung, Abschütteln oder „Gefühl & Bedürfnis“.'},
+  {k:'L', n:'Einsam', tip:'Schreib jemandem oder geh unter Menschen. Verbindung ist das Gegenmittel.'},
+  {k:'T', n:'Müde', tip:'Leg dich 20 Minuten hin oder geh heute früher schlafen. Müdigkeit senkt die Selbstkontrolle massiv.'}
+];
+var ANK_FEEL = ['wütend','frustriert','gereizt','verletzt','enttäuscht','traurig','einsam','ängstlich','unruhig','überfordert','gestresst','erschöpft','leer','beschämt','hilflos','gelangweilt','neidisch','ruhig','dankbar','froh','verbunden','lebendig','zuversichtlich','erleichtert'];
+var ANK_NEED = ['Ruhe','Erholung','Sicherheit','Verbindung','Nähe','Gesehen werden','Wertschätzung','Respekt','Autonomie','Klarheit','Sinn','Leichtigkeit','Spiel','Bewegung','Unterstützung','Verständnis','Ehrlichkeit','Fairness','Beitragen','Selbstausdruck','Kreativität','Ordnung','Fürsorge','Wachstum'];
+var ANK_VALUES = ['Freiheit','Liebe','Ehrlichkeit','Mut','Gesundheit','Familie','Freundschaft','Wachstum','Abenteuer','Ruhe','Kreativität','Verbindung','Verantwortung','Disziplin','Spiritualität','Leichtigkeit','Sinn','Natur','Gerechtigkeit','Großzügigkeit','Wissen','Erfolg','Unabhängigkeit','Humor','Präsenz','Hingabe','Stärke','Mitgefühl','Sicherheit','Schönheit'];
+var ANK_PROMPTS = {
+  self:['Wann habe ich mich diese Woche am lebendigsten gefühlt – und was genau war da los?','Welcher Anteil in mir war heute am lautesten? Was wollte er für mich?','Wovor schütze ich mich gerade – und was kostet mich dieser Schutz?','Welche Gewohnheit erfüllt eigentlich ein Bedürfnis? Welches – und wie könnte ich es anders erfüllen?','Wo sage ich Ja, obwohl ich Nein meine?','Welche Geschichte erzähle ich mir über mich, die vielleicht nicht mehr stimmt?','Was hat mir heute Energie gegeben, was hat sie genommen?','Wie würde der friedvolle Krieger in mir mit meiner größten aktuellen Herausforderung umgehen?','Wenn ich in einem Jahr zurückblicke: Was wäre ich froh, jetzt begonnen zu haben?','Was brauche ich gerade, das ich mir selbst geben kann?'],
+  child:['Was hat mir als Kind Freude gemacht – und wo ist das heute in meinem Leben?','Was hätte ich als Kind gebraucht zu hören? Schreib es dir jetzt selbst.','In welcher Situation fühle ich mich heute noch klein? Was würde mein erwachsenes Ich dem Kleinen sagen?','Welche Regel aus meiner Kindheit befolge ich noch heute – und dient sie mir noch?'],
+  grat:['Schreib drei Dinge auf, die heute gut waren – und bei jedem, welchen Anteil du selbst daran hattest.'],
+  future:['Schreib deinem Ich in einem Jahr einen Brief: Wer willst du dann sein? Was soll es über diese Zeit jetzt wissen?']
+};
+var ANK_ZEIT = [
+  {id:'z_state', name:'Nervensystem-Check', icon:'🫀', cat:'Nervensystem', min:2, kind:'state', d:'Wo stehst du gerade – und was hilft dir jetzt?'},
+  {id:'z_sigh', ex:'sigh', cat:'Nervensystem', min:2},
+  {id:'z_box', ex:'box', cat:'Nervensystem', min:5},
+  {id:'z_478', ex:'b478', cat:'Nervensystem', min:5},
+  {id:'z_orient', ex:'orient', cat:'Nervensystem', min:5},
+  {id:'z_shake', ex:'shake', cat:'Körper', min:2},
+  {id:'z_body', ex:'bodyscan', cat:'Körper', min:15},
+  {id:'z_comp', ex:'compassion', cat:'Selbsterkenntnis', min:5},
+  {id:'z_ifthen', ex:'ifthen', cat:'Selbsterkenntnis', min:5},
+  {id:'z_nvc', name:'Gefühl & Bedürfnis finden', icon:'💬', cat:'Selbsterkenntnis', min:5, kind:'nvc', d:'Benenne, was gerade in dir los ist.'},
+  {id:'z_j_self', name:'Journaling: Selbsterkenntnis', icon:'✒', cat:'Selbsterkenntnis', min:15, kind:'journal', set:'self', d:'Eine Frage, die dich näher zu dir bringt.'},
+  {id:'z_j_child', name:'Journaling: Inneres Kind', icon:'🧸', cat:'Selbsterkenntnis', min:15, kind:'journal', set:'child', d:'Kontakt mit dem jüngeren Ich.'},
+  {id:'z_j_grat', name:'Drei gute Dinge', icon:'🙏', cat:'Selbsterkenntnis', min:5, kind:'journal', set:'grat', d:'Gut belegt für mehr Zufriedenheit (Seligman).'},
+  {id:'z_j_future', name:'Brief an dein Zukunfts-Ich', icon:'✉', cat:'Selbsterkenntnis', min:30, kind:'journal', set:'future', d:'Wer willst du in einem Jahr sein?'},
+  {id:'z_values', name:'Deine Top-5-Werte', icon:'🧭', cat:'Selbsterkenntnis', min:15, kind:'values', d:'Was dir wirklich wichtig ist – als Kompass.'},
+  {id:'z_i_msg', name:'Eine Nachricht, die zählt', icon:'💌', cat:'Verbindung', min:5, kind:'idea', text:'Schreib einem Menschen, an den du lange nicht gedacht hast, warum er dir wichtig ist.'},
+  {id:'z_i_compl', name:'Ehrliches Kompliment', icon:'✨', cat:'Verbindung', min:2, kind:'idea', text:'Mach heute jemandem ein ehrliches, konkretes Kompliment.'},
+  {id:'z_i_call', name:'Anruf statt Nachricht', icon:'📞', cat:'Verbindung', min:15, kind:'idea', text:'Ruf einen Freund oder deine Familie an – einfach so, ohne Anlass.'},
+  {id:'z_i_walk', name:'Spaziergang ohne Handy', icon:'🚶', cat:'Abenteuer', min:15, kind:'idea', text:'Geh 15 Minuten ohne Handy raus und finde drei schöne Details, die dir sonst entgehen.'},
+  {id:'z_i_sun', name:'Himmel schauen', icon:'🌅', cat:'Abenteuer', min:15, kind:'idea', text:'Schau dir bewusst den Sonnenuntergang oder -aufgang an. Nur schauen, nichts sonst.'},
+  {id:'z_i_cook', name:'Etwas Neues kochen', icon:'🍳', cat:'Abenteuer', min:30, kind:'idea', text:'Koch ein Gericht, das du noch nie gemacht hast.'},
+  {id:'z_i_bare', name:'Barfuß', icon:'🦶', cat:'Körper', min:5, kind:'idea', text:'Geh ein paar Minuten barfuß über Gras, Erde oder Sand. Spür den Boden.'},
+  {id:'z_i_route', name:'Neuer Weg', icon:'🧭', cat:'Abenteuer', min:15, kind:'idea', text:'Nimm heute bewusst einen Weg, den du noch nie gegangen oder gefahren bist.'},
+  {id:'z_i_tidy', name:'Ein Ding in Ordnung bringen', icon:'🧹', cat:'Körper', min:15, kind:'idea', text:'Räum eine Sache auf, die dich schon lange stört. Nur diese eine.'},
+  {id:'z_i_dance', name:'Musik & Bewegung', icon:'🎵', cat:'Körper', min:5, kind:'idea', text:'Mach ein Lied laut, das du liebst, und beweg dich dazu – egal wie.'},
+  {id:'z_i_stretch', name:'Stretching am Boden', icon:'🤸', cat:'Körper', min:15, kind:'idea', text:'10–15 Minuten dehnen auf dem Boden: Hüfte, Rücken, Schultern. Langsam atmen.'},
+  {id:'z_i_read', name:'10 Seiten lesen', icon:'📖', cat:'Abenteuer', min:15, kind:'idea', text:'Lies 10 Seiten in einem Buch, das dich weiterbringt.'},
+  {id:'z_i_photo', name:'Ein Foto vom Moment', icon:'📷', cat:'Abenteuer', min:5, kind:'idea', text:'Mach ein Foto von etwas, das dich heute berührt hat – und frag dich, warum.'}
+];
+var ANK_ZCATS = ['Alle','Nervensystem','Selbsterkenntnis','Körper','Verbindung','Abenteuer'];
+
+var ANK = null, ankTimers = [];
+function ankDB() { var a = DB.anker || (DB.anker = {}); a.sos = a.sos || []; a.journal = a.journal || []; a.plans = a.plans || []; a.zeit = a.zeit || []; return a; }
+function ankClear() { ankTimers.forEach(function(t){ clearTimeout(t); clearInterval(t); }); ankTimers = []; }
+function ankCatById(id) { return ANK_CATS.find(function(c){ return c.id === id; }); }
+function ankZItem(id) { var z = ANK_ZEIT.find(function(x){ return x.id === id; }); if (z && z.ex && !z.name) { var e = ANK_EX[z.ex]; z.name = e.name; z.icon = e.icon; z.kind = 'ex'; } return z; }
+ANK_ZEIT.forEach(function(z){ ankZItem(z.id); });
+function ankFmt(s) { s = Math.max(0, Math.round(s)); return Math.floor(s/60) + ':' + String(s%60).padStart(2,'0'); }
+function ankVibe(ms) { try { if (navigator.vibrate) navigator.vibrate(ms||30); } catch(e){} }
+
+function ankOpen(light) { var ov = document.getElementById('ank-ov'); ov.classList.add('open'); ov.classList.toggle('light', !!light); document.body.style.overflow = 'hidden'; }
+function ankClose() {
+  ankClear();
+  if (ANK && ANK.mode === 'sos' && ANK.steps && ANK.steps.length && !ANK.saved) ankSaveSos('offen');
+  ANK = null; document.getElementById('ank-ov').classList.remove('open'); document.body.style.overflow = '';
+  var pg = document.getElementById('page-anker'); if (pg && pg.classList.contains('active')) renderAnker();
+}
+function ankSet(html, crumb) { ankClear(); document.getElementById('ank-body').innerHTML = html; setText('ank-crumb', crumb || ''); document.getElementById('ank-ov').scrollTop = 0; }
+function ankReward(name, pts) { var prev = getLevel(); forgeLog().push({id:uid('l'), item:null, name:name, pts:pts, at:new Date().toISOString()}); afterForgeChange(prev); }
+
+// ── Lernen: welche Übung hilft dir am meisten? ──
+function ankExStats(cat) {
+  var s = {};
+  ankDB().sos.forEach(function(r){ if (cat && r.cat !== cat) return; (r.steps||[]).forEach(function(st){ if (st.a == null || st.b == null) return; var x = s[st.ex] || (s[st.ex] = {n:0, sum:0}); x.n++; x.sum += st.b - st.a; }); });
+  Object.keys(s).forEach(function(k){ s[k].avg = s[k].sum / s[k].n; });
+  return s;
+}
+function ankOrder(cat) {
+  var c = ankCatById(cat), st = ankExStats(cat);
+  var learned = c.ex.filter(function(id){ return st[id] && st[id].avg > 0; }).sort(function(a,b){ return st[b].avg - st[a].avg; });
+  return learned.concat(c.ex.filter(function(id){ return learned.indexOf(id) < 0; }));
+}
+
+// ════ SOS ════
+function ankStartSos() { ANK = {mode:'sos', steps:[], done:[], trig:[], saved:false, at:new Date().toISOString(), cur:5, tmp:5}; ankOpen(false); ankCat(); }
+function ankCat() {
+  var st = ankDB().sos;
+  ankSet('<div class="ank-h">Was ist gerade los?</div><div class="ank-p">Atme einmal durch. Du hast die App geöffnet, statt sofort zu handeln – das ist schon der erste Sieg.</div><div class="ank-cats">' +
+    ANK_CATS.map(function(c){ var n = st.filter(function(r){ return r.cat === c.id && r.outcome === 'gemeistert'; }).length;
+      return '<button class="ank-cat" onclick="ankPickCat(\'' + c.id + '\')"><span class="i">' + c.icon + '</span><b>' + c.name + '</b><small>' + c.sub + '</small>' + (n ? '<span class="m">' + n + '× gemeistert</span>' : '') + '</button>'; }).join('') +
+    '</div>', 'SOS · Drang meistern');
+}
+function ankPickCat(id) { ANK.cat = id; ankLevelScreen(); }
+function ankSlider(v) { return '<div class="ank-big" id="ank-lv">' + v + '</div><input type="range" min="0" max="10" step="1" value="' + v + '" class="ank-range" oninput="ANK.tmp=+this.value;setText(\'ank-lv\',this.value)"><div class="ank-scale"><span>0 · kaum</span><span>10 · überwältigend</span></div>'; }
+function ankLevelScreen() {
+  var c = ankCatById(ANK.cat); ANK.tmp = 6;
+  ankSet('<div class="ank-h">' + c.q + '</div><div class="ank-p">Ehrlich einschätzen – so lernt die App, welche Übungen dir wirklich helfen.</div>' + ankSlider(6) +
+    '<div class="ank-actions"><button class="ank-btn" onclick="ANK.before=ANK.cur=ANK.tmp;ankNextEx()">Weiter →</button></div>', c.icon + ' ' + c.name);
+}
+function ankNextEx() {
+  var order = ankOrder(ANK.cat).filter(function(id){ return ANK.done.indexOf(id) < 0; });
+  if (!order.length) { ANK.done = []; order = ankOrder(ANK.cat); }
+  ankShowEx(order[0]);
+}
+function ankPickList() {
+  var c = ankCatById(ANK.cat), st = ankExStats(ANK.cat);
+  ankSet('<div class="ank-h">Welche Übung?</div><div class="ank-sugg">' + ankOrder(ANK.cat).map(function(id){ var e = ANK_EX[id], s = st[id];
+      return '<button onclick="ankShowEx(\'' + id + '\')"><span class="i">' + e.icon + '</span><span><b>' + e.name + '</b><small>' + (ANK.done.indexOf(id) >= 0 ? 'heute schon gemacht' : (s && s.avg > 0 ? 'hilft dir im Schnitt −' + fmtNum(s.avg) : '')) + '</small></span><span class="t">›</span></button>'; }).join('') +
+    '</div><div class="ank-actions"><button class="ank-link" onclick="ankShowEx(ANK.exId)">Zurück</button></div>', c.icon + ' ' + c.name);
+}
+function ankShowEx(id) {
+  var e = ANK_EX[id], sos = ANK.mode === 'sos'; ANK.exId = id; ANK.meta = null;
+  var star = '';
+  if (sos) { var s = ankExStats(ANK.cat)[id]; if (s && s.avg > 0 && s.n >= 1) star = '<div class="ank-star">★ HILFT DIR IM SCHNITT −' + fmtNum(s.avg) + ' · ' + s.n + '×</div>'; }
+  var crumb = sos ? ankCatById(ANK.cat).icon + ' ' + ankCatById(ANK.cat).name + ' · Drang ' + ANK.cur : '🌿 Zeit für mich';
+  ankSet('<div class="ank-exh"><span>' + e.icon + '</span>' + e.name + '</div>' + star + '<div class="ank-p">' + e.intro + '</div><div id="ank-engine"></div><div class="ank-actions">' +
+    (sos ? '<button class="ank-btn" onclick="ankAfterEx()">Fertig – wie ist es jetzt?</button><button class="ank-link" onclick="ankPickList()">Andere Übung wählen</button>'
+         : '<button class="ank-btn sage" onclick="ankZeitDone()">Fertig ✓</button><button class="ank-link" onclick="ankZeitBack()">Zurück</button>') + '</div>', crumb);
+  ankEngine(e);
+}
+function ankAfterEx() {
+  ANK.tmp = ANK.cur;
+  ankSet('<div class="ank-h">Ist es noch da?</div><div class="ank-p">Wie stark ist es jetzt – nach „' + ANK_EX[ANK.exId].name + '“?</div>' + ankSlider(ANK.cur) +
+    '<div class="ank-actions"><button class="ank-btn sage" onclick="ankRecord();ankDone()">Es ist abgeflaut ✓</button><button class="ank-btn ghost" onclick="ankRecord();ankNextEx()">Noch da – nächste Übung →</button><button class="ank-link" onclick="ankRecord();ankRelapse()">Ich habe nachgegeben</button></div>', 'Nachspüren');
+}
+function ankRecord() { ANK.steps.push({ex:ANK.exId, b:ANK.cur, a:ANK.tmp, meta:ANK.meta || null}); ANK.done.push(ANK.exId); ANK.cur = ANK.tmp; }
+function ankTrigChips() { return '<div class="ank-lbl">Was war der Auslöser? (optional)</div><div class="ank-chips">' + ANK_TRIG.map(function(t){ return '<button class="ank-chip' + (ANK.trig.indexOf(t) >= 0 ? ' on' : '') + '" onclick="ankToggle(ANK.trig,\'' + t + '\',this)">' + t + '</button>'; }).join('') + '</div>'; }
+function ankToggle(arr, v, el, max) { var i = arr.indexOf(v); if (i >= 0) { arr.splice(i,1); el.classList.remove('on'); } else { if (max && arr.length >= max) { showToast('Maximal ' + max + ' auswählen'); return; } arr.push(v); el.classList.add('on'); } }
+function ankDone() {
+  ankVibe([40,60,40]);
+  ankSet('<div class="ank-h">🌊 Welle gesurft.</div><div class="ank-result"><div><b>' + ANK.before + '</b><small>vorher</small></div><span class="arr">→</span><div><b>' + ANK.cur + '</b><small>jetzt</small></div></div>' +
+    '<div class="ank-p">Du hast ' + ANK.steps.length + (ANK.steps.length === 1 ? ' Übung' : ' Übungen') + ' gemacht, statt dem Impuls zu folgen. Genau so entsteht Selbstführung – jedes Mal ein bisschen mehr.</div>' +
+    ankTrigChips() + '<div class="ank-lbl">Notiz (optional)</div><textarea class="ank-ta" id="ank-note" style="min-height:80px" placeholder="Was hat dir geholfen? Was hast du bemerkt?"></textarea>' +
+    '<div class="ank-actions"><button class="ank-btn" onclick="ankFinishSos()">Abschließen · +' + ANK_SOS_PTS + ' Ehre</button></div>', 'Geschafft');
+}
+function ankFinishSos() { ANK.note = (document.getElementById('ank-note') || {}).value || ''; ankSaveSos('gemeistert'); ankReward('⚓ Drang gemeistert', ANK_SOS_PTS); showToast('⚓ Drang gemeistert · +' + ANK_SOS_PTS + ' Ehre & XP', 'gold'); ankClose(); }
+function ankRelapse() {
+  ankSet('<div class="ank-h">Okay. Atme.</div><div class="ank-p">Ein Ausrutscher ist kein Absturz. Die Rückfallforschung zeigt: Gefährlich ist nicht der Ausrutscher selbst, sondern das „jetzt ist eh alles egal“ danach. Du bist hier und schaust hin – genau das ist der Unterschied.</div>' +
+    ankTrigChips() + '<div class="ank-lbl">Was mache ich beim nächsten Mal anders?</div><textarea class="ank-ta" id="ank-note" placeholder="Wenn … dann …"></textarea>' +
+    '<label style="display:flex;gap:8px;align-items:center;font-size:0.85rem;color:var(--a-mute);margin-top:10px;"><input type="checkbox" id="ank-asplan" checked style="accent-color:var(--gold);width:18px;height:18px;"> Als Wenn-dann-Plan speichern</label>' +
+    '<div class="ank-actions"><button class="ank-btn" onclick="ankFinishRelapse()">Speichern & weitergehen</button></div>', 'Ehrlich hinschauen');
+}
+function ankFinishRelapse() {
+  var t = ((document.getElementById('ank-note') || {}).value || '').trim(); ANK.note = t;
+  if (t && document.getElementById('ank-asplan').checked) ankDB().plans.push({id:uid('p'), text:t, cat:ANK.cat, at:new Date().toISOString()});
+  ankSaveSos('nachgegeben'); showToast('Gespeichert. Ehrlich hinschauen ist Teil des Weges.', 'gold'); ankClose();
+}
+function ankSaveSos(outcome) {
+  if (!ANK || ANK.saved) return;
+  ankDB().sos.push({id:uid('s'), at:ANK.at, cat:ANK.cat, before:ANK.before, after:ANK.cur, steps:ANK.steps, outcome:outcome, trig:ANK.trig || [], note:ANK.note || ''});
+  ANK.saved = true; persist();
+}
+
+// ════ Übungs-Engines ════
+function ankEngine(e) {
+  var el = document.getElementById('ank-engine'); if (!el) return;
+  if (e.kind === 'breath') {
+    el.innerHTML = '<div class="ank-breath"><div class="ank-ring"></div><div class="ank-circle" id="ank-circ"></div><div class="ank-bl"><b id="ank-ph">Bereit?</b><span id="ank-cnt"></span></div></div><div class="ank-sub" id="ank-round">' + e.rounds + ' Runden</div><button class="ank-btn2" id="ank-go" onclick="ankBreath()">▶ Start</button>';
+  } else if (e.kind === 'wave') {
+    var d = 'M0,70'; for (var x = 0; x <= 800; x += 10) d += ' L' + x + ',' + (70 - 30 * Math.sin(x / 200 * 2 * Math.PI)).toFixed(1); d += ' L800,150 L0,150 Z';
+    el.innerHTML = '<div class="ank-wave"><svg viewBox="0 0 400 150" preserveAspectRatio="none"><g id="ank-wg" class="ank-wg"><path class="ank-wp2" d="' + d + '"/><path class="ank-wp" d="' + d + '"/></g></svg></div><div class="ank-time" id="ank-t">' + ankFmt(e.secs) + '</div><div class="ank-line" id="ank-line">' + e.lines[0] + '</div><button class="ank-btn2" id="ank-go" onclick="ankWave()">▶ Start</button>';
+  } else if (e.kind === 'timer') {
+    el.innerHTML = '<div class="ank-timer"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="88" class="ank-tr-bg"/><circle cx="100" cy="100" r="88" class="ank-tr" id="ank-tr"/></svg><div class="ank-time" id="ank-t">' + ankFmt(e.secs) + '</div></div><div class="ank-line" id="ank-line">' + e.lines[0] + '</div><button class="ank-btn2" id="ank-go" onclick="ankTimer()">▶ Start</button>';
+  } else if (e.kind === 'steps') { ANK.si = 0; ankStepRender(); }
+  else if (e.kind === 'halt') {
+    ANK.meta = [];
+    el.innerHTML = '<div class="ank-halt">' + ANK_HALT.map(function(h){ return '<button onclick="ankHalt(\'' + h.k + '\',this)"><b>' + h.k + '</b>' + h.n + '</button>'; }).join('') + '</div><div id="ank-halt-tips"></div>';
+  } else if (e.kind === 'write') {
+    el.innerHTML = '<div class="ank-p small">' + e.prompt + '</div><textarea class="ank-ta" id="ank-wr" placeholder="' + e.ph + '"></textarea><button class="ank-btn2" onclick="ankSavePlan()">Plan speichern</button>' + ankPlansMini();
+  } else if (e.kind === 'nvc') { ankNvcRender(el); }
+}
+function ankBreath() {
+  var e = ANK_EX[ANK.exId], circ = document.getElementById('ank-circ'), r = 0, i = 0;
+  document.getElementById('ank-go').style.display = 'none';
+  function phase() {
+    if (i >= e.pattern.length) { i = 0; r++; }
+    if (r >= e.rounds) { setText('ank-ph', 'Gut gemacht'); setText('ank-cnt', ''); setText('ank-round', 'Spür kurz nach.'); circ.style.transition = 'transform 2s ease'; circ.style.transform = 'scale(.6)'; ankVibe([30,50,30]); return; }
+    var p = e.pattern[i], left = p.s;
+    circ.style.transition = 'transform ' + p.s + 's ease-in-out'; circ.style.transform = 'scale(' + p.sc + ')';
+    setText('ank-ph', p.t); setText('ank-cnt', left); setText('ank-round', 'Runde ' + (r + 1) + ' / ' + e.rounds); ankVibe(20);
+    var iv = setInterval(function(){ left--; if (left > 0) setText('ank-cnt', left); }, 1000); ankTimers.push(iv);
+    ankTimers.push(setTimeout(function(){ clearInterval(iv); i++; phase(); }, p.s * 1000));
+  }
+  phase();
+}
+function ankWave() {
+  var e = ANK_EX[ANK.exId], T = e.secs, t = 0, g = document.getElementById('ank-wg'), last = 0;
+  document.getElementById('ank-go').style.display = 'none';
+  function amp(p) { return p < 0.35 ? 0.25 + 0.75 * (p / 0.35) : 1 - 0.85 * ((p - 0.35) / 0.65); }
+  g.style.transform = 'scaleY(' + amp(0) + ')';
+  var iv = setInterval(function(){
+    t++; var p = t / T; g.style.transform = 'scaleY(' + amp(Math.min(1,p)).toFixed(3) + ')'; setText('ank-t', ankFmt(T - t));
+    var li = Math.min(e.lines.length - 1, Math.floor(p * e.lines.length));
+    if (li !== last) { last = li; var ln = document.getElementById('ank-line'); ln.style.opacity = 0; setTimeout(function(){ ln.textContent = e.lines[li]; ln.style.opacity = 1; }, 400); }
+    if (t >= T) { clearInterval(iv); setText('ank-t', '🌊'); setText('ank-line', 'Die Welle ist durch. Du bist noch da.'); ankVibe([40,60,40]); }
+  }, 1000); ankTimers.push(iv);
+}
+function ankTimer() {
+  var e = ANK_EX[ANK.exId], T = e.secs, t = 0, C = 552.9, ring = document.getElementById('ank-tr'), step = Math.max(12, Math.floor(T / e.lines.length));
+  document.getElementById('ank-go').style.display = 'none';
+  var iv = setInterval(function(){
+    t++; setText('ank-t', ankFmt(T - t)); ring.style.strokeDashoffset = (C * t / T).toFixed(1);
+    if (t % step === 0) { var ln = document.getElementById('ank-line'); ln.style.opacity = 0; setTimeout(function(){ ln.textContent = e.lines[Math.floor(t / step) % e.lines.length]; ln.style.opacity = 1; }, 400); }
+    if (t >= T) { clearInterval(iv); setText('ank-t', '✓'); setText('ank-line', 'Zeit ist um. Wie geht es dir jetzt?'); ankVibe([40,60,40]); }
+  }, 1000); ankTimers.push(iv);
+}
+function ankStepRender() {
+  var e = ANK_EX[ANK.exId], el = document.getElementById('ank-engine'), last = ANK.si >= e.steps.length - 1;
+  el.innerHTML = '<div class="ank-dots">' + e.steps.map(function(_, i){ return '<i class="' + (i <= ANK.si ? 'on' : '') + '"></i>'; }).join('') + '</div><div class="ank-step">' + e.steps[ANK.si] + '</div>' +
+    (last ? '<div class="ank-sub">Nimm dir einen Moment zum Nachspüren.</div>' : '<button class="ank-btn2" onclick="ANK.si++;ankStepRender()">Weiter →</button>');
+}
+function ankHalt(k, btn) {
+  ankToggle(ANK.meta, k, btn);
+  document.getElementById('ank-halt-tips').innerHTML = ANK_HALT.filter(function(h){ return ANK.meta.indexOf(h.k) >= 0; }).map(function(h){ return '<div class="ank-tip"><b>' + h.n + ':</b> ' + h.tip + '</div>'; }).join('') +
+    (ANK.meta.length ? '' : '');
+}
+function ankPlansMini() { var p = ankDB().plans.slice(-3).reverse(); return p.length ? '<div class="ank-lbl">Deine letzten Pläne</div>' + p.map(function(x){ return '<div class="ank-tip">' + escHtml(x.text) + '</div>'; }).join('') : ''; }
+function ankSavePlan() {
+  var t = (document.getElementById('ank-wr').value || '').trim(); if (!t) { showToast('Schreib erst deinen Plan'); return; }
+  ankDB().plans.push({id:uid('p'), text:t, cat:ANK.cat || null, at:new Date().toISOString()}); ANK.meta = t; persist();
+  showToast('🧭 Plan gespeichert', 'gold'); document.getElementById('ank-wr').value = '';
+  var el = document.getElementById('ank-engine'); el.innerHTML = '<div class="ank-tip">' + escHtml(t) + '</div><div class="ank-sub">Gespeichert – du findest ihn im Anker-Bereich.</div>';
+}
+function ankNvcRender(el) {
+  ANK.nvc = ANK.nvc || {f:[], n:[]};
+  el.innerHTML = '<div class="ank-lbl">Ich fühle mich …</div><div class="ank-chips">' + ANK_FEEL.map(function(f){ return '<button class="ank-chip' + (ANK.nvc.f.indexOf(f) >= 0 ? ' on' : '') + '" onclick="ankToggle(ANK.nvc.f,\'' + f + '\',this,3);ankNvcSent()">' + f + '</button>'; }).join('') + '</div>' +
+    '<div class="ank-lbl">… weil mir wichtig ist:</div><div class="ank-chips">' + ANK_NEED.map(function(n){ return '<button class="ank-chip' + (ANK.nvc.n.indexOf(n) >= 0 ? ' on' : '') + '" onclick="ankToggle(ANK.nvc.n,\'' + n + '\',this,3);ankNvcSent()">' + n + '</button>'; }).join('') + '</div>' +
+    '<div class="ank-sentence" id="ank-nvc-s"></div><div class="ank-lbl">Was kann ich jetzt tun, um mir das ein Stück weit zu geben?</div><textarea class="ank-ta" id="ank-nvc-a" style="min-height:80px"></textarea><button class="ank-btn2" onclick="ankNvcSave()">Ins Tagebuch speichern</button>';
+  ankNvcSent();
+}
+function ankJoin(a) { return a.length < 2 ? (a[0] || '…') : a.slice(0,-1).join(', ') + ' und ' + a[a.length-1]; }
+function ankNvcSent() { setText('ank-nvc-s', 'Ich fühle mich ' + ankJoin(ANK.nvc.f) + ', weil mir ' + ankJoin(ANK.nvc.n) + ' wichtig ' + (ANK.nvc.n.length > 1 ? 'sind' : 'ist') + '.'); }
+function ankNvcSave() {
+  if (!ANK.nvc.f.length) { showToast('Wähl mindestens ein Gefühl'); return; }
+  var s = document.getElementById('ank-nvc-s').textContent, a = (document.getElementById('ank-nvc-a').value || '').trim();
+  ankDB().journal.push({id:uid('j'), at:new Date().toISOString(), title:'Gefühl & Bedürfnis', text:s + (a ? '\n\nWas ich jetzt tue: ' + a : '')}); ANK.meta = s; persist();
+  showToast('💬 Gespeichert', 'gold'); ANK.nvc = {f:[], n:[]};
+  document.getElementById('ank-engine').innerHTML = '<div class="ank-tip">' + escHtml(s) + (a ? '<br><br>' + escHtml(a) : '') + '</div>';
+}
+
+// ════ ZEIT FÜR MICH ════
+function ankStartZeit() { ANK = {mode:'zeit', time:null, filter:'Alle', seen:[]}; ankOpen(true); ankZeitTime(); }
+function ankZeitTime() {
+  ankSet('<div class="ank-h">Wie viel Zeit hast du?</div><div class="ank-p">Ich schlage dir etwas Passendes vor – für dein Nervensystem, deinen Körper oder um dich selbst besser kennenzulernen.</div>' +
+    '<div class="ank-times">' + [[5,'kurz'],[15,'mittel'],[30,'+ Muße']].map(function(t){ return '<button onclick="ANK.time=' + t[0] + ';ANK.seen=[];ankZeitSuggest()">' + t[0] + '<small>Min · ' + t[1] + '</small></button>'; }).join('') + '</div>' +
+    '<button class="ank-btn ghost" onclick="ANK.time=30;ankZeitItem(\'z_state\')">🫀 Erst mal schauen, wie es mir geht</button>', '🌿 Zeit für mich');
+}
+function ankZeitSuggest() {
+  var recent = ankDB().zeit.slice(-6).map(function(z){ return z.id; });
+  var pool = ANK_ZEIT.filter(function(z){ return z.min <= ANK.time && (ANK.filter === 'Alle' || z.cat === ANK.filter); });
+  var fresh = pool.filter(function(z){ return ANK.seen.indexOf(z.id) < 0; });
+  if (fresh.length < 3) { ANK.seen = []; fresh = pool.slice(); }
+  fresh.sort(function(a,b){ return (recent.indexOf(a.id) >= 0) - (recent.indexOf(b.id) >= 0) || Math.random() - 0.5; });
+  var pick = fresh.slice(0, 3); pick.forEach(function(z){ ANK.seen.push(z.id); });
+  ankSet('<div class="ank-h">Wie wäre es mit …</div><div class="ank-chips">' + ANK_ZCATS.map(function(c){ return '<button class="ank-chip' + (ANK.filter === c ? ' on' : '') + '" onclick="ANK.filter=\'' + c + '\';ANK.seen=[];ankZeitSuggest()">' + c + '</button>'; }).join('') + '</div>' +
+    '<div class="ank-sugg">' + (pick.length ? pick.map(function(z){ return '<button onclick="ankZeitItem(\'' + z.id + '\')"><span class="i">' + z.icon + '</span><span><b>' + z.name + '</b><small>' + (z.d || (z.text ? z.text : z.cat)) + '</small></span><span class="t">' + z.min + ' Min</span></button>'; }).join('') : '<div class="ank-p">In dieser Kategorie gibt es für ' + ANK.time + ' Minuten nichts – wähl eine andere.</div>') + '</div>' +
+    '<div class="ank-actions"><button class="ank-btn ghost" onclick="ankZeitSuggest()">🔀 Andere Ideen</button><button class="ank-link" onclick="ankZeitTime()">Zeit ändern</button></div>', '🌿 Zeit für mich · ' + ANK.time + ' Min');
+}
+function ankZeitBack() { if (ANK.time) ankZeitSuggest(); else ankClose(); }
+function ankZeitItem(id) {
+  var z = ankZItem(id); ANK.item = z;
+  if (z.kind === 'ex') { ankShowEx(z.ex); return; }
+  var foot = '<div class="ank-actions"><button class="ank-btn sage" onclick="ankZeitDone()">Erledigt ✓</button><button class="ank-link" onclick="ankZeitBack()">Zurück</button></div>';
+  if (z.kind === 'idea') { ankSet('<div class="ank-exh"><span>' + z.icon + '</span>' + z.name + '</div><div class="ank-idea">' + z.text + '</div>' + foot, '🌿 ' + z.cat); }
+  else if (z.kind === 'nvc') { ankSet('<div class="ank-exh"><span>💬</span>Gefühl & Bedürfnis</div><div class="ank-p">' + ANK_EX.nvc.intro + '</div><div id="ank-engine"></div>' + foot, '🌿 Selbsterkenntnis'); ankNvcRender(document.getElementById('ank-engine')); }
+  else if (z.kind === 'journal') { ANK.pi = Math.floor(Math.random() * ANK_PROMPTS[z.set].length); ankJournal(); }
+  else if (z.kind === 'values') { ANK.vals = ((ankDB().values || {}).list || []).slice(); ankValues(); }
+  else if (z.kind === 'state') { ankState(); }
+}
+function ankJournal() {
+  var z = ANK.item, ps = ANK_PROMPTS[z.set], q = ps[ANK.pi % ps.length];
+  ankSet('<div class="ank-exh"><span>' + z.icon + '</span>' + z.name + '</div><div class="ank-step" style="min-height:0;font-size:1.05rem;">' + q + '</div>' + (ps.length > 1 ? '<button class="ank-link" style="text-align:left;padding:10px 0;" onclick="ANK.pi++;ankJournal()">🔀 Andere Frage</button>' : '<div style="height:14px"></div>') +
+    '<textarea class="ank-ta" id="ank-jt" style="min-height:220px" placeholder="Schreib einfach los. Niemand liest mit."></textarea>' +
+    '<div class="ank-actions"><button class="ank-btn sage" onclick="ankJournalSave()">Speichern ✓</button><button class="ank-link" onclick="ankZeitBack()">Zurück</button></div>', '🌿 Selbsterkenntnis');
+}
+function ankJournalSave() {
+  var t = (document.getElementById('ank-jt').value || '').trim(); if (!t) { showToast('Schreib zuerst ein paar Zeilen'); return; }
+  var ps = ANK_PROMPTS[ANK.item.set]; ankDB().journal.push({id:uid('j'), at:new Date().toISOString(), title:ps[ANK.pi % ps.length], text:t}); persist(); ankZeitDone();
+}
+function ankValues() {
+  ankSet('<div class="ank-exh"><span>🧭</span>Deine Top-5-Werte</div><div class="ank-p">Wähl die fünf Werte, die dir am wichtigsten sind – nicht die, die du haben „solltest“. Sie werden dein Kompass im Anker-Bereich.</div>' +
+    '<div class="ank-chips" id="ank-vals">' + ANK_VALUES.map(function(v){ return '<button class="ank-chip' + (ANK.vals.indexOf(v) >= 0 ? ' on' : '') + '" onclick="ankToggle(ANK.vals,\'' + v + '\',this,5);setText(\'ank-vn\',ANK.vals.length+\' / 5\')">' + v + '</button>'; }).join('') + '</div>' +
+    '<div class="ank-sub" id="ank-vn">' + ANK.vals.length + ' / 5</div><div class="ank-lbl">Welcher Wert bekommt diese Woche Aufmerksamkeit – und woran merkst du es?</div><textarea class="ank-ta" id="ank-vt" style="min-height:90px"></textarea>' +
+    '<div class="ank-actions"><button class="ank-btn sage" onclick="ankValuesSave()">Speichern ✓</button><button class="ank-link" onclick="ankZeitBack()">Zurück</button></div>', '🌿 Selbsterkenntnis');
+}
+function ankValuesSave() {
+  if (ANK.vals.length < 3) { showToast('Wähl mindestens 3 Werte'); return; }
+  var A = ankDB(), t = (document.getElementById('ank-vt').value || '').trim();
+  A.values = {list:ANK.vals.slice(), at:new Date().toISOString(), focus:t};
+  A.journal.push({id:uid('j'), at:new Date().toISOString(), title:'Meine Werte', text:ANK.vals.join(' · ') + (t ? '\n\n' + t : '')}); persist(); ankZeitDone();
+}
+function ankState() {
+  var S = [
+    {k:'ventral', i:'☀', n:'Ruhig & verbunden', d:'Klar, präsent, offen', tip:'Ein guter Zustand, um ihn zu nutzen: etwas Kreatives, ein Gespräch, Journaling oder deine Werte anschauen.', ex:[['z_j_self','Journaling'],['z_values','Werte'],['z_i_msg','Nachricht schreiben']]},
+    {k:'symp', i:'⚡', n:'Angespannt & getrieben', d:'Unruhig, gereizt, gehetzt', tip:'Dein System ist im Mobilisierungsmodus. Hilfreich ist, die Energie zu entladen und dann die Ausatmung zu verlängern.', ex:[['z_shake','Abschütteln'],['z_sigh','Seufzer-Atmung'],['z_478','4-7-8-Atmung']]},
+    {k:'dorsal', i:'🌫', n:'Müde & abgeschaltet', d:'Leer, schwer, taub', tip:'Dein System ist im Rückzug. Sanft wieder ankommen: orientieren, Freundlichkeit, eine kleine Handlung.', ex:[['z_orient','Orientieren'],['z_comp','Selbstmitgefühl'],['z_i_dance','Musik & Bewegung']]}
+  ];
+  ANK.states = S;
+  ankSet('<div class="ank-exh"><span>🫀</span>Nervensystem-Check</div><div class="ank-p">Nach der Polyvagal-Theorie: Welcher Zustand beschreibt dich gerade am besten?</div><div class="ank-sugg">' +
+    S.map(function(s, i){ return '<button onclick="ankStatePick(' + i + ')"><span class="i">' + s.i + '</span><span><b>' + s.n + '</b><small>' + s.d + '</small></span><span class="t">›</span></button>'; }).join('') + '</div><div id="ank-state-r"></div>' +
+    '<div class="ank-actions"><button class="ank-link" onclick="ankZeitBack()">Zurück</button></div>', '🌿 Nervensystem');
+}
+function ankStatePick(i) {
+  var s = ANK.states[i]; ANK.time = ANK.time || 30;
+  ankDB().zeit.push({id:'z_state', at:new Date().toISOString(), state:s.k}); persist();
+  document.getElementById('ank-state-r').innerHTML = '<div class="ank-tip" style="margin-top:16px">' + s.tip + '</div><div class="ank-lbl">Passt jetzt</div><div class="ank-chips">' + s.ex.map(function(x){ return '<button class="ank-chip" onclick="ankZeitItem(\'' + x[0] + '\')">' + x[1] + ' ›</button>'; }).join('') + '</div>';
+}
+function ankZeitDone() {
+  var A = ankDB(), z = ANK.item || {id:'ex_' + ANK.exId, name:ANK_EX[ANK.exId].name};
+  A.zeit.push({id:z.id, at:new Date().toISOString()});
+  var today = todayKey(), n = forgeLog().filter(function(l){ return l.item === null && String(l.name).indexOf('🌿') === 0 && keyOfIso(l.at) === today; }).length;
+  var rewarded = n < ANK_ZEIT_MAX;
+  if (rewarded) ankReward('🌿 ' + z.name, ANK_ZEIT_PTS); else persist();
+  ankVibe([30,50,30]);
+  ankSet('<div class="ank-h">🌿 Schön, dass du dir die Zeit genommen hast.</div><div class="ank-p">' + (rewarded ? '+' + ANK_ZEIT_PTS + ' Ehre & XP für „' + escHtml(z.name) + '“.' : 'Für heute ist das Ehre-Limit für „Zeit für mich“ erreicht – die Zeit für dich zählt trotzdem.') + '</div>' +
+    '<div class="ank-actions"><button class="ank-btn" onclick="ANK.time=ANK.time||15;ankZeitSuggest()">Noch eine Idee</button><button class="ank-btn ghost" onclick="ankClose()">Schließen</button></div>', '🌿 Zeit für mich');
+}
+function ankPractice(id) { ANK = {mode:'zeit', time:null, filter:'Alle', seen:[], item:{id:'ex_' + id, name:ANK_EX[id].name}}; ankOpen(true); ankShowEx(id); }
+
+// ════ Anker-Seite ════
+function ankDelPlan(id) { var A = ankDB(); A.plans = A.plans.filter(function(p){ return p.id !== id; }); persist(); renderAnker(); }
+function ankDelJournal(id) { if (!confirm('Diesen Eintrag löschen?')) return; var A = ankDB(); A.journal = A.journal.filter(function(p){ return p.id !== id; }); persist(); renderAnker(); }
+function renderAnker() {
+  var A = ankDB(), ym = todayKey().slice(0,7);
+  var ms = A.sos.filter(function(s){ return keyOfIso(s.at).slice(0,7) === ym; });
+  var won = ms.filter(function(s){ return s.outcome === 'gemeistert'; }).length;
+  var drops = ms.filter(function(s){ return s.before != null && s.after != null && s.steps && s.steps.length; });
+  var avgB = drops.length ? drops.reduce(function(a,s){ return a + s.before; }, 0) / drops.length : null;
+  var avgA = drops.length ? drops.reduce(function(a,s){ return a + s.after; }, 0) / drops.length : null;
+  var zt = A.zeit.filter(function(z){ return keyOfIso(z.at).slice(0,7) === ym; }).length;
+  document.getElementById('ank-stats').innerHTML =
+    '<div class="erf-card"><div class="v">' + ms.length + '</div><div class="l">SOS-Momente · Monat</div></div>' +
+    '<div class="erf-card"><div class="v" style="color:var(--sage)">' + won + '</div><div class="l">Gemeistert</div></div>' +
+    '<div class="erf-card"><div class="v">' + (avgB == null ? '–' : fmtNum(avgB) + ' → ' + fmtNum(avgA)) + '</div><div class="l">Ø Drang vorher → nachher</div></div>' +
+    '<div class="erf-card"><div class="v">' + zt + '</div><div class="l">Zeit für mich · Monat</div></div>';
+  var st = ankExStats(null), top = Object.keys(st).filter(function(k){ return ANK_EX[k] && st[k].avg > 0; }).sort(function(a,b){ return st[b].avg - st[a].avg; }).slice(0, 5);
+  document.getElementById('ank-help').innerHTML = top.length ? top.map(function(k){ return '<div class="erf-row"><span>' + ANK_EX[k].icon + '</span><span class="n">' + ANK_EX[k].name + '<small>' + st[k].n + '× genutzt</small></span><span class="c" style="color:var(--sage)">Ø −' + fmtNum(st[k].avg) + '</span></div>'; }).join('')
+    : '<div class="erf-empty">Nach den ersten SOS-Momenten siehst du hier, welche Übungen deinen Drang am stärksten senken. Die App schlägt sie dir dann zuerst vor.</div>';
+  var tc = {}; A.sos.forEach(function(s){ (s.trig||[]).forEach(function(t){ tc[t] = (tc[t]||0) + 1; }); });
+  var tk = Object.keys(tc).sort(function(a,b){ return tc[b] - tc[a]; }).slice(0, 6);
+  var hc = {}; A.sos.forEach(function(s){ var h = new Date(s.at).getHours(); var b = h < 6 ? 'Nachts' : h < 12 ? 'Morgens' : h < 17 ? 'Nachmittags' : h < 21 ? 'Abends' : 'Spätabends'; hc[b] = (hc[b]||0) + 1; });
+  var hk = Object.keys(hc).sort(function(a,b){ return hc[b] - hc[a]; })[0];
+  document.getElementById('ank-trig').innerHTML = (tk.length ? tk.map(function(t){ return '<div class="erf-row"><span>·</span><span class="n">' + escHtml(t) + '</span><span class="c">' + tc[t] + '×</span></div>'; }).join('') : '<div class="erf-empty">Noch keine Auslöser erfasst.</div>') +
+    (hk && A.sos.length >= 3 ? '<div class="erf-row"><span>🕐</span><span class="n">Häufigste Tageszeit<small>für SOS-Momente</small></span><span class="c">' + hk + '</span></div>' : '');
+  document.getElementById('ank-plans').innerHTML = A.plans.length ? A.plans.slice().reverse().map(function(p){ return '<div class="erf-row"><span>🧭</span><span class="n">' + escHtml(p.text) + '<small>' + fmtShort(keyOfIso(p.at)) + '</small></span><button class="ank-x" onclick="ankDelPlan(\'' + p.id + '\')">✕</button></div>'; }).join('')
+    : '<div class="erf-empty">Noch keine Pläne. Du kannst sie in jeder SOS-Situation oder unter „Zeit für mich“ anlegen.</div>';
+  var v = A.values;
+  document.getElementById('ank-values').innerHTML = v && v.list && v.list.length ? '<div class="erf-miles" style="margin-bottom:6px">' + v.list.map(function(x){ return '<span class="erf-mile">' + escHtml(x) + '</span>'; }).join('') + '</div>' + (v.focus ? '<div class="mono" style="font-size:10px;color:var(--muted);margin-bottom:18px;line-height:1.5">Fokus: ' + escHtml(v.focus) + '</div>' : '<div style="height:12px"></div>')
+    : '<div class="erf-list"><div class="erf-empty">Noch nicht festgelegt – unter „Zeit für mich“ → Selbsterkenntnis → Top-5-Werte.</div></div>';
+  var J = A.journal.slice().reverse().slice(0, 20);
+  document.getElementById('ank-journal').innerHTML = J.length ? J.map(function(j){ return '<details class="ank-jrow"><summary><span>' + escHtml(j.title) + '</span><small>' + fmtShort(keyOfIso(j.at)) + '</small></summary><p>' + escHtml(j.text) + '</p><button class="ank-x" onclick="ankDelJournal(\'' + j.id + '\')">Löschen</button></details>'; }).join('')
+    : '<div class="erf-empty">Deine Journaling-Einträge erscheinen hier.</div>';
+  document.getElementById('ank-practice').innerHTML = Object.keys(ANK_EX).filter(function(k){ return k !== 'halt'; }).map(function(k){ return '<button onclick="ankPractice(\'' + k + '\')"><span>' + ANK_EX[k].icon + '</span>' + ANK_EX[k].name + '</button>'; }).join('');
+}
+
+// ── Für den Monatsexport an Claude ──
+function ankExportLines(dk) {
+  var A = DB.anker; if (!A) return [];
+  var out = [], cn = function(id){ var c = ankCatById(id); return c ? c.name : id; };
+  (A.sos||[]).filter(function(s){ return keyOfIso(s.at) === dk; }).forEach(function(s){
+    out.push('SOS ' + cn(s.cat) + ' ' + s.before + '→' + s.after + ' (' + (s.steps||[]).map(function(x){ return ANK_EX[x.ex] ? ANK_EX[x.ex].name : x.ex; }).join(', ') + '), ' + s.outcome + (s.trig && s.trig.length ? ', Auslöser: ' + s.trig.join(', ') : '') + (s.note ? ', Notiz: ' + String(s.note).replace(/\s+/g,' ') : ''));
+  });
+  (A.journal||[]).filter(function(j){ return keyOfIso(j.at) === dk; }).forEach(function(j){ out.push('Tagebuch „' + j.title + '“: ' + String(j.text).replace(/\s+/g,' ')); });
+  return out;
+}
+
 </script>
 </body>
 </html>
